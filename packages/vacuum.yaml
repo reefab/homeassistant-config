@@ -1,0 +1,134 @@
+vacuum:
+  # Roborock Vacuum
+  - platform: xiaomi_miio
+    host: 192.168.1.90
+    token: !secret roborock_token
+
+switch:
+  # This switch is only used to control the vacuum via homekit/alexa
+  - platform: template
+    switches:
+      aspirateur:
+        turn_on:
+          service: vacuum.start
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+        turn_off:
+          service: vacuum.return_to_base
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+        value_template: '{% if states.vacuum.xiaomi_vacuum_cleaner.state == "cleaning" %}
+                            on
+                         {% else %}
+                            off
+                         {% endif %}'
+
+sensor:
+  # Sensor used for the automation below
+  - platform: history_stats
+    name: time spent vacuuming today
+    entity_id: vacuum.xiaomi_vacuum_cleaner
+    state: 'cleaning'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+
+automation:
+  - alias: Start clearning if home is empty
+    trigger:
+      - platform: state
+        entity_id: group.all_devices
+        from: 'home'
+        to: 'not_home'
+        for:
+          minutes: 2
+    condition:
+      - condition: time
+        after: '09:00:00'
+        before: '18:59:00'
+      - condition: numeric_state
+        entity_id: sensor.time_spent_vacuuming_today
+        below: 0.33
+      - condition: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        state: 'docked'
+    action:
+      - service: vacuum.set_fan_speed
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        data:
+          fan_speed: 'turbo'
+      - delay:
+          seconds: 10
+      - service: vacuum.start
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+      - service: notify.ios_phophone
+        data_template:
+          message: 'Started vacuum cleaning in your absence.'
+          data:
+            tag: 'vacuum-auto-started-cleaning'
+      - delay:
+          minutes: 40
+      - service: vacuum.set_fan_speed
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        data:
+          fan_speed: 'quiet'
+
+  - alias: Quieten vacuum if back home alone
+    trigger:
+      - platform: state
+        entity_id: device_tracker.phophone
+        from: 'not_home'
+        to: 'home'
+    condition:
+      - condition: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        state: 'cleaning'
+    action:
+      - service: vacuum.set_fan_speed
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        data:
+          fan_speed: 'quiet'
+
+  - alias: Stop vacuum if back home with guests
+    trigger:
+      - platform: state
+        entity_id: group.guests
+        from: 'not_home'
+        to: 'home'
+    condition:
+      - condition: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        state: 'cleaning'
+    action:
+      - service: vacuum.return_to_base
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+
+  - alias: Start clearning before it's too late
+    trigger:
+      - platform: time
+        at: '19:00:00'
+    condition:
+      - condition: time
+        weekday: [mon, tue, wed, thu, fri, sat]
+      - condition: numeric_state
+        entity_id: sensor.time_spent_vacuuming_today
+        below: 0.33
+      - condition: state
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        state: 'docked'
+    action:
+      - service: vacuum.set_fan_speed
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        data:
+          fan_speed: 'quiet'
+      - delay:
+          seconds: 10
+      - service: vacuum.start
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+
+homeassistant:
+  customize:
+    vacuum.xiaomi_vacuum_cleaner:
+      friendly_name: Roborock Vacuum
+    switch.aspirateur:
+      hidden: true
+    sensor.time_spent_vacuuming_today:
+      hidden: true

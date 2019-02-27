@@ -1,0 +1,102 @@
+automation:
+  - alias: Close covers at night
+    initial_state: true
+    trigger:
+      platform: sun
+      event: sunset
+    action:
+      service: cover.close_cover
+      entity_id: group.all_covers
+
+  - alias: Open mezzanine cover during the day
+    initial_state: true
+    trigger:
+      platform: sun
+      event: sunrise
+    action:
+      service: cover.open_cover
+      entity_id: cover.velux_mezzanine
+
+  - alias: Open bedroom cover during the day
+    initial_state: true
+    trigger:
+      platform: sun
+      event: sunrise
+    condition:
+      condition: state
+      entity_id: device_tracker.phophone
+      state: 'not_home'
+    action:
+      service: cover.open_cover
+      entity_id: cover.bedroom_velux
+
+  - alias: Toggle bedroom cover
+    trigger:
+      platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001bf6e86
+        click_type: long_click_press
+    action:
+      service: script.turn_on
+      entity_id: script.toggle_cover
+
+cover:
+  # Custom device for controlling velux exterior blinds:
+  # https://github.com/reefab/homeassistant-velux
+  - platform: mqtt
+    name: "Velux Mezzanine"
+    command_topic: "cmnd/velux/Backlog"
+    payload_open: "power2 off; power1 on; delay 1500"
+    payload_close: "power1 off; power2 on; delay 320"
+    payload_stop: "power1 off; power2 off"
+    availability_topic: "tele/velux/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: true
+    qos: 1
+  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
+  - platform: template
+    covers:
+      bedroom_velux:
+        friendly_name: "Velux Chambre"
+        optimistic: false
+        open_cover:
+          service: switch.broadlink_send_packet_192_168_12_122
+          data:
+            packet:
+              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
+              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
+              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
+              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
+              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
+        close_cover:
+          service: switch.broadlink_send_packet_192_168_12_122
+          data:
+            packet:
+              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
+              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
+              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
+              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
+              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
+        stop_cover:
+          service: switch.broadlink_send_packet_192_168_12_122
+          data:
+            packet:
+              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
+              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
+              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
+              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
+              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
+
+script:
+  # toggle script to open/close cover using one button
+  toggle_cover:
+    sequence:
+      - service_template: >
+          {% if is_state('cover.bedroom_velux', 'open') %}
+            cover.close_cover
+          {% else %}
+            cover.open_cover
+          {% endif %}
+        entity_id: cover.bedroom_velux

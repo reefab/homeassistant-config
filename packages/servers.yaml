@@ -1,0 +1,35 @@
+binary_sensor:
+  - platform: ping
+    host: 192.168.1.1
+    name: Routeur
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.1.40
+    name: Nas
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.1.50
+    name: Hue
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.1.76
+    name: Aquara
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.1.19
+    name: Pi-hole 2
+    count: 2
+    scan_interval: 30
+
+homeassistant:
+  customize:
+    binary_sensor.nas:
+      icon: 'mdi:nas'
+    binary_sensor.routeur:
+      icon: 'mdi:router-wireless'
+    binary_sensor.pi_hole_2:
+      icon: 'mdi:raspberry-pi'

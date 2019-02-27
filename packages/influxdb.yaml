@@ -1,0 +1,11 @@
+influxdb:
+  host: influxdb
+  database: hass
+  username: !secret influxdb_user
+  password: !secret influxdb_password
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+      - weather

@@ -1,0 +1,67 @@
+automation:
+  - alias: Turn on office purifier if AQI is too low
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.bureau_aqi
+      above: 30
+    action:
+      service: fan.turn_on
+      entity_id: fan.xiaomi_air_purifier_2
+  - alias: Turn off office purifier if AQI is fine
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.bureau_aqi
+      below: 30
+    action:
+      service: fan.turn_off
+      entity_id: fan.xiaomi_air_purifier_2
+
+sensor:
+  # Exterior Air quality
+  - platform: waqi
+    token: !secret waqi_token
+    locations:
+      - paris
+    stations:
+      - Paris Centre, Paris
+  # Inside Air Quality: Office taken from Xiaomi Air purifier
+  - platform: template
+    sensors:
+      bureau_aqi:
+        friendly_name: "Bureau AQI"
+        value_template: "{{ states.fan.xiaomi_air_purifier_2.attributes.aqi }}"
+        icon_template: mdi:cloud
+        unit_of_measurement: "AQI"
+  # Inside Air Quality: Living Room taken from https://foobot.io
+  - platform: foobot
+    token: !secret foobot_token
+    username: reefab@demenzia.net
+
+fan:
+  - platform: xiaomi_miio
+    name: Xiaomi Air Purifier 2
+    host: 192.168.1.74
+    token: !secret office_air_purifier_token
+
+homeassistant:
+  customize:
+    automation.turn_off_office_purifier_if_aqi_is_fine:
+      hidden: false
+    automation.turn_on_office_purifier_if_aqi_is_too_low:
+      hidden: false
+    fan.xiaomi_air_purifier_2:
+      hidden: false
+      icon: 'mdi:air-purifier'
+    sensor.foobot_salon_pm25:
+      friendly_name: PM 2.5
+    sensor.foobot_salon_voc:
+      friendly_name: COV
+    sensor.foobot_salon_index:
+      friendly_name: Index Pollution
+    sensor.foobot_salon_temperature:
+      hidden: true
+    sensor.foobot_salon_co2:
+      hidden: false
+      friendly_name: Co2
+    sensor.foobot_salon_humidity:
+      hidden: true

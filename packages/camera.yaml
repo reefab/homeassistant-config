@@ -1,0 +1,7 @@
+# Yi camera with hacked firmware: https://www.home-assistant.io/components/camera.yi/
+camera:
+  - platform: yi
+    name: Salon
+    host: 192.168.12.121
+    path: /tmp/sd/record
+    password: !secret yi_cam_password

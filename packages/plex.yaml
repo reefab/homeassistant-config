@@ -1,0 +1,9 @@
+sensor:
+  - platform: plex
+    host: 192.168.1.89
+
+homeassistant:
+  customize:
+    sensor.plex:
+      icon: mdi:account-multiple
+      friendly_name: Currently watching Plex

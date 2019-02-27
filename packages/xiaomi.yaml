@@ -1,0 +1,52 @@
+xiaomi_aqara:
+  discovery_retry: 5
+  gateways:
+    - key: !secret aquara_key
+
+homeassistant:
+  customize:
+    sensor.temperature_158d00022736df:
+      friendly_name: Temperature sdb
+    sensor.humidity_158d00022736df:
+      friendly_name: Humidité sdb
+    sensor.pressure_158d00022736df:
+      friendly_name: pression sdb
+      hidden: true
+    sensor.pressure_158d0002018a02:
+      friendly_name: pression cuisine
+      hidden: true
+    sensor.humidity_158d0002018a02:
+      friendly_name: Humidité Cuisine
+    sensor.temperature_158d0002018a02:
+      friendly_name: Temperature Cuisine
+    binary_sensor.door_window_sensor_158d0001e48b7c:
+      friendly_name: Porte Entrée
+      device_class: door
+    binary_sensor.water_leak_sensor_158d0001c35979:
+      friendly_name: Robinet Lave Linge/Vaisselle
+      icon: 'mdi:washing-machine'
+    binary_sensor.water_leak_sensor_158d0001bbea15:
+      friendly_name: Robinet Toilette
+      icon: 'mdi:toilet'
+    binary_sensor.cube_158d000104d0ed_2:
+      friendly_name: Cube
+      hidden: true
+    binary_sensor.door_window_sensor_158d0001e77530:
+      friendly_name: Fenetre Bureau
+      hidden: true
+    binary_sensor.door_window_sensor_158d0001e7752e:
+      friendly_name: Fenetre Salon
+      hidden: true
+    binary_sensor.motion_sensor_158d0001e18607:
+      friendly_name: Mouvement Salle de Bain
+      hidden: true
+    binary_sensor.smoke_sensor_158d0001d6e708:
+      friendly_name: Fumée Salon
+    binary_sensor.water_leak_sensor_158d0001bb8aaf:
+      friendly_name: Arrivée Eau
+      icon: 'mdi:pipe-leak'
+    binary_sensor.switch_158d0001bf6e86:
+      friendly_name: Bouton Lit
+      hidden: true
+    sensor.illumination_34ce0091dd73:
+      hidden: true

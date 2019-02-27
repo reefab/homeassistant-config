@@ -1,0 +1,162 @@
+automation:
+  - alias: If there is motion and its dark turn on the light in the bathroom
+    trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001e18607
+      from: 'off'
+      to: 'on'
+    condition:
+      condition: numeric_state
+      entity_id: sensor.illumination_34ce0091dd73
+      below: 350
+    action:
+      service: light.turn_on
+      entity_id: light.salle_de_bain
+
+  - alias: If there no motion turn off the bathroom light
+    trigger:
+      platform: state
+      entity_id: binary_sensor.motion_sensor_158d0001e18607
+      from: 'on'
+      to: 'off'
+      for:
+        seconds: 120
+    action:
+      service: light.turn_off
+      entity_id: light.salle_de_bain
+
+  - alias: Switch all lights off with button press
+    trigger:
+      platform: event
+      event_type: xiaomi_aqara.click
+      event_data:
+        entity_id: binary_sensor.switch_158d0001bf6e86
+        click_type: double
+    action:
+      service: scene.turn_on
+      entity_id: scene.night_time
+
+  - alias: Switch Flux Mode on
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      service: switch.turn_on
+      entity_id: switch.flux
+
+  - alias: switch entrance light on door opening
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e48b7c
+        from: 'off'
+        to: 'on'
+    action:
+      service: light.turn_on
+      entity_id: light.livingwhites_1
+
+  - alias: Switch lights off if no one is home
+    trigger:
+      - platform: state
+        entity_id: group.people
+        from: 'home'
+        to: 'not_home'
+        for:
+          minutes: 2
+    action:
+      - service: light.turn_off
+        entity_id: group.all_lights
+  - alias: Switch lights on if people are coming home
+    trigger:
+      - platform: state
+        entity_id: group.people
+        from: 'not_home'
+        to: 'home'
+    condition:
+      - condition: sun
+        after: sunset
+        after_offset: "-00:30:00"
+    action:
+      - service: light.turn_on
+        entity_id: group.main_rooms_lights
+
+light:
+  # Ikea light strips controlled using a sonoff iFan02
+  - platform: mqtt
+    name: Vitrine
+    command_topic: "cmnd/office_fan/POWER1"
+    state_topic: "stat/office_fan/POWER1"
+    availability_topic: "tele/office_fan/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+switch:
+  - platform: flux
+    interval: 60
+    lights:
+      - light.bureau_fond
+      - light.globe
+      - light.lampe_bambou
+      - light.living_colors
+      - light.salon_entree
+      - light.salon_escalier
+      - light.derriere_lecran
+    disable_brightness_adjust: true
+    start_colortemp: 4291
+    sunset_colortemp: 2890
+    stop_colortemp: 2237
+    mode: mired
+
+# device_sun_light_trigger:
+#   light_group: group.main_rooms_lights
+#   device_group: group.people
+
+hue:
+  bridges:
+    - host: 192.168.1.50
+
+homeassistant:
+  customize:
+    light.atelier:
+      icon: 'mdi:ceiling-light'
+    light.bureau:
+      icon: 'mdi:lamp'
+    light.bureau_fond:
+      hidden: true
+    light.globe:
+      hidden: true
+    light.living_colors:
+      hidden: true
+    light.derriere_lecran:
+      icon: 'mdi:led-strip'
+    light.lampe_bambou:
+      hidden: true
+    light.livingwhites_1:
+      hidden: true
+    light.livingwhites_2:
+      hidden: true
+    light.salon_entree:
+      hidden: true
+    light.salon_escalier:
+      hidden: true
+    light.suspension:
+      hidden: true
+    light.salle_de_bain_2:
+      hidden: true
+    light.gateway_light_34ce0091dd73:
+      friendly_name: Gateway
+    light.salon:
+      icon: 'mdi:floor-lamp'
+    light.vitrine:
+      icon: 'mdi:led-strip'
+    automation.switch_all_lights_off_with_button_press:
+      hidden: true
+    automation.if_there_is_motion_and_its_dark_turn_on_the_light_in_the_bathroom:
+      hidden: true
+    group.main_rooms_lights:
+      hidden: true
+    automation.switch_flux_mode_on:
+      hidden: true

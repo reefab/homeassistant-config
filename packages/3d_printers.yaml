@@ -1,0 +1,34 @@
+# 2 3D printers, each with their https://octoprint.org server
+octoprint:
+  - host: 192.168.1.49
+    name: R2R
+    api_key: !secret octoprint_r2r_api
+    bed: false
+    number_of_tools: 2
+    sensors:
+      monitored_conditions:
+        - Current State
+        - Job Percentage
+    binary_sensors:
+      monitored_conditions:
+        - Printing
+  - host: 192.168.1.49
+    port: 5001
+    name: iTopie
+    api_key: !secret octoprint_itopie_api
+    bed: false
+    number_of_tools: 1
+    sensors:
+      monitored_conditions:
+        - Current State
+        - Job Percentage
+    binary_sensors:
+      monitored_conditions:
+        - Printing
+
+# Webcam monitoring, actually running in a mjpeg streamer docker container
+camera:
+  - platform: mjpeg
+    name: 3d printers
+    mjpeg_url: http://192.168.1.89:8090/?action=stream
+    still_image_url: http://192.168.1.89:8090/?action=snapshot

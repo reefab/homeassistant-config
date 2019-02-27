@@ -1,0 +1,15 @@
+/home-assistant_v2.db
+/secrets.yaml
+/home-assistant.log
+/.storage
+/.homekit.state
+__pycache__
+/.ring_cache.pickle
+/.ios.conf
+/.HA_VERSION
+/ip_bans.yaml
+/phue-001788102c1e.conf
+/plex.conf
+/phue.conf
+/.uuid
+/known_devices.yaml

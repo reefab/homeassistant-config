@@ -1,0 +1,11 @@
+weather:
+  - platform: darksky
+    api_key: !secret dark_sky_api
+
+homeassistant:
+  customize:
+    sun.sun:
+      hidden: true
+  customize_glob:
+    "sensor.dark_sky*":
+      hidden: true

@@ -1,0 +1,4 @@
+mqtt:
+  broker: mosquitto
+  discovery: true
+  discovery_prefix: homeassistant

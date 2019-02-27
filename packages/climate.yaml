@@ -1,0 +1,249 @@
+automation:
+  - alias: Prompt to open windows if exterior temperature is below office temperature
+    initial_state: true
+    trigger:
+      - platform: template
+        value_template: '{{ states("sensor.netatmo_bureau_temperature") > states("sensor.netatmo_dehors_temperature") }}'
+    condition:
+      - condition: state
+        entity_id: group.all_devices
+        state: "home"
+      - condition: numeric_state
+        entity_id: sensor.netatmo_bureau_temperature
+        above: 25
+      - condition: time
+        after: '14:00:00'
+        before: '06:00:00'
+      - condition: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e77530
+        state: 'off'
+    action:
+      service: notify.ios_phophone
+      data_template:
+        message: 'Open office window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
+        data:
+          tag: "safe-to-open-window"
+
+  - alias: Prompt to open windows if exterior temperature is below living room temperature
+    initial_state: true
+    trigger:
+      - platform: template
+        value_template: '{{ states("sensor.netatmo_salon_temperature") > states("sensor.netatmo_dehors_temperature") }}'
+    condition:
+      - condition: state
+        entity_id: group.all_devices
+        state: "home"
+      - condition: numeric_state
+        entity_id: sensor.netatmo_salon_temperature
+        above: 25
+      - condition: time
+        after: '14:00:00'
+        before: '06:00:00'
+      - condition: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+        state: 'off'
+    action:
+      service: notify.ios_phophone
+      data_template:
+        message: 'Open living room window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
+        data:
+          tag: "safe-to-open-window"
+
+  - alias: Turn on bedroom heater during the night
+    trigger:
+      platform: time
+      at: 05:00:00
+    action:
+      service: climate.set_operation_mode
+      entity_id: climate.chambre
+      data:
+        operation_mode: heat
+  - alias: Turn off bedroom heater during the day
+    trigger:
+      platform: time
+      at: '14:00:00'
+    action:
+      service: climate.set_operation_mode
+      entity_id: climate.chambre
+      data:
+        operation_mode: 'off'
+
+  - alias: Turn stuff off when a window is opened or no home is one
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e77530
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: group.all_devices
+        from: 'home'
+        to: 'not_home'
+        for:
+          minutes: 2
+    action:
+      - service: climate.set_away_mode
+        entity_id: climate.salon
+        data:
+          away_mode: true
+      - service: climate.set_operation_mode
+        entity_id: climate.humidifier
+        data:
+          operation_mode: 'off'
+      - service: fan.turn_off
+        entity_id: fan.xiaomi_air_purifier_2
+      - service: automation.turn_off
+        entity_id: automation.turn_on_office_purifier_if_aqi_is_too_low
+      - service: automation.turn_off
+        entity_id: automation.turn_off_office_purifier_if_aqi_is_fine
+  - alias: Turn stuff back on when the windows are closed or there is people
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e77530
+        from: 'on'
+        to: 'off'
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+        from: 'on'
+        to: 'off'
+      - platform: state
+        entity_id: group.all_devices
+        from: 'not_home'
+        to: 'home'
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.door_window_sensor_158d0001e77530
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+          state: 'off'
+    action:
+      - service: climate.set_away_mode
+        entity_id: climate.salon
+        data:
+          away_mode: false
+      - service: climate.set_operation_mode
+        entity_id: climate.humidifier
+        data:
+          operation_mode: 'on'
+      - service: automation.turn_on
+        entity_id: automation.turn_on_office_purifier_if_aqi_is_too_low
+      - service: automation.turn_on
+        entity_id: automation.turn_off_office_purifier_if_aqi_is_fine
+
+  - alias: Turn on humidifier if it's too dry
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.netatmo_salon_humidity
+        below: 50
+    action:
+      - service: switch.turn_on
+        entity_id: switch.humidifier
+  - alias: Turn off humidifier if it's too humid
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.netatmo_salon_humidity
+        above: 50
+    action:
+      - service: switch.turn_off
+        entity_id: switch.humidifier
+
+
+netatmo:
+  api_key: !secret netatmo_api
+  secret_key: !secret netatmo_secret
+  username: !secret netatmo_user
+  password: !secret netatmo_password
+
+climate:
+  - platform: generic_thermostat
+    name: Chambre
+    heater: switch.radiateur_lit
+    target_sensor: sensor.netatmo_chambre_temperature
+    away_temp: 12
+    target_temp: 18
+  # Custom component, installed a Sonoff switch inside a "dumb" humidifer
+  # - platform: generic_humidity_control
+  #   name: Humidifier
+  #   humidifier: switch.humidifier
+  #   target_sensor: sensor.netatmo_salon_humidity
+
+switch:
+  - platform: mqtt
+    name: "humidifier"
+    state_topic: "stat/humidifier/POWER"
+    command_topic: "cmnd/humidifier/POWER"
+    availability_topic: "tele/humidifier/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+homeassistant:
+  customize:
+    automation.exterior_temperature_is_below_office_temperature:
+      hidden: false
+    automation.exterior_temperature_is_below_living_room_temperature:
+      hidden: false
+    automation.turn_off_bedroom_heater_during_the_day:
+      hidden: false
+    automation.turn_office_fan_on:
+      hidden: false
+    automation.turn_on_bedroom_heater_during_the_night:
+      hidden: false
+    automation.turn_stuff_back_on_when_the_windows_are_closed:
+      hidden: false
+    automation.turn_stuff_off_when_a_window_is_opened:
+      hidden: false
+    climate.salon:
+      friendly_name: Chaudière
+    climate.chambre:
+      icon: 'mdi:radiator'
+    sensor.netatmo_chambre_co2:
+      friendly_name: Co2
+      icon: mdi:periodic-table-co2
+    sensor.netatmo_chambre_humidity:
+      friendly_name: Humidité
+    sensor.netatmo_chambre_temperature:
+      friendly_name: Temperature
+    sensor.netatmo_dehors_humidity:
+      friendly_name: Humidité
+    sensor.netatmo_dehors_temperature:
+      friendly_name: Temperature
+    sensor.netatmo_bureau_noise:
+      friendly_name: Bruit
+    sensor.netatmo_bureau_co2:
+      friendly_name: Co2
+      icon: mdi:periodic-table-co2
+    sensor.netatmo_bureau_humidity:
+      friendly_name: Humidité
+    sensor.netatmo_bureau_temperature:
+      friendly_name: Temperature
+    sensor.bureau_aqi:
+      friendly_name: AQI
+    sensor.netatmo_salon_co2:
+      friendly_name: Co2
+      icon: mdi:periodic-table-co2
+      hidden: true
+    sensor.netatmo_salon_humidity:
+      friendly_name: Humidité
+    sensor.netatmo_salon_temperature:
+      friendly_name: Temperature
+    sensor.netatmo_bureau_pressure:
+      hidden: true
+    sensor.netatmo_bureau_wifi:
+      hidden: true
+    switch.radiateur_lit:
+      hidden: true
+    switch.humidifier:
+      hidden: true
+  customize_glob:
+    "sensor.netatmo_*_radio":
+      hidden: true

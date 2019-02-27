@@ -1,0 +1,163 @@
+name: Home Assistant
+background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
+
+views:
+  - title: Actions
+    id: home
+    icon: mdi:home-modern
+    cards:
+      - id: fe88bf287d2a4fde9541160e8dc6e72f  # Automatically created id
+        type: vertical-stack
+        cards:
+          - type: picture-glance
+            title: Dehors
+            image: /local/photos/dehors.jpg
+            entities:
+              - sensor.netatmo_dehors_temperature
+              - sensor.netatmo_dehors_humidity
+              - sensor.waqi_paris_centre_paris
+
+          - type: picture-glance
+            title: Cuisine
+            image: /local/photos/cuisine.jpg
+            entities:
+              - entity: light.cuisine
+                tap_action: toggle
+              - sensor.temperature_158d0002018a02
+              - sensor.humidity_158d0002018a02
+
+          - type: picture-glance
+            title: Mezzanine
+            image: /local/photos/mezzanine.jpg
+            entities:
+              - entity: light.mezzanine
+                tap_action: toggle
+              - entity: cover.velux_mezzanine
+                tap_action: toggle
+
+          - type: glance
+            title: Salle de Bain
+            entities:
+              - entity: light.salle_de_bain
+                tap_action: toggle
+              - sensor.temperature_158d00022736df
+              - sensor.humidity_158d00022736df
+          - type: weather-forecast
+            entity: weather.dark_sky
+
+          - type: entities
+            title: Global
+            show_header_toggle: false
+            entities:
+              - vacuum.xiaomi_vacuum_cleaner
+              - switch.flux
+
+          - type: thermostat
+            entity: climate.salon
+
+      - id: 3cf0f3e45a5c4868872603262869ab45  # Automatically created id
+        type: vertical-stack
+        cards:
+          - type: picture-glance
+            title: Salon
+            image: /local/photos/salon.jpg
+            camera_image: camera.salon
+            entities:
+              - entity: light.salon
+                tap_action: toggle
+              - entity: fan.ventilateur_bois
+                tap_action: toggle
+              - switch.projector
+
+          - type: picture-glance
+            title: Bureau
+            image: /local/photos/bureau.jpg
+            entities:
+              - entity: light.bureau
+                tap_action: toggle
+              - entity: light.atelier
+                tap_action: toggle
+              - entity: fan.ventilateur_bureau
+                tap_action: toggle
+              - entity: switch.steambox
+                tap_action: toggle
+
+          - type: picture-glance
+            title: 3d Printers
+            camera_image: camera.3d_printers
+            entities:
+              - sensor.r2r_current_state
+              - sensor.r2r_job_percentage
+              - sensor.itopie_current_state
+              - sensor.itopie_job_percentage
+
+          - type: picture-glance
+            title: Entrée
+            camera_image: camera.front_door
+            entities:
+              - binary_sensor.door_window_sensor_158d0001e48b7c
+
+          - type: picture-glance
+            title: Chambre
+            image: /local/photos/chambre.jpg
+            entities:
+              - entity: fan.petit_ventilateur
+                tap_action: toggle
+              - climate.chambre
+
+  - title: Sensors
+    id: sensors
+    icon: mdi:gauge
+    cards:
+      - id: 2c2211657d9e4fcd8b5f0661c569b524  # Automatically created id
+        type: vertical-stack
+        cards:
+          - type: entities
+            title: Servers
+            entities:
+              - sensor.netdata_cpu
+              - sensor.netdata_free_memory
+              - sensor.netdata_load
+              - sensor.transmission_active_torrents
+              - sensor.plex
+              - sensor.pihole_ads_blocked_today
+              - sensor.nut_ups_battery_runtime
+              - sensor.nut_ups_load
+          - type: plant-status
+            entity: plant.flowall_bureau
+          - type: plant-status
+            entity: plant.suspension_liere
+          - type: entities
+            title: Safety
+            entities:
+              - binary_sensor.smoke_sensor_158d0001d6e708
+              - binary_sensor.water_leak_sensor_158d0001bb8aaf
+              - binary_sensor.water_leak_sensor_158d0001c35979
+              - binary_sensor.water_leak_sensor_158d0001bbea15
+
+      - id: 1ef855bee2bc4fb6b21e1ecd1df24c84  # Automatically created id
+        type: vertical-stack
+        cards:
+          - type: entities
+            title: Salon
+            entities:
+              - sensor.netatmo_salon_temperature
+              - sensor.netatmo_salon_humidity
+              - sensor.foobot_salon_co2
+              - sensor.foobot_salon_pm25
+              - sensor.foobot_salon_voc
+              - sensor.foobot_salon_index
+          - type: entities
+            title: Bureau
+            entities:
+              - sensor.netatmo_bureau_temperature
+              - sensor.netatmo_bureau_humidity
+              - sensor.netatmo_bureau_noise
+              - sensor.netatmo_bureau_co2
+              - sensor.bureau_aqi
+          - type: entities
+            title: Chambre
+            entities:
+              - sensor.netatmo_chambre_temperature
+              - sensor.netatmo_chambre_humidity
+              - sensor.netatmo_chambre_co2

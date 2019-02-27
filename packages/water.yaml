@@ -1,0 +1,36 @@
+switch:
+  - platform: mqtt
+    name: Main Water Valve
+    state_topic: "stat/water_valve/POWER"
+    command_topic: "cmnd/water_valve/POWER"
+    availability_topic: "tele/water_valve/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    payload_on: "OFF"
+    payload_off: "ON"
+    retain: true
+
+automation:
+  - alias: Shut water valve in case of leaks
+    trigger:
+      - platform: state
+        from: 'off'
+        to: 'on'
+        entity_id: binary_sensor.water_leak_sensor_158d0001bb8aaf
+      - platform: state
+        from: 'off'
+        to: 'on'
+        entity_id: binary_sensor.water_leak_sensor_158d0001bbea15
+      - platform: state
+        from: 'off'
+        to: 'on'
+        entity_id: binary_sensor.water_leak_sensor_158d0001c35979
+    action:
+      service: switch.turn_off
+      entity_id: switch.main_water_valve
+
+homeassistant:
+  customize:
+    switch.main_water_valve:
+      icon: 'mdi:pipe'

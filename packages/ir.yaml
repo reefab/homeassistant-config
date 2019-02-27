@@ -1,0 +1,6 @@
+switch:
+  - platform: broadlink
+    host: 192.168.12.122
+    mac: 78:0f:77:5a:b6:c2
+    friendly_name: ir_bedroom
+    type: rm_mini

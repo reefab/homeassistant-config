@@ -1,0 +1,16 @@
+# Monitoring a UPS connected via USB to a freenas server using https://networkupstools.org
+sensor:
+  - platform: nut
+    host: 192.168.1.40
+    username: !secret nut_user
+    password: !secret nut_password
+    resources:
+      - ups.load
+      - battery.runtime
+
+homeassistant:
+  customize:
+    sensor.nut_ups_battery_runtime:
+      friendly_name: UPS runtime
+    sensor.nut_ups_load:
+      friendly_name: UPS load

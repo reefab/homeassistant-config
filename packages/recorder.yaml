@@ -1,0 +1,7 @@
+recorder:
+  db_url: !secret postgres_url
+  purge_keep_days: 7
+  exclude:
+    domains:
+      - weblink
+      - automation

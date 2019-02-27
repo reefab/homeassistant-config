@@ -1,0 +1,10 @@
+- name: Night time
+  entities:
+    group.all_lights: off
+    fan.ventilateur_bureau: off
+    fan.ventilateur_bois: off
+    switch.steambox: off
+- name: Movie time
+  entities:
+    light.salon: off
+    light.bureau: off

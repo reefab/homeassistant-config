@@ -1,0 +1,43 @@
+switch:
+  - platform: mqtt
+    name: Soldering Iron
+    state_topic: "stat/iron_switch/POWER"
+    command_topic: "cmnd/iron_switch/POWER"
+    availability_topic: "tele/iron_switch/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+alert:
+  soldering_iron:
+    name: Soldering Iron is on
+    done_message: Soldering Iron switched off
+    entity_id: switch.soldering_iron
+    state: 'on'
+    repeat: 30
+    can_acknowledge: false
+    skip_first: true
+    notifiers:
+      - ios_phophone
+
+automation:
+  # I keep fdrgetting to switch it off so do it automatically
+  - alias: Soldering Iron still on
+    trigger:
+      platform: state
+      entity_id: switch.soldering_iron
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 35
+    action:
+      service: switch.turn_off
+      entity_id: switch.soldering_iron
+
+homeassistant:
+  customize:
+    switch.soldering_iron:
+      icon: mdi:fire

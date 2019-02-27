@@ -1,0 +1,6 @@
+# Not working
+# sensor:
+#   - platform: citybikes
+#     stations:
+#       - 11115
+#     network: velib

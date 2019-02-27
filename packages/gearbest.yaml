@@ -1,0 +1,28 @@
+sensor:
+  - platform: gearbest
+    currency: EUR
+    items:
+      - url: https://www.gearbest.com/home-smart-improvements/pp_268522.html?wid=1527929
+        name: Xiaomi Air Purifier
+      - url: https://www.gearbest.com/living-appliances/pp_374016.html?wid=1433363
+        name: Air Filters
+
+automation:
+  - alias: Notify cheap filters
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.air_filters
+      below: 30
+    action:
+      service: notify.ios_phophone
+      data_template:
+        message: 'Filters are below 30€'
+  - alias: Notify cheap purifiers
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.xiaomi_air_purifier
+      below: 100
+    action:
+      service: notify.ios_phophone
+      data_template:
+        message: 'Purifiers are below 100€'

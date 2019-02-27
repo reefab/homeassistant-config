@@ -1,0 +1,57 @@
+sensor:
+  - platform: miflora
+    name: flowall_bureau_xiaomi
+    mac: 'C4:7C:8D:66:E7:5D'
+    monitored_conditions:
+      - moisture
+      - light
+      - temperature
+      - conductivity
+      - battery
+  - platform: miflora
+    name: flowall_salon_xiaomi
+    mac: 'C4:7C:8D:66:C9:DA'
+    monitored_conditions:
+      - moisture
+      - light
+      - temperature
+      - conductivity
+      - battery
+
+plant:
+  flowall_bureau:
+    sensors:
+      moisture: sensor.flowall_bureau_xiaomi_moisture
+      battery: sensor.flowall_bureau_xiaomi_battery
+      temperature: sensor.flowall_bureau_xiaomi_temperature
+      conductivity: sensor.flowall_bureau_xiaomi_conductivity
+      brightness: sensor.flowall_bureau_xiaomi_light_intensity
+    min_moisture: 20
+    max_moisture: 80
+    min_battery: 15
+    min_conductivity: 10
+    min_temperature: 15
+  flowall_salon:
+    sensors:
+      moisture: sensor.flowall_salon_xiaomi_moisture
+      battery: sensor.flowall_salon_xiaomi_battery
+      temperature: sensor.flowall_salon_xiaomi_temperature
+      conductivity: sensor.flowall_salon_xiaomi_conductivity
+      brightness: sensor.flowall_salon_xiaomi_light_intensity
+    min_moisture: 20
+    max_moisture: 80
+    min_battery: 15
+    min_conductivity: 10
+    min_temperature: 15
+
+homeassistant:
+  customize:
+    plant.flowall_bureau:
+      friendly_name: Flowall Bureau
+    plant.flowall_salon:
+      friendly_name: Flowall Salon
+  customize_glob:
+    "sensor.flowall_bureau_xiaomi_*":
+      hidden: true
+    "sensor.flowall_salon_xiaomi_*":
+      hidden: true

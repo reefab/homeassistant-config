@@ -1,0 +1,22 @@
+device_tracker:
+  - platform: unifi_direct
+    host: 192.168.1.62
+    username: !secret unifi_user
+    password: !secret unifi_password
+    track_new_devices: false
+    consider_home: 180
+
+automation:
+  - id: front_door_opened
+    alias: front_door_has_been_opened
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.door_window_sensor_158d0001e48b7c
+        from: 'off'
+        to: 'on'
+    action:
+      - service: notify.ios_phophone
+        data:
+          message: "request_location_update"
+
+map:

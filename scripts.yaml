@@ -1,0 +1,11 @@
+restart_ha:
+  alias: Restart HA
+  sequence:
+    - alias: Restart HA
+      service: homeassistant.restart
+
+check_config:
+  alias: Check Config
+  sequence:
+    - alias: Check Config
+      service: homeassistant.check_config

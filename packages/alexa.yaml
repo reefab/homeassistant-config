@@ -1,0 +1,37 @@
+alexa:
+  smart_home:
+    filter:
+      include_entities:
+        - cover.velux_mezzanine
+        - cover.bedroom_velux
+        - climate.salon
+        - fan.petit_ventilateur
+        - fan.ventilateur_bois
+        - fan.ventilateur_bureau
+        - light.bureau
+        - light.cuisine
+        - light.mezzanine
+        - light.salon
+        - light.salle_de_bain
+        - light.vitrine
+        - switch.projector
+        - switch.aspirateur
+    entity_config:
+      light.bureau:
+        name: Lumière Bureau
+      light.cuisine:
+        name: Lumière Cuisine
+      light.mezzanine:
+        name: Lumière Mezzanine
+      light.salon:
+        name: Lumière Salon
+      light.salle_de_bain:
+        name: Lumière Salle de Bain
+      light.vitrine:
+        name: Lumière Vitrine
+      switch.projector:
+        name: Projecteur
+      cover.velux_mezzanine:
+        name: Store Mezzanine
+      cover.bedroom_velux:
+        name: Store Chambre
