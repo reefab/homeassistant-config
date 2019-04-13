@@ -1,33 +1,33 @@
-sensor:
-  - platform: netdata
-    host: 192.168.1.89
-    resources:
-      cpu:
-        data_group: system.cpu
-        element: system
-        icon: mdi:chip
-      free_memory:
-        data_group: mem.available
-        element: MemAvailable
-        icon: mdi:memory
-      load:
-        data_group: system.load
-        element: load15
-        icon: mdi:gauge
-      Download:
-        data_group: snmp_router.bandwidth_eth0
-        element: in
-        icon: mdi:download
-      Upload:
-        data_group: snmp_router.bandwidth_eth0
-        element: out
-        icon: mdi:upload
+# sensor:
+#   - platform: netdata
+#     host: 192.168.1.89
+#     resources:
+#       cpu:
+#         data_group: system.cpu
+#         element: system
+#         icon: mdi:chip
+#       free_memory:
+#         data_group: mem.available
+#         element: MemAvailable
+#         icon: mdi:memory
+#       load:
+#         data_group: system.load
+#         element: load15
+#         icon: mdi:gauge
+#       Download:
+#         data_group: snmp_router.bandwidth_eth0
+#         element: in
+#         icon: mdi:download
+#       Upload:
+#         data_group: snmp_router.bandwidth_eth0
+#         element: out
+#         icon: mdi:upload
 
-homeassistant:
-  customize:
-    sensor.netdata_cpu:
-      friendly_name: CPU Used
-    sensor.netdata_free_memory:
-      friendly_name: Free RAM
-    sensor.netdata_load:
-      friendly_name: Load
+# homeassistant:
+#   customize:
+#     sensor.netdata_cpu:
+#       friendly_name: CPU Used
+#     sensor.netdata_free_memory:
+#       friendly_name: Free RAM
+#     sensor.netdata_load:
+#       friendly_name: Load
