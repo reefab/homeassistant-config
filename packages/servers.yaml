@@ -24,6 +24,14 @@ binary_sensor:
     name: Pi-hole 2
     count: 2
     scan_interval: 30
+  - platform: ping
+    name: Sync
+    host: 192.168.1.112
+    count: 2
+  - platform: ping
+    name: AC-AP Lite
+    host: 192.168.1.62
+    count: 2
 
 homeassistant:
   customize:
@@ -32,4 +40,8 @@ homeassistant:
     binary_sensor.routeur:
       icon: 'mdi:router-wireless'
     binary_sensor.pi_hole_2:
-      icon: 'mdi:raspberry-pi'
+      icon: 'mdi:dns'
+    binary_sensor.sync:
+      icon: 'mdi:cloud-sync'
+    binary_sensor.ac_ap_lite:
+      icon: 'mdi:access-point-network'
