@@ -44,6 +44,7 @@ main_rooms_lights:
   control: hidden
   entities:
     - light.salon
+    - light.derriere_lecran
     - light.bureau
 
 global:
@@ -70,7 +71,6 @@ salon:
     - light.derriere_lecran
     - sensor.netatmo_salon_temperature
     - sensor.netatmo_salon_humidity
-    - climate.humidifier
     - fan.ventilateur_bois
     - sensor.foobot_salon_co2
     - sensor.foobot_salon_pm25
@@ -174,12 +174,10 @@ guests:
 servers:
   name: Server
   entities:
-    - sensor.netdata_cpu
-    - sensor.netdata_free_memory
-    - sensor.netdata_load
-    - sensor.netdata_download
-    - sensor.netdata_upload
-    - sensor.transmission_active_torrents
+    - sensor.processor_use
+    - sensor.memory_use_percent
+    - sensor.wan_download
+    - sensor.wan_upload
     - sensor.plex
     - sensor.pi_hole_ads_blocked_today
     - sensor.nut_ups_battery_runtime
@@ -199,3 +197,5 @@ network:
     - binary_sensor.Hue
     - binary_sensor.Aquara
     - binary_sensor.pi_hole_2
+    - binary_sensor.sync
+    - binary_sensor.ac_ap_lite
