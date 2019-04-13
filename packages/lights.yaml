@@ -52,7 +52,7 @@ automation:
         to: 'on'
     action:
       service: light.turn_on
-      entity_id: light.livingwhites_1
+      entity_id: light.entree
 
   - alias: Switch lights off if no one is home
     trigger:
@@ -101,9 +101,10 @@ switch:
       - light.globe
       - light.lampe_bambou
       - light.living_colors
-      - light.salon_entree
-      - light.salon_escalier
+      - light.salon
       - light.derriere_lecran
+      - light.entree
+      - light.cuisine
     disable_brightness_adjust: true
     start_colortemp: 4291
     sunset_colortemp: 2890
@@ -138,9 +139,7 @@ homeassistant:
       hidden: true
     light.livingwhites_2:
       hidden: true
-    light.salon_entree:
-      hidden: true
-    light.salon_escalier:
+    light.salon:
       hidden: true
     light.suspension:
       hidden: true
