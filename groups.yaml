@@ -44,14 +44,13 @@ main_rooms_lights:
   control: hidden
   entities:
     - light.salon
-    - light.derriere_lecran
     - light.bureau
 
 global:
   name: Global
   control: hidden
   entities:
-    - climate.salon
+    - climate.netatmo_my_room
     - vacuum.xiaomi_vacuum_cleaner
     - switch.flux
 
@@ -59,7 +58,6 @@ entrance:
   name: Entrée
   control: hidden
   entities:
-    # - camera.front_door
     - binary_sensor.door_window_sensor_158d0001e48b7c
 
 salon:
@@ -85,7 +83,6 @@ bureau:
   control: hidden
   entities:
     - light.bureau
-    - light.atelier
     - light.vitrine
     - sensor.netatmo_bureau_temperature
     - sensor.netatmo_bureau_humidity
@@ -110,6 +107,7 @@ chambre:
 
 bathroom:
   name: Salle de Bain
+  control: hidden
   entities:
     - light.salle_de_bain
     - sensor.temperature_158d00022736df
@@ -132,6 +130,7 @@ mezzanine:
 
 safety:
   name: Safety
+  control: hidden
   entities:
     - binary_sensor.smoke_sensor_158d0001d6e708
     - switch.main_water_valve
@@ -141,6 +140,7 @@ safety:
 
 outside_environment:
   name: Dehors
+  control: hidden
   entities:
     - sensor.netatmo_dehors_temperature
     - sensor.netatmo_dehors_humidity
@@ -149,6 +149,7 @@ outside_environment:
 
 3d_printers:
   name: 3D Printers
+  control: hidden
   entities:
     - sensor.r2r_current_state
     - sensor.r2r_job_percentage
@@ -158,6 +159,7 @@ outside_environment:
 
 people:
   name: People
+  control: hidden
   entities:
     - device_tracker.phophone
     - device_tracker.iphonedmanuelle
@@ -166,6 +168,7 @@ people:
 
 guests:
   name: Guest
+  control: hidden
   entities:
     - device_tracker.iphonedmanuelle
     - device_tracker.huawei_p9_lite_premium
@@ -173,11 +176,10 @@ guests:
 
 servers:
   name: Server
+  control: hidden
   entities:
     - sensor.processor_use
     - sensor.memory_use_percent
-    - sensor.wan_download
-    - sensor.wan_upload
     - sensor.plex
     - sensor.pi_hole_ads_blocked_today
     - sensor.nut_ups_battery_runtime
@@ -185,12 +187,14 @@ servers:
 
 plants:
   name: Plants
+  control: hidden
   entities:
     - plant.flowall_bureau
     - plant.flowall_salon
 
 network:
   name: Network
+  control: hidden
   entities:
     - binary_sensor.routeur
     - binary_sensor.nas
