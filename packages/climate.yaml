@@ -86,7 +86,7 @@ automation:
           minutes: 2
     action:
       - service: climate.set_away_mode
-        entity_id: climate.salon
+        entity_id: climate.netatmo_my_room
         data:
           away_mode: true
       # - service: climate.set_operation_mode
@@ -124,7 +124,7 @@ automation:
           state: 'off'
     action:
       - service: climate.set_away_mode
-        entity_id: climate.salon
+        entity_id: climate.netatmo_my_room
         data:
           away_mode: false
       # - service: climate.set_operation_mode
@@ -161,6 +161,7 @@ netatmo:
   password: !secret netatmo_password
 
 climate:
+  - platform: netatmo
   - platform: generic_thermostat
     name: Chambre
     heater: switch.radiateur_lit
@@ -202,8 +203,6 @@ homeassistant:
       hidden: false
     automation.turn_stuff_off_when_a_window_is_opened:
       hidden: false
-    climate.salon:
-      friendly_name: Chaudière
     climate.chambre:
       icon: 'mdi:radiator'
     sensor.netatmo_chambre_co2:
@@ -244,6 +243,8 @@ homeassistant:
       hidden: true
     switch.humidifier:
       hidden: true
+    climate.netatmo_my_room:
+      friendly_name: Chaudière
   customize_glob:
     "sensor.netatmo_*_radio":
       hidden: true

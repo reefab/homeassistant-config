@@ -4,7 +4,7 @@ alexa:
       include_entities:
         - cover.velux_mezzanine
         - cover.bedroom_velux
-        - climate.salon
+        - climate.netatmo_my_room
         - fan.petit_ventilateur
         - fan.ventilateur_bois
         - fan.ventilateur_bureau
@@ -17,6 +17,8 @@ alexa:
         - switch.projector
         - switch.aspirateur
     entity_config:
+      climate.netatmo_my_room:
+        name: Chaudière
       light.bureau:
         name: Lumière Bureau
       light.cuisine:
