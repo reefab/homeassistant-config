@@ -94,3 +94,11 @@ script: !include scripts.yaml
 zeroconf:
 
 api:
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://192.168.1.89:3218
+
+system_health:
