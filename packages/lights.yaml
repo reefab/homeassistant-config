@@ -54,6 +54,8 @@ automation:
       service: light.turn_on
       entity_id: light.entree
 
+  # Those replaces the 'presence based light' component but have the advantage
+  # of being able to be enabled/disabled on demand
   - alias: Switch lights off if no one is home
     trigger:
       - platform: state
@@ -78,6 +80,18 @@ automation:
     action:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
+  - alias: Switch lights on if people are home at sunset
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: '-00:30:00'
+    condition:
+      - condition: state
+        entity_id: group.people
+        state: home
+    action:
+      - service: light.turn_on
+        entity_id: group.main_rooms_lights
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
@@ -97,23 +111,14 @@ switch:
   - platform: flux
     interval: 60
     lights:
-      - light.bureau_fond
-      - light.globe
-      - light.lampe_bambou
-      - light.living_colors
+      - light.bureau
       - light.salon
-      - light.derriere_lecran
-      - light.entree
-      - light.cuisine
+      - light.mezzanine
     disable_brightness_adjust: true
     start_colortemp: 4291
     sunset_colortemp: 2890
     stop_colortemp: 2237
     mode: mired
-
-# device_sun_light_trigger:
-#   light_group: group.main_rooms_lights
-#   device_group: group.people
 
 hue:
   bridges:
@@ -139,8 +144,6 @@ homeassistant:
       hidden: true
     light.livingwhites_2:
       hidden: true
-    light.salon:
-      hidden: true
     light.suspension:
       hidden: true
     light.salle_de_bain_2:
@@ -148,7 +151,7 @@ homeassistant:
     light.gateway_light_34ce0091dd73:
       friendly_name: Gateway
     light.salon:
-      icon: 'mdi:floor-lamp'
+      icon: 'mdi:led-strip'
     light.vitrine:
       icon: 'mdi:led-strip'
     automation.switch_all_lights_off_with_button_press:
