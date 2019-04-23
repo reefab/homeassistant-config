@@ -16,6 +16,7 @@ alexa:
         - light.vitrine
         - switch.projector
         - switch.aspirateur
+        - media_player.ecran_salon
     entity_config:
       climate.netatmo_my_room:
         name: Chaudière
@@ -37,3 +38,7 @@ alexa:
         name: Store Mezzanine
       cover.bedroom_velux:
         name: Store Chambre
+      fan.ventilateur_bois:
+        name: Ventilateur salon
+      media_player.ecran_salon:
+        name: écran

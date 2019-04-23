@@ -56,6 +56,7 @@ discovery:
   ignore:
     - apple_tv
     - roku
+    - google_cast
 
 ios:
 
@@ -102,3 +103,9 @@ panel_iframe:
     url: http://192.168.1.89:3218
 
 system_health:
+
+# logger:
+#   default: info
+#   logs:
+#     pydeconz: debug
+#     homeassistant.components.deconz: debug
