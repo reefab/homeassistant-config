@@ -2,10 +2,10 @@ automation:
   - alias: Toggle bed fan
     trigger:
       platform: event
-      event_type: xiaomi_aqara.click
+      event_type: deconz_event
       event_data:
-        entity_id: binary_sensor.switch_158d0001bf6e86
-        click_type: single
+        id: bouton_lit
+        event: 1002
     action:
       service: fan.toggle
       entity_id: fan.petit_ventilateur
@@ -42,7 +42,9 @@ automation:
         state: 'on'
     action:
       - entity_id: fan.ventilateur_bureau
-        service: fan.turn_off
+        service: fan.set_speed
+        data:
+          speed: 'off'
   - alias: toggle fans with cube
     trigger:
       platform: event
@@ -55,7 +57,6 @@ automation:
         entity_id: fan.ventilateur_bois
 
 fan:
-  # All those fans are controlled using sonoff basic switches
   - platform: mqtt
     name: "Ventilateur bureau"
     command_topic: "cmnd/office_fan/FanSpeed"
@@ -67,20 +68,14 @@ fan:
     payload_not_available: "Offline"
     state_topic: "stat/office_fan/RESULT"
     state_value_template: >
-      {% if value_json.FanSpeed is defined %}
-        {% if value_json.FanSpeed == 0 -%}0{%- elif value_json.FanSpeed > 0 -%}4{%- endif %}
-      {% else %}
-        {% if states.fan.master_bedroom_fan.state == 'off' -%}0{%- elif states.fan.master_bedroom_fan.state == 'on' -%}4{%- endif %}
-      {% endif %}
-    qos: 1
+      {% if value_json.FanSpeed == 0 %}"0"{% elif value_json.FanSpeed > 0 %}"1"{% endif %}
     payload_off: "0"
     payload_on: "1"
     payload_low_speed: "1"
     payload_medium_speed: "2"
     payload_high_speed: "3"
-    retain: true
     speeds:
-      - off
+      - "off"
       - low
       - medium
       - high
@@ -96,10 +91,10 @@ fan:
     payload_off: "OFF"
     retain: true
   - platform: mqtt
-    name: "Ventilateur bois"
-    state_topic: "stat/wood_fan/POWER"
-    command_topic: "cmnd/wood_fan/POWER"
-    availability_topic: "tele/wood_fan/LWT"
+    name: "Ventilateur Bois"
+    state_topic: "stat/salon_fan/POWER"
+    command_topic: "cmnd/salon_fan/POWER"
+    availability_topic: "tele/salon_fan/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
     qos: 1

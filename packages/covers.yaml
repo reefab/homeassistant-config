@@ -33,10 +33,10 @@ automation:
   - alias: Toggle bedroom cover
     trigger:
       platform: event
-      event_type: xiaomi_aqara.click
+      event_type: deconz_event
       event_data:
-        entity_id: binary_sensor.switch_158d0001bf6e86
-        click_type: long_click_press
+        id: bouton_lit
+        type: 1003
     action:
       service: script.turn_on
       entity_id: script.toggle_cover

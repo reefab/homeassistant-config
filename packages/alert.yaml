@@ -2,7 +2,7 @@ alert:
   main_water_leak:
     name: Water is leaking at main valve
     done_message: Water leak stopped at main valve
-    entity_id: binary_sensor.water_leak_sensor_158d0001bb8aaf
+    entity_id: binary_sensor.compteur_eau
     state: 'on'
     repeat: 10
     notifiers:
@@ -11,7 +11,7 @@ alert:
   toilet_water_leak:
     name: Water is leaking at toilet
     done_message: Water leak stopped at toilet
-    entity_id: binary_sensor.water_leak_sensor_158d0001bbea15
+    entity_id: binary_sensor.water_12
     state: 'on'
     repeat: 30
     notifiers:
@@ -20,7 +20,7 @@ alert:
   washers_water_leak:
     name: Water is leaking at washers
     done_message: Water leak stopped at washers
-    entity_id: binary_sensor.water_leak_sensor_158d0001c35979
+    entity_id: binary_sensor.buanderie
     state: 'on'
     repeat: 10
     notifiers:
@@ -29,7 +29,7 @@ alert:
   smoke_living_room:
     name: Smoke detected in living room
     done_message: Smoke cleared in living room
-    entity_id: binary_sensor.smoke_sensor_158d0001d6e708
+    entity_id: binary_sensor.lumi_sensor_smoke
     state: 'on'
     repeat: 10
     notifiers:
@@ -39,9 +39,16 @@ alert:
   front_door_not_closed:
     name: Front door is open
     done_message: Front door has been closed
-    entity_id: binary_sensor.door_window_sensor_158d0001e48b7c
+    entity_id: binary_sensor.porte_entree
     state: 'on'
     repeat: 5
     skip_first: true
     notifiers:
       - ios_phophone
+
+homeassistant:
+  customize:
+    binary_sensor.lumi_sensor_smoke:
+      friendly_name: Fumée Salon
+    binary_sensor.water_12:
+      friendly_name: Robinet Toilette

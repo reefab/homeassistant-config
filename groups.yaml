@@ -58,7 +58,7 @@ entrance:
   name: Entrée
   control: hidden
   entities:
-    - binary_sensor.door_window_sensor_158d0001e48b7c
+    - binary_sensor.porte_entree
 
 salon:
   name: Salon
@@ -66,7 +66,6 @@ salon:
   control: hidden
   entities:
     - light.salon
-    - light.derriere_lecran
     - sensor.netatmo_salon_temperature
     - sensor.netatmo_salon_humidity
     - fan.ventilateur_bois
@@ -74,7 +73,6 @@ salon:
     - sensor.foobot_salon_pm25
     - sensor.foobot_salon_voc
     - sensor.foobot_salon_index
-    - light.gateway_light_34ce0091dd73
     - camera.salon
 
 bureau:
@@ -110,16 +108,16 @@ bathroom:
   control: hidden
   entities:
     - light.salle_de_bain
-    - sensor.temperature_158d00022736df
-    - sensor.humidity_158d00022736df
+    - sensor.salle_de_bain_2
+    - sensor.salle_de_bain_3
 
 kitchen:
   name: Cuisine
   control: hidden
   entities:
     - light.cuisine
-    - sensor.temperature_158d0002018a02
-    - sensor.humidity_158d0002018a02
+    - sensor.cuisine_2
+    - sensor.cuisine_3
 
 mezzanine:
   name: Mezzanine
@@ -132,11 +130,11 @@ safety:
   name: Safety
   control: hidden
   entities:
-    - binary_sensor.smoke_sensor_158d0001d6e708
+    - binary_sensor.lumi_sensor_smoke
     - switch.main_water_valve
-    - binary_sensor.water_leak_sensor_158d0001bb8aaf
-    - binary_sensor.water_leak_sensor_158d0001c35979
-    - binary_sensor.water_leak_sensor_158d0001bbea15
+    - binary_sensor.water_12
+    - binary_sensor.compteur_eau
+    - binary_sensor.buanderie
 
 outside_environment:
   name: Dehors
@@ -198,8 +196,6 @@ network:
   entities:
     - binary_sensor.routeur
     - binary_sensor.nas
-    - binary_sensor.Hue
-    - binary_sensor.Aquara
     - binary_sensor.pi_hole_2
     - binary_sensor.sync
     - binary_sensor.ac_ap_lite
