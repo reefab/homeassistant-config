@@ -10,16 +10,6 @@ binary_sensor:
     count: 2
     scan_interval: 30
   - platform: ping
-    host: 192.168.1.50
-    name: Hue
-    count: 2
-    scan_interval: 30
-  - platform: ping
-    host: 192.168.1.76
-    name: Aquara
-    count: 2
-    scan_interval: 30
-  - platform: ping
     host: 192.168.1.19
     name: Pi-hole 2
     count: 2

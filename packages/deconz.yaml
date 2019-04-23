@@ -1,0 +1,19 @@
+deconz:
+  host: deconz
+  port: 80
+  api_key: !secret deconz_api
+
+homeassistant:
+  customize:
+    sensor.cuisine:
+      friendly_name: Pression Cuisine
+    sensor.cuisine_2:
+      friendly_name: Humidité Cuisine
+    sensor.cuisine_3:
+      friendly_name: Temperature Cuisine
+    sensor.salle_de_bain:
+      friendly_name: Pression Sdb
+    sensor.salle_de_bain_2:
+      friendly_name: Humidité Sdb
+    sensor.salle_de_bain_3:
+      friendly_name: Temperature Sdb
