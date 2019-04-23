@@ -1,0 +1,26 @@
+switch:
+  - platform: flux
+    interval: 60
+    lights:
+      - light.bureau
+      - light.salon
+      - light.mezzanine
+    disable_brightness_adjust: true
+    start_colortemp: 4291
+    sunset_colortemp: 2890
+    stop_colortemp: 2237
+    mode: mired
+
+automation:
+  - alias: Switch Flux Mode on at start up
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      service: switch.turn_on
+      entity_id: switch.flux
+
+homeassistant:
+  customize:
+    automation.switch_flux_mode_on:
+      hidden: true
