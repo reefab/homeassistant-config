@@ -15,7 +15,7 @@ automation:
         after: '14:00:00'
         before: '06:00:00'
       - condition: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e77530
+        entity_id: binary_sensor.openclose_11
         state: 'off'
     action:
       service: notify.ios_phophone
@@ -40,7 +40,7 @@ automation:
         after: '14:00:00'
         before: '06:00:00'
       - condition: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+        entity_id: binary_sensor.fenetre_salon
         state: 'off'
     action:
       service: notify.ios_phophone
@@ -49,33 +49,33 @@ automation:
         data:
           tag: "safe-to-open-window"
 
-  - alias: Turn on bedroom heater during the night
-    trigger:
-      platform: time
-      at: 05:00:00
-    action:
-      service: climate.set_operation_mode
-      entity_id: climate.chambre
-      data:
-        operation_mode: heat
-  - alias: Turn off bedroom heater during the day
-    trigger:
-      platform: time
-      at: '14:00:00'
-    action:
-      service: climate.set_operation_mode
-      entity_id: climate.chambre
-      data:
-        operation_mode: 'off'
+  # - alias: Turn on bedroom heater during the night
+  #   trigger:
+  #     platform: time
+  #     at: 05:00:00
+  #   action:
+  #     service: climate.set_operation_mode
+  #     entity_id: climate.chambre
+  #     data:
+  #       operation_mode: heat
+  # - alias: Turn off bedroom heater during the day
+  #   trigger:
+  #     platform: time
+  #     at: '14:00:00'
+  #   action:
+  #     service: climate.set_operation_mode
+  #     entity_id: climate.chambre
+  #     data:
+  #       operation_mode: 'off'
 
   - alias: Turn stuff off when a window is opened or no home is one
     trigger:
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e77530
+        entity_id: binary_sensor.openclose_11
         from: 'off'
         to: 'on'
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+        entity_id: binary_sensor.fenetre_salon
         from: 'off'
         to: 'on'
       - platform: state
@@ -98,11 +98,11 @@ automation:
   - alias: Turn stuff back on when the windows are closed or there is people
     trigger:
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e77530
+        entity_id: binary_sensor.openclose_11
         from: 'on'
         to: 'off'
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+        entity_id: binary_sensor.fenetre_salon
         from: 'on'
         to: 'off'
       - platform: state
@@ -113,10 +113,10 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: binary_sensor.door_window_sensor_158d0001e77530
+          entity_id: binary_sensor.openclose_11
           state: 'off'
         - condition: state
-          entity_id: binary_sensor.door_window_sensor_158d0001e7752e
+          entity_id: binary_sensor.fenetre_salon
           state: 'off'
     action:
       - service: climate.set_away_mode
@@ -145,21 +145,14 @@ automation:
       - service: switch.turn_off
         entity_id: switch.humidifier
 
-
-netatmo:
-  api_key: !secret netatmo_api
-  secret_key: !secret netatmo_secret
-  username: !secret netatmo_user
-  password: !secret netatmo_password
-
 climate:
   - platform: netatmo
-  - platform: generic_thermostat
-    name: Chambre
-    heater: switch.radiateur_lit
-    target_sensor: sensor.netatmo_chambre_temperature
-    away_temp: 12
-    target_temp: 18
+  # - platform: generic_thermostat
+  #   name: Chambre
+  #   heater: switch.radiateur_lit
+  #   target_sensor: sensor.netatmo_chambre_temperature
+  #   away_temp: 12
+  #   target_temp: 18
 
 switch:
   - platform: mqtt
