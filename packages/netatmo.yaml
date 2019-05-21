@@ -1,0 +1,5 @@
+netatmo:
+  api_key: !secret netatmo_api
+  secret_key: !secret netatmo_secret
+  username: !secret netatmo_user
+  password: !secret netatmo_password
