@@ -36,7 +36,7 @@ automation:
       event_type: deconz_event
       event_data:
         id: bouton_lit
-        type: 1003
+        event: 1005
     action:
       service: script.turn_on
       entity_id: script.toggle_cover
@@ -62,8 +62,9 @@ cover:
         friendly_name: "Velux Chambre"
         optimistic: false
         open_cover:
-          service: switch.broadlink_send_packet_192_168_12_122
+          service: broadlink.send
           data:
+            host: 192.168.12.122
             packet:
               - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
               - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
@@ -71,8 +72,9 @@ cover:
               - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
               - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
         close_cover:
-          service: switch.broadlink_send_packet_192_168_12_122
+          service: broadlink.send
           data:
+            host: 192.168.12.122
             packet:
               - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
               - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
@@ -80,8 +82,9 @@ cover:
               - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
               - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
         stop_cover:
-          service: switch.broadlink_send_packet_192_168_12_122
+          service: broadlink.send
           data:
+            host: 192.168.12.122
             packet:
               - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
               - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
