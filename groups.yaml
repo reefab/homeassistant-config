@@ -68,6 +68,7 @@ salon:
     - light.salon
     - sensor.netatmo_salon_temperature
     - sensor.netatmo_salon_humidity
+    - binary_sensor.fenetre_salon
     - fan.ventilateur_bois
     - sensor.foobot_salon_co2
     - sensor.foobot_salon_pm25
@@ -82,6 +83,7 @@ bureau:
   entities:
     - light.bureau
     - light.vitrine
+    - binary_sensor.openclose_11
     - sensor.netatmo_bureau_temperature
     - sensor.netatmo_bureau_humidity
     - fan.ventilateur_bureau
@@ -98,7 +100,7 @@ chambre:
   entities:
     - sensor.netatmo_chambre_temperature
     - sensor.netatmo_chambre_humidity
-    - climate.chambre
+    # - climate.chambre
     - fan.petit_ventilateur
     - sensor.netatmo_chambre_co2
     - cover.bedroom_velux
@@ -107,7 +109,7 @@ bathroom:
   name: Salle de Bain
   control: hidden
   entities:
-    - light.salle_de_bain
+    - light.salle_de_bain_2
     - sensor.salle_de_bain_2
     - sensor.salle_de_bain_3
 
@@ -144,6 +146,7 @@ outside_environment:
     - sensor.netatmo_dehors_humidity
     - sensor.waqi_paris_centre_paris
     - weather.dark_sky
+    - sensor.velib_86245c11064e6c59600ed1a72ca437b7
 
 3d_printers:
   name: 3D Printers
