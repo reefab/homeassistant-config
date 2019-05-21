@@ -17,15 +17,15 @@ automation:
       - platform: state
         from: 'off'
         to: 'on'
-        entity_id: binary_sensor.water_leak_sensor_158d0001bb8aaf
+        entity_id: binary_sensor.water_12
       - platform: state
         from: 'off'
         to: 'on'
-        entity_id: binary_sensor.water_leak_sensor_158d0001bbea15
+        entity_id: binary_sensor.compteur_eau
       - platform: state
         from: 'off'
         to: 'on'
-        entity_id: binary_sensor.water_leak_sensor_158d0001c35979
+        entity_id: binary_sensor.buanderie
     action:
       service: switch.turn_off
       entity_id: switch.main_water_valve

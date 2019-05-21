@@ -1,5 +1,4 @@
 automation:
-
   - alias: switch entrance light on door opening
     trigger:
       - platform: state
@@ -8,7 +7,7 @@ automation:
         to: 'on'
     action:
       service: light.turn_on
-      entity_id: light.entree
+      entity_id: light.entree_2
 
   # Those replaces the 'presence based light' component but have the advantage
   # of being able to be enabled/disabled on demand
@@ -45,9 +44,23 @@ automation:
       - condition: state
         entity_id: group.people
         state: home
+      - condition: state
+        entity_id: switch.steambox
+        state: 'off'
     action:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
+
+  - alias: Switch all lights off with button press
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: bouton_lit
+        type: 1004
+    action:
+      service: scene.turn_on
+      entity_id: scene.night_time
 
 light:
   # Ikea light strips controlled using a sonoff iFan02

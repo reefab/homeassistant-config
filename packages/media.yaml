@@ -1,67 +1,69 @@
 automation:
-  - alias: Turn on projector with cube
-    trigger:
-      platform: event
-      event_type: xiaomi_aqara.cube_action
-      event_data:
-        entity_id: binary_sensor.cube_158d000104d0ed_2
-        action_type: shake_air
-    condition:
-      condition: state
-      entity_id: switch.projector
-      state: 'off'
-    action:
-      - service: switch.turn_on
-        entity_id: switch.projector
-  - alias: Turn off projector with cube
-    trigger:
-      platform: event
-      event_type: xiaomi_aqara.cube_action
-      event_data:
-        entity_id: binary_sensor.cube_158d000104d0ed_2
-        action_type: shake_air
-    condition:
-      condition: state
-      entity_id: switch.projector
-      state: 'on'
-    action:
-      - service: switch.turn_off
-        entity_id: switch.projector
+  # - alias: Turn on projector with cube
+  #   trigger:
+  #     platform: event
+  #     event_type: xiaomi_aqara.cube_action
+  #     event_data:
+  #       entity_id: binary_sensor.cube_158d000104d0ed_2
+  #       action_type: shake_air
+  #   condition:
+  #     condition: state
+  #     entity_id: switch.projector
+  #     state: 'off'
+  #   action:
+  #     - service: switch.turn_on
+  #       entity_id: switch.projector
+  # - alias: Turn off projector with cube
+  #   trigger:
+  #     platform: event
+  #     event_type: xiaomi_aqara.cube_action
+  #     event_data:
+  #       entity_id: binary_sensor.cube_158d000104d0ed_2
+  #       action_type: shake_air
+  #   condition:
+  #     condition: state
+  #     entity_id: switch.projector
+  #     state: 'on'
+  #   action:
+  #     - service: switch.turn_off
+  #       entity_id: switch.projector
   - alias: turn up volume with cube
     trigger:
       platform: event
-      event_type: xiaomi_aqara.cube_action
+      event_type: deconz_event
       event_data:
-        entity_id: binary_sensor.cube_158d000104d0ed_2
-        action_type: rotate
+        entity: lumi_sensor_cube_21
     condition:
-      condition: state
-      entity_id: media_player.yamaha_receiver
-      state: 'on'
+      - condition: template
+        value_template: '{{ trigger.event.data.event > 0 }}'
+      - condition: state
+        entity_id: media_player.yamaha_receiver
+        state: 'on'
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_up
   - alias: turn down volume with cube
     trigger:
       platform: event
-      event_type: xiaomi_aqara.cube_action
+      event_type: deconz_event
       event_data:
-        entity_id: binary_sensor.cube_158d000104d0ed_2
-        action_type: flip90
+        entity: lumi_sensor_cube_21
     condition:
-      condition: state
-      entity_id: media_player.yamaha_receiver
-      state: 'on'
+      - condition: template
+        value_template: '{{ trigger.event.data.event < 0 }}'
+      - condition: state
+        entity_id: media_player.yamaha_receiver
+        state: 'on'
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_down
   - alias: mute volume with cube
     trigger:
       platform: event
-      event_type: xiaomi_aqara.cube_action
+      event_type: deconz_event
       event_data:
-        entity_id: binary_sensor.cube_158d000104d0ed_2
-        action_type: flip180
+        entity: lumi_sensor_cube_20
+        event: 7007
     condition:
       condition: state
       entity_id: media_player.yamaha_receiver
@@ -188,8 +190,17 @@ script:
   projo_on:
     alias: Projo On
     sequence:
-      - service: scene.turn_on
-        entity_id: scene.movie_time
+      - service: switch.turn_off
+        entity_id: switch.flux
+      - service: light.turn_off
+        entity_id: light.bureau
+      - service: light.turn_off
+        entity_id: light.projo
+      - service: light.turn_on
+        entity_id: light.ecran
+        data:
+          brightness: 150
+          transition: 60
       - service: switch.turn_on
         entity_id: switch.steambox
       - service: rest_command.projo
@@ -202,14 +213,18 @@ script:
         entity_id: media_player.yamaha_receiver
         data:
           source: 'HDMI2'
-      - service: switch.turn_off
-        entity_id: switch.flux
       - service: light.turn_on
-        entity_id: light.derriere_lecran
+        entity_id: light.projo
+        data:
+          brightness: 0
+          transition: 60
       - delay: '00:01:00'
       - service: rest_command.screenbloom
         data_template:
           command: 'start'
+      - service: light.turn_off
+        entity_id: light.projo
+
   projo_off:
     alias: Projo Off
     sequence:
@@ -230,7 +245,7 @@ script:
         entity_id: sun.sun
         state: 'above_horizon'
       - service: light.turn_off
-        entity_id: light.salon
+        entity_id: light.ecran
   ht_volume_up:
     alias: Volume Up
     sequence:
@@ -286,8 +301,6 @@ homeassistant:
       icon: 'mdi:projector'
     binary_sensor.projector:
       hidden: true
-    scene.movie_time:
-      icon: 'mdi:filmstrip'
     media_player.yamaha_receiver:
       hidden: true
   customize_glob:
