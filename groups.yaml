@@ -1,44 +1,3 @@
-default_view:
-  view: true
-  icon: mdi:home
-  entities:
-    - group.global
-    - group.entrance
-    - group.salon
-    - group.bureau
-    - group.chambre
-    - group.bathroom
-    - group.kitchen
-    - group.mezzanine
-    - group.safety
-    - group.outside_environment
-    - group.3d_printers
-    - group.people
-    - group.servers
-    - group.plants
-    - group.network
-    - weather.dark_sky
-
-media_view:
-  view: true
-  icon: mdi:presentation-play
-  entities:
-    - light.salon
-    - light.derriere_lecran
-    - media_player.ecran_salon
-    - script.blank_projector
-    - script.restore_projector
-    - switch.steambox
-
-settings_view:
-  view: true
-  icon: mdi:settings
-  entities:
-    - group.all_automations
-    - group.battery_alert
-    - script.restart_ha
-    - script.check_config
-
 main_rooms_lights:
   name: Main Lights
   control: hidden
@@ -100,7 +59,6 @@ chambre:
   entities:
     - sensor.netatmo_chambre_temperature
     - sensor.netatmo_chambre_humidity
-    # - climate.chambre
     - fan.petit_ventilateur
     - sensor.netatmo_chambre_co2
     - cover.bedroom_velux

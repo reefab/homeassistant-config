@@ -1,163 +1,292 @@
-name: Home Assistant
+title: Appart
 background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
-
 views:
-  - title: Actions
-    id: home
-    icon: mdi:home-modern
+  - path: default_view
+    title: default_view
+    badges: []
     cards:
-      - id: fe88bf287d2a4fde9541160e8dc6e72f  # Automatically created id
-        type: vertical-stack
-        cards:
-          - type: picture-glance
-            title: Dehors
-            image: /local/photos/dehors.jpg
-            entities:
-              - sensor.netatmo_dehors_temperature
-              - sensor.netatmo_dehors_humidity
-              - sensor.waqi_paris_centre_paris
-
-          - type: picture-glance
-            title: Cuisine
-            image: /local/photos/cuisine.jpg
-            entities:
-              - entity: light.cuisine
-                tap_action: toggle
-              - sensor.temperature_158d0002018a02
-              - sensor.humidity_158d0002018a02
-
-          - type: picture-glance
-            title: Mezzanine
-            image: /local/photos/mezzanine.jpg
-            entities:
-              - entity: light.mezzanine
-                tap_action: toggle
-              - entity: cover.velux_mezzanine
-                tap_action: toggle
-
-          - type: glance
-            title: Salle de Bain
-            entities:
-              - entity: light.salle_de_bain
-                tap_action: toggle
-              - sensor.temperature_158d00022736df
-              - sensor.humidity_158d00022736df
-          - type: weather-forecast
-            entity: weather.dark_sky
-
-          - type: entities
-            title: Global
-            show_header_toggle: false
-            entities:
-              - vacuum.xiaomi_vacuum_cleaner
-              - switch.flux
-
-          - type: thermostat
-            entity: climate.salon
-
-      - id: 3cf0f3e45a5c4868872603262869ab45  # Automatically created id
-        type: vertical-stack
-        cards:
-          - type: picture-glance
-            title: Salon
-            image: /local/photos/salon.jpg
-            camera_image: camera.salon
-            entities:
-              - entity: light.salon
-                tap_action: toggle
-              - entity: fan.ventilateur_bois
-                tap_action: toggle
-              - switch.projector
-
-          - type: picture-glance
-            title: Bureau
-            image: /local/photos/bureau.jpg
-            entities:
-              - entity: light.bureau
-                tap_action: toggle
-              - entity: light.atelier
-                tap_action: toggle
-              - entity: fan.ventilateur_bureau
-                tap_action: toggle
-              - entity: switch.steambox
-                tap_action: toggle
-
-          - type: picture-glance
-            title: 3d Printers
-            camera_image: camera.3d_printers
-            entities:
-              - sensor.r2r_current_state
-              - sensor.r2r_job_percentage
-              - sensor.itopie_current_state
-              - sensor.itopie_job_percentage
-
-          - type: picture-glance
-            title: Entrée
-            camera_image: camera.front_door
-            entities:
-              - binary_sensor.door_window_sensor_158d0001e48b7c
-
-          - type: picture-glance
-            title: Chambre
-            image: /local/photos/chambre.jpg
-            entities:
-              - entity: fan.petit_ventilateur
-                tap_action: toggle
-              - climate.chambre
-
-  - title: Sensors
-    id: sensors
-    icon: mdi:gauge
+      - type: entities
+        entities:
+          - vacuum.xiaomi_vacuum_cleaner
+          - switch.flux
+        title: Global
+        show_header_toggle: false
+      - type: thermostat
+        entity: climate.netatmo_my_room
+      - type: entities
+        entities:
+          - binary_sensor.porte_entree
+        title: Entrée
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - light.salon
+          - sensor.netatmo_salon_temperature
+          - sensor.netatmo_salon_humidity
+          - binary_sensor.fenetre_salon
+          - fan.ventilateur_bois
+          - sensor.foobot_salon_co2
+          - sensor.foobot_salon_pm25
+          - sensor.foobot_salon_voc
+          - sensor.foobot_salon_index
+        title: Salon
+        show_header_toggle: false
+      - type: picture-entity
+        entity: camera.salon
+      - type: entities
+        entities:
+          - light.bureau
+          - light.vitrine
+          - binary_sensor.openclose_11
+          - sensor.netatmo_bureau_temperature
+          - sensor.netatmo_bureau_humidity
+          - fan.ventilateur_bureau
+          - fan.xiaomi_air_purifier_2
+          - sensor.netatmo_bureau_noise
+          - sensor.netatmo_bureau_co2
+          - sensor.bureau_aqi
+          - switch.soldering_iron
+          - switch.steambox
+        title: Bureau
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - sensor.netatmo_chambre_temperature
+          - sensor.netatmo_chambre_humidity
+          - fan.petit_ventilateur
+          - sensor.netatmo_chambre_co2
+          - cover.bedroom_velux
+        title: Chambre
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - light.salle_de_bain_2
+          - sensor.salle_de_bain_2
+          - sensor.salle_de_bain_3
+        title: Salle de Bain
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - light.cuisine
+          - sensor.cuisine_2
+          - sensor.cuisine_3
+        title: Cuisine
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - light.mezzanine
+          - cover.velux_mezzanine
+        title: Mezzanine
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - binary_sensor.lumi_sensor_smoke
+          - switch.main_water_valve
+          - binary_sensor.water_12
+          - binary_sensor.compteur_eau
+          - binary_sensor.buanderie
+        title: Safety
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - sensor.netatmo_dehors_temperature
+          - sensor.netatmo_dehors_humidity
+          - sensor.waqi_paris_centre_paris
+          - sensor.velib_86245c11064e6c59600ed1a72ca437b7
+        title: Dehors
+        show_header_toggle: false
+      - type: weather-forecast
+        entity: weather.dark_sky
+      - type: entities
+        entities:
+          - sensor.r2r_current_state
+          - sensor.r2r_job_percentage
+          - sensor.itopie_current_state
+          - sensor.itopie_job_percentage
+        title: 3D Printers
+        show_header_toggle: false
+      - type: picture-entity
+        entity: camera.3d_printers
+      - type: entities
+        entities:
+          - device_tracker.phophone
+          - device_tracker.iphonedmanuelle
+          - device_tracker.huawei_p9_lite_premium
+          - device_tracker.oneplus_5t
+        title: People
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - sensor.processor_use
+          - sensor.memory_use_percent
+          - sensor.plex
+          - sensor.pi_hole_ads_blocked_today
+          - sensor.nut_ups_battery_runtime
+          - sensor.nut_ups_load
+        title: Server
+        show_header_toggle: false
+      - type: plant-status
+        entity: plant.flowall_bureau
+      - type: plant-status
+        entity: plant.flowall_salon
+      - type: entities
+        entities:
+          - binary_sensor.routeur
+          - binary_sensor.nas
+          - binary_sensor.pi_hole_2
+          - binary_sensor.sync
+          - binary_sensor.ac_ap_lite
+        title: Network
+        show_header_toggle: false
+    icon: 'mdi:home'
+  - path: media_view
+    title: media_view
+    badges: []
     cards:
-      - id: 2c2211657d9e4fcd8b5f0661c569b524  # Automatically created id
-        type: vertical-stack
-        cards:
-          - type: entities
-            title: Servers
-            entities:
-              - sensor.netdata_cpu
-              - sensor.netdata_free_memory
-              - sensor.netdata_load
-              - sensor.transmission_active_torrents
-              - sensor.plex
-              - sensor.pihole_ads_blocked_today
-              - sensor.nut_ups_battery_runtime
-              - sensor.nut_ups_load
-          - type: plant-status
-            entity: plant.flowall_bureau
-          - type: plant-status
-            entity: plant.suspension_liere
-          - type: entities
-            title: Safety
-            entities:
-              - binary_sensor.smoke_sensor_158d0001d6e708
-              - binary_sensor.water_leak_sensor_158d0001bb8aaf
-              - binary_sensor.water_leak_sensor_158d0001c35979
-              - binary_sensor.water_leak_sensor_158d0001bbea15
+      - type: entities
+        entities:
+          - light.salon
+        title: Light
+      - type: media-control
+        entity: media_player.ecran_salon
+      - type: entities
+        entities:
+          - script.blank_projector
+          - script.restore_projector
+        title: Script
+      - type: entities
+        entities:
+          - switch.steambox
+        title: Switch
+    icon: 'mdi:presentation-play'
+  - path: settings_view
+    title: settings_view
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - automation.close_covers_at_night
+          - automation.open_bedroom_cover_during_the_day
+          - automation.open_mezzanine_cover_during_the_day
+          - >-
+            automation.prompt_to_open_windows_if_exterior_temperature_is_below_living_room_temperature
+          - >-
+            automation.prompt_to_open_windows_if_exterior_temperature_is_below_office_temperature
+          - automation.quieten_vacuum_if_back_home_alone
+          - automation.shut_water_valve_in_case_of_leaks
+          - automation.soldering_iron_still_on
+          - automation.start_clearning_before_it_s_too_late
+          - automation.start_clearning_if_home_is_empty
+          - automation.stop_vacuum_if_back_home_with_guests
+          - automation.switch_flux_mode_on_at_start_up
+          - automation.switch_all_lights_off_with_button_press
+          - automation.switch_lights_off_if_no_one_is_home
+          - automation.switch_lights_on_if_people_are_coming_home
+          - automation.switch_lights_on_if_people_are_home_at_sunset
+          - automation.toggle_bed_fan
+          - automation.toggle_bedroom_cover
+          - automation.turn_off_humidifier_if_it_s_too_humid
+          - automation.turn_off_office_purifier_if_aqi_is_fine
+          - automation.turn_on_humidifier_if_it_s_too_dry
+          - automation.turn_on_office_purifier_if_aqi_is_too_low
+          - >-
+            automation.turn_stuff_back_on_when_the_windows_are_closed_or_there_is_people
+          - automation.turn_stuff_off_when_a_window_is_opened_or_no_home_is_one
+          - automation.battery_notification
+          - automation.battery_notification_clear
+          - automation.battery_sensor_from_attributes
+          - automation.clear_mqtt_topic
+          - automation.front_door_has_been_opened
+          - automation.mute_volume_with_cube
+          - automation.switch_entrance_light_on_door_opening
+          - automation.toggle_fans_with_cube
+          - automation.turn_down_volume_with_cube
+          - automation.turn_office_fan_off
+          - automation.turn_office_fan_on
+          - automation.turn_up_volume_with_cube
+          - automation.update_battery_status_group_members
+        title: all automations
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - input_number.battery_alert_threshold_min
+          - input_number.battery_alert_threshold_max
+          - input_text.clear_mqtt_topic
+          - automation.battery_notification
+          - automation.battery_notification_clear
+          - automation.battery_sensor_from_attributes
+          - automation.update_battery_status_group_members
+          - automation.clear_mqtt_topic
+        title: Battery Alert
+        show_header_toggle: false
+      - type: entities
+        entities:
+          - script.restart_ha
+          - script.check_config
+        title: Script
+    icon: 'mdi:settings'
+  - path: battery_view
+    title: Batteries
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - sensor.arrivee_eau_battery
+          - sensor.bouton_lit_battery
+          - sensor.buanderie_battery
+          - sensor.bureau_battery_level
+          - sensor.compteur_eau_battery
+          - sensor.cube_158d000104d0ed_battery
+          - sensor.fabien_battery
+          - sensor.fenetre_bureau_battery
+          - sensor.fenetre_salon_battery
+          - sensor.fenetre_salon_battery_2
+          - sensor.flowall_bureau_battery_2
+          - sensor.flowall_bureau_xiaomi_battery
+          - sensor.flowall_salon_battery
+          - sensor.flowall_salon_xiaomi_battery
+          - sensor.fumee_salon_battery
+          - sensor.fumee_salon_battery_2
+          - sensor.humidite_battery
+          - sensor.humidite_battery_2
+          - sensor.humidite_cuisine_battery
+          - sensor.humidite_sdb_battery
+          - sensor.lightlevel_28_battery
+          - sensor.lightlevel_59_battery
+          - sensor.lit_battery_level
+          - sensor.motion_sensor_battery
+          - sensor.mouvement_salle_de_bain_battery
+          - sensor.netatmo_chambre_battery
+          - sensor.netatmo_chambre_battery_percent
+          - sensor.netatmo_dehors_battery
+          - sensor.netatmo_dehors_battery_percent
+          - sensor.netatmo_salon_battery
+          - sensor.netatmo_salon_battery_percent
+          - sensor.openclose_11_battery
+          - sensor.porte_entree_battery
+          - sensor.porte_entree_battery_2
+          - sensor.presence_26_battery
+          - sensor.presence_58_battery
+          - sensor.pression_cuisine_battery
+          - sensor.pression_cuisine_battery_2
+          - sensor.pression_salle_de_bain_battery
+          - sensor.pression_sdb_battery
+          - sensor.robinet_lave_lingevaisselle_battery
+          - sensor.robinet_toilette_battery
+          - sensor.robinet_toilette_battery_2
+          - sensor.roborock_vacuum_battery
+          - sensor.salon_battery_level
+          - sensor.salon_chambre_battery_level
+          - sensor.salon_mezza_battery_level
+          - sensor.spare_battery
+          - sensor.switch_19_battery_level
+          - sensor.switch_57_battery_level
+          - sensor.temperature_27_battery
+          - sensor.temperature_battery
+          - sensor.temperature_battery_2
+          - sensor.temperature_cuisine_battery
+          - sensor.temperature_sdb_battery
+        title: Battery Status
+        show_header_toggle: false
+    icon: 'mdi:battery-alert'
 
-      - id: 1ef855bee2bc4fb6b21e1ecd1df24c84  # Automatically created id
-        type: vertical-stack
-        cards:
-          - type: entities
-            title: Salon
-            entities:
-              - sensor.netatmo_salon_temperature
-              - sensor.netatmo_salon_humidity
-              - sensor.foobot_salon_co2
-              - sensor.foobot_salon_pm25
-              - sensor.foobot_salon_voc
-              - sensor.foobot_salon_index
-          - type: entities
-            title: Bureau
-            entities:
-              - sensor.netatmo_bureau_temperature
-              - sensor.netatmo_bureau_humidity
-              - sensor.netatmo_bureau_noise
-              - sensor.netatmo_bureau_co2
-              - sensor.bureau_aqi
-          - type: entities
-            title: Chambre
-            entities:
-              - sensor.netatmo_chambre_temperature
-              - sensor.netatmo_chambre_humidity
-              - sensor.netatmo_chambre_co2

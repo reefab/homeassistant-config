@@ -109,3 +109,6 @@ system_health:
 #   logs:
 #     pydeconz: debug
 #     homeassistant.components.deconz: debug
+
+lovelace:
+  mode: yaml

@@ -285,7 +285,7 @@ script:
 homeassistant:
   customize:
     switch.steambox:
-      icon: 'mdi:steam-box'
+      icon: 'mdi:steam'
     switch.steambox_wol:
       hidden: true
     script.projo_on:
