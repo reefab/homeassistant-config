@@ -9,39 +9,49 @@ views:
   - path: default_view
     title: default_view
     badges: []
+    icon: 'mdi:home'
     cards:
-      - type: entities
+      - type: vertical-stack
+        cards:
+          - type: glance
+            show_name: false
+            entities:
+              - vacuum.xiaomi_vacuum_cleaner
+              - switch.flux
+            title: Global
+          - type: thermostat
+            entity: climate.netatmo_my_room
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Salon
+            show_name: false
+            entities:
+              - entity: light.salon
+                tap_action:
+                  action: toggle
+              - sensor.netatmo_salon_temperature
+              - sensor.netatmo_salon_humidity
+              - binary_sensor.fenetre_salon
+              - entity: fan.ventilateur_bois
+                tap_action:
+                  action: toggle
+              - sensor.foobot_salon_co2
+              - sensor.foobot_salon_pm25
+              - sensor.foobot_salon_voc
+              - sensor.foobot_salon_index
+          - type: picture-entity
+            entity: camera.salon
+      - type: glance
+        title: Bureau
+        show_name: false
         entities:
-          - vacuum.xiaomi_vacuum_cleaner
-          - switch.flux
-        title: Global
-        show_header_toggle: false
-      - type: thermostat
-        entity: climate.netatmo_my_room
-      - type: entities
-        entities:
-          - binary_sensor.porte_entree
-        title: Entrée
-        show_header_toggle: false
-      - type: entities
-        entities:
-          - light.salon
-          - sensor.netatmo_salon_temperature
-          - sensor.netatmo_salon_humidity
-          - binary_sensor.fenetre_salon
-          - fan.ventilateur_bois
-          - sensor.foobot_salon_co2
-          - sensor.foobot_salon_pm25
-          - sensor.foobot_salon_voc
-          - sensor.foobot_salon_index
-        title: Salon
-        show_header_toggle: false
-      - type: picture-entity
-        entity: camera.salon
-      - type: entities
-        entities:
-          - light.bureau
-          - light.vitrine
+          - entity: light.bureau
+            tap_action:
+              action: toggle
+          - entity: light.vitrine
+            tap_action:
+              action: toggle
           - binary_sensor.openclose_11
           - sensor.netatmo_bureau_temperature
           - sensor.netatmo_bureau_humidity
@@ -51,82 +61,108 @@ views:
           - sensor.netatmo_bureau_co2
           - sensor.bureau_aqi
           - switch.soldering_iron
-          - switch.steambox
-        title: Bureau
-        show_header_toggle: false
-      - type: entities
+          - entity: switch.steambox
+            icon: 'mdi:steam'
+            tap_action:
+              action: toggle
+      - type: glance
+        title: Chambre
+        show_name: false
         entities:
           - sensor.netatmo_chambre_temperature
           - sensor.netatmo_chambre_humidity
-          - fan.petit_ventilateur
+          - entity: fan.petit_ventilateur
+            tap_action:
+              action: toggle
           - sensor.netatmo_chambre_co2
-          - cover.bedroom_velux
-        title: Chambre
-        show_header_toggle: false
-      - type: entities
+          - entity: cover.bedroom_velux
+            tap_action:
+              action: toggle
+      - type: glance
+        title: Salle de Bain
+        show_name: false
         entities:
-          - light.salle_de_bain_2
+          - entity: light.salle_de_bain_2
+            tap_action:
+              action: toggle
           - sensor.salle_de_bain_2
           - sensor.salle_de_bain_3
-        title: Salle de Bain
-        show_header_toggle: false
-      - type: entities
+      - type: glance
+        title: Cuisine
+        show_name: false
         entities:
-          - light.cuisine
+          - entity: light.cuisine
+            tap_action:
+              action: toggle
           - sensor.cuisine_2
           - sensor.cuisine_3
-        title: Cuisine
-        show_header_toggle: false
-      - type: entities
-        entities:
-          - light.mezzanine
-          - cover.velux_mezzanine
+      - type: glance
         title: Mezzanine
-        show_header_toggle: false
-      - type: entities
+        show_name: false
+        entities:
+          - entity: light.mezzanine
+            tap_action:
+              action: toggle
+          - entity: cover.velux_mezzanine
+            tap_action:
+              action: toggle
+      - type: glance
+        title: Safety
         entities:
           - binary_sensor.lumi_sensor_smoke
-          - entity: switch.main_water_valve
-            name: Main water valve
-            type: custom:toggle-lock-entity-row
+          - switch.main_water_valve
           - binary_sensor.water_12
           - binary_sensor.compteur_eau
           - binary_sensor.buanderie
           - binary_sensor.fire_37
-        title: Safety
-        show_header_toggle: false
-      - type: entities
-        entities:
-          - sensor.netatmo_dehors_temperature
-          - sensor.netatmo_dehors_humidity
-          - sensor.waqi_paris_centre_paris
-          - sensor.velib_86245c11064e6c59600ed1a72ca437b7
-        title: Dehors
-        show_header_toggle: false
-      - type: weather-forecast
-        entity: weather.dark_sky
-      - type: entities
-        entities:
-          - entity: switch.3d_printers
-            name: 3D printers
-            type: custom:toggle-lock-entity-row
-          - sensor.r2r_current_state
-          - sensor.r2r_job_percentage
-          - sensor.itopie_current_state
-          - sensor.itopie_job_percentage
+          - binary_sensor.porte_entree
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Dehors
+            show_name: false
+            entities:
+              - sensor.netatmo_dehors_temperature
+              - sensor.netatmo_dehors_humidity
+              - sensor.waqi_paris_centre_paris
+              - sensor.velib_86245c11064e6c59600ed1a72ca437b7
+          - type: weather-forecast
+            entity: weather.dark_sky
+      - type: vertical-stack
+        cards:
+          - type: plant-status
+            entity: plant.flowall_bureau
+          - type: plant-status
+            entity: plant.flowall_salon
+      - type: vertical-stack
+        cards:
+          - type: picture-glance
+            camera_image: camera.3d_printers
+            entities:
+              - sensor.r2r_current_state
+              - sensor.r2r_job_percentage
+              - sensor.itopie_current_state
+              - sensor.itopie_job_percentage
+          - type: entities
+            entities:
+              - entity: switch.3d_printers
+                name: 3D printers
+                type: custom:toggle-lock-entity-row
         title: 3D Printers
-        show_header_toggle: false
-      - type: picture-entity
-        entity: camera.3d_printers
-      - type: entities
+      - type: glance
+        title: People
         entities:
           - device_tracker.phophone
           - device_tracker.iphonedmanuelle
           - device_tracker.huawei_p9_lite_premium
           - device_tracker.oneplus_5t
-        title: People
-        show_header_toggle: false
+  - path: infra_view
+    title: infra_view
+    badges: []
+    icon: 'mdi:server-network'
+    cards:
       - type: entities
+        title: Server
         entities:
           - sensor.processor_use
           - sensor.memory_use_percent
@@ -134,22 +170,16 @@ views:
           - sensor.pi_hole_ads_blocked_today
           - sensor.nut_ups_battery_runtime
           - sensor.nut_ups_load
-        title: Server
         show_header_toggle: false
-      - type: plant-status
-        entity: plant.flowall_bureau
-      - type: plant-status
-        entity: plant.flowall_salon
       - type: entities
+        title: Network
         entities:
           - binary_sensor.routeur
           - binary_sensor.nas
           - binary_sensor.pi_hole_2
           - binary_sensor.sync
           - binary_sensor.ac_ap_lite
-        title: Network
         show_header_toggle: false
-    icon: 'mdi:home'
   - path: media_view
     title: media_view
     badges: []
@@ -157,18 +187,12 @@ views:
       - type: entities
         entities:
           - light.salon
+          - script.blank_projector
+          - script.restore_projector
+        show_header_toggle: false
         title: Light
       - type: media-control
         entity: media_player.ecran_salon
-      - type: entities
-        entities:
-          - script.blank_projector
-          - script.restore_projector
-        title: Script
-      - type: entities
-        entities:
-          - switch.steambox
-        title: Switch
     icon: 'mdi:presentation-play'
   - path: settings_view
     title: settings_view
