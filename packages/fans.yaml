@@ -5,7 +5,7 @@ automation:
       event_type: deconz_event
       event_data:
         id: bouton_lit
-        event: 1002
+        event: 1003
     action:
       service: fan.toggle
       entity_id: fan.petit_ventilateur
@@ -57,29 +57,35 @@ automation:
         entity_id: fan.ventilateur_bois
 
 fan:
+  # Sonoff iFan02 with Tasmota
+  # https://github.com/arendst/Sonoff-Tasmota/wiki/Sonoff-iFan02
   - platform: mqtt
     name: "Ventilateur bureau"
     command_topic: "cmnd/office_fan/FanSpeed"
-    speed_state_topic: "stat/office_fan/RESULT"
     speed_command_topic: "cmnd/office_fan/FanSpeed"
+    state_topic: "stat/office_fan/RESULT"
+    speed_state_topic: "stat/office_fan/RESULT"
+    state_value_template: >
+      {% if value_json.FanSpeed is defined %}
+        {% if value_json.FanSpeed == 0 -%}0{%- elif value_json.FanSpeed > 0 -%}1{%- endif %}
+      {% else %}
+        {% if states.fan.ventilateur_bureau.state == 'off' -%}0{%- elif states.fan.ventilateur_bureau.state == 'on' -%}1{%- endif %}
+      {% endif %}
     speed_value_template: "{{ value_json.FanSpeed }}"
-    availability_topic: "tele/office_fan/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    optimistic: true
-    # state_topic: "stat/office_fan/RESULT"
-    # state_value_template: >
-    #   {% if value_json.FanSpeed == 0 %}"0"{% elif value_json.FanSpeed > 0 %}"1"{% endif %}
+    availability_topic: tele/office_fan/LWT
     payload_off: "0"
     payload_on: "1"
     payload_low_speed: "1"
     payload_medium_speed: "2"
     payload_high_speed: "3"
+    payload_available: Online
+    payload_not_available: Offline
     speeds:
-      - "off"
+      - 'off'
       - low
       - medium
       - high
+  # Sonoff Basic with Tasmota
   - platform: mqtt
     name: "Petit ventilateur"
     state_topic: "stat/black_fan/POWER"
@@ -91,6 +97,7 @@ fan:
     payload_on: "ON"
     payload_off: "OFF"
     retain: true
+  # Sonoff Basic with Tasmota
   - platform: mqtt
     name: "Ventilateur Bois"
     state_topic: "stat/salon_fan/POWER"
