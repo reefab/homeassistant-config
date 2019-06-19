@@ -32,3 +32,25 @@ camera:
     name: 3d printers
     mjpeg_url: http://192.168.1.89:8090/?action=stream
     still_image_url: http://192.168.1.89:8090/?action=snapshot
+
+automation:
+  - alias: Cut electricity to 3D printers in case of smoke
+    # To prevent false positives during startup if the sensors are not ready yet
+    initial_state: false
+    trigger:
+      - platform: state
+        from: 'off'
+        to: 'on'
+        entity_id: binary_sensor.fire_37
+    action:
+      service: switch.turn_off
+      entity_id: switch.3d_printers
+  - alias: Activate=3d printers fire safety
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - delay:
+          seconds: 120
+      - service: automation.turn_on
+        entity_id: automation.cut_electricity_to_3d_printers_in_case_of_smoke
