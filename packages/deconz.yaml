@@ -17,3 +17,9 @@ homeassistant:
       friendly_name: Humidité Sdb
     sensor.salle_de_bain_3:
       friendly_name: Temperature Sdb
+    binary_sensor.fire_37:
+      friendly_name: Fumée Bureau
+    binary_sensor.lumi_sensor_smoke:
+      friendly_name: Fumée Salon
+    binary_sensor.water_12:
+      friendly_name: Robinet Toilette

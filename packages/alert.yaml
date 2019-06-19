@@ -35,6 +35,15 @@ alert:
     notifiers:
       - ios_phophone
 
+  smoke_office:
+    name: Smoke detected in office
+    done_message: Smoke cleared in office
+    entity_id: binary_sensor.fire_37
+    state: 'on'
+    repeat: 10
+    notifiers:
+      - ios_phophone
+
   # send alert if front door has been opened for more than 5 minutes
   front_door_not_closed:
     name: Front door is open
@@ -45,10 +54,3 @@ alert:
     skip_first: true
     notifiers:
       - ios_phophone
-
-homeassistant:
-  customize:
-    binary_sensor.lumi_sensor_smoke:
-      friendly_name: Fumée Salon
-    binary_sensor.water_12:
-      friendly_name: Robinet Toilette
