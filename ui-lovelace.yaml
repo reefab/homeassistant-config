@@ -4,6 +4,8 @@ background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
 resources:
   - url: /local/toggle-lock-entity-row.js
     type: js
+  - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=0.0.1
+    type: module
 
 views:
   - path: default_view
@@ -11,6 +13,7 @@ views:
     badges: []
     icon: 'mdi:home'
     cards:
+      - type: custom:compact-custom-header
       - type: vertical-stack
         cards:
           - type: glance
@@ -40,8 +43,8 @@ views:
               - sensor.foobot_salon_pm25
               - sensor.foobot_salon_voc
               - sensor.foobot_salon_index
-          - type: picture-entity
-            entity: camera.salon
+          # - type: picture-entity
+          #   entity: camera.salon
       - type: glance
         title: Bureau
         show_name: false
@@ -55,7 +58,9 @@ views:
           - binary_sensor.openclose_11
           - sensor.netatmo_bureau_temperature
           - sensor.netatmo_bureau_humidity
-          - fan.ventilateur_bureau
+          - entity: fan.ventilateur_bureau
+            tap_action:
+              action: toggle
           - fan.xiaomi_air_purifier_2
           - sensor.netatmo_bureau_noise
           - sensor.netatmo_bureau_co2
@@ -106,15 +111,17 @@ views:
           - entity: cover.velux_mezzanine
             tap_action:
               action: toggle
-      - type: glance
+      - type: entities
         title: Safety
+        show_header_toggle: false
         entities:
           - binary_sensor.lumi_sensor_smoke
-          - switch.main_water_valve
+          - binary_sensor.fire_37
           - binary_sensor.water_12
           - binary_sensor.compteur_eau
           - binary_sensor.buanderie
-          - binary_sensor.fire_37
+          - entity: switch.main_water_valve
+            type: custom:toggle-lock-entity-row
           - binary_sensor.porte_entree
       - type: vertical-stack
         cards:
@@ -137,6 +144,7 @@ views:
       - type: vertical-stack
         cards:
           - type: picture-glance
+            title: 3D Printers
             camera_image: camera.3d_printers
             entities:
               - sensor.r2r_current_state
@@ -148,7 +156,6 @@ views:
               - entity: switch.3d_printers
                 name: 3D printers
                 type: custom:toggle-lock-entity-row
-        title: 3D Printers
       - type: glance
         title: People
         entities:
@@ -161,6 +168,7 @@ views:
     badges: []
     icon: 'mdi:server-network'
     cards:
+      - type: custom:compact-custom-header
       - type: entities
         title: Server
         entities:
@@ -184,6 +192,7 @@ views:
     title: media_view
     badges: []
     cards:
+      - type: custom:compact-custom-header
       - type: entities
         entities:
           - light.salon
@@ -198,6 +207,7 @@ views:
     title: settings_view
     badges: []
     cards:
+      - type: custom:compact-custom-header
       - type: entities
         entities:
           - automation.close_covers_at_night
@@ -264,6 +274,7 @@ views:
     title: Batteries
     badges: []
     cards:
+      - type: custom:compact-custom-header
       - type: entities
         entities:
           - sensor.arrivee_eau_battery
