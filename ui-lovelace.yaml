@@ -1,5 +1,10 @@
 title: Appart
 background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
+
+resources:
+  - url: /local/toggle-lock-entity-row.js
+    type: js
+
 views:
   - path: default_view
     title: default_view
@@ -81,10 +86,13 @@ views:
       - type: entities
         entities:
           - binary_sensor.lumi_sensor_smoke
-          - switch.main_water_valve
+          - entity: switch.main_water_valve
+            name: Main water valve
+            type: custom:toggle-lock-entity-row
           - binary_sensor.water_12
           - binary_sensor.compteur_eau
           - binary_sensor.buanderie
+          - binary_sensor.fire_37
         title: Safety
         show_header_toggle: false
       - type: entities
@@ -99,6 +107,9 @@ views:
         entity: weather.dark_sky
       - type: entities
         entities:
+          - entity: switch.3d_printers
+            name: 3D printers
+            type: custom:toggle-lock-entity-row
           - sensor.r2r_current_state
           - sensor.r2r_job_percentage
           - sensor.itopie_current_state
