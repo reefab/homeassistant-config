@@ -9,10 +9,10 @@ alexa:
         - fan.ventilateur_bois
         - fan.ventilateur_bureau
         - light.bureau
-        - light.cuisine
-        - light.mezzanine
         - light.salon
-        - light.salle_de_bain
+        - light.cuisine_2
+        - light.mezzanine_2
+        - light.salle_de_bain_2
         - light.vitrine
         - switch.projector
         - switch.aspirateur
@@ -41,4 +41,4 @@ alexa:
       fan.ventilateur_bois:
         name: Ventilateur salon
       media_player.ecran_salon:
-        name: écran
+        name: Ampli

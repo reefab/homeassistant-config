@@ -57,7 +57,7 @@ automation:
       event_type: deconz_event
       event_data:
         id: bouton_lit
-        type: 1004
+        event: 1004
     action:
       service: scene.turn_on
       entity_id: scene.night_time
@@ -84,6 +84,12 @@ homeassistant:
       icon: 'mdi:led-strip'
     light.vitrine:
       icon: 'mdi:led-strip'
+    light.mezzanine_2:
+      icon: 'mdi:lamp'
+    light.salle_de_bain_2:
+      icon: 'mdi:wall-sconce'
+    light.cuisine_2:
+      icon: 'mdi:spotlight-beam'
     automation.switch_all_lights_off_with_button_press:
       hidden: true
     automation.if_there_is_motion_and_its_dark_turn_on_the_light_in_the_bathroom:

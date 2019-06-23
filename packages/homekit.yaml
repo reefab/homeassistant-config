@@ -8,18 +8,19 @@ homekit:
       - fan.ventilateur_bois
       - fan.ventilateur_bureau
       - light.bureau
-      - light.cuisine
-      - light.mezzanine
+      - light.cuisine_2
+      - light.mezzanine_2
+      - light.salle_de_bain_2
       - light.salon
       - switch.projector
       - switch.aspirateur
-      - sensor.foobot_salon_co2
-      - sensor.foobot_salon_humidity
-      - sensor.foobot_salon_pm25
-      - sensor.foobot_salon_temperature
-      - sensor.netatmo_bureau_co2
-      - sensor.netatmo_bureau_humidity
-      - sensor.netatmo_bureau_temperature
-      - sensor.netatmo_chambre_temperature
-      - sensor.netatmo_chambre_humidity
-      - sensor.netatmo_chambre_co2
+      # - sensor.foobot_salon_co2
+      # - sensor.foobot_salon_humidity
+      # - sensor.foobot_salon_pm25
+      # - sensor.foobot_salon_temperature
+      # - sensor.netatmo_bureau_co2
+      # - sensor.netatmo_bureau_humidity
+      # - sensor.netatmo_bureau_temperature
+      # - sensor.netatmo_chambre_temperature
+      # - sensor.netatmo_chambre_humidity
+      # - sensor.netatmo_chambre_co2
