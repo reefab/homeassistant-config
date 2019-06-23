@@ -9,23 +9,6 @@ automation:
     action:
       service: fan.toggle
       entity_id: fan.petit_ventilateur
-  - alias: turn office fan on
-    initial_state: false
-    trigger:
-      - entity_id: device_tracker.imac
-        from: not home
-        platform: state
-        to: home
-      - above: '26'
-        entity_id: sensor.netatmo_bureau_temperature
-        platform: numeric_state
-    condition:
-      - above: '26'
-        condition: numeric_state
-        entity_id: sensor.netatmo_bureau_temperature
-    action:
-      - entity_id: fan.ventilateur_bureau
-        service: fan.turn_on
   # auto switch off when it's cool enough
   - alias: turn office fan off
     trigger:
