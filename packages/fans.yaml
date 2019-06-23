@@ -30,11 +30,36 @@ automation:
           speed: 'off'
   - alias: toggle fans with cube
     trigger:
-      platform: event
-      event_type: xiaomi_aqara.cube_action
-      event_data:
-        entity_id: binary_sensor.cube_158d000104d0ed_2
-        action_type: tap_twice
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_20
+          event: 1001
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_20
+          event: 2002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_20
+          event: 3003
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_20
+          event: 4004
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_20
+          event: 5005
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_20
+          event: 6006
     action:
       - service: fan.toggle
         entity_id: fan.ventilateur_bois
