@@ -75,7 +75,7 @@ kitchen:
   name: Cuisine
   control: hidden
   entities:
-    - light.cuisine
+    - light.cuisine_2
     - sensor.cuisine_2
     - sensor.cuisine_3
 

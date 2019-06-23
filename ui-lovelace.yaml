@@ -96,7 +96,7 @@ views:
         title: Cuisine
         show_name: false
         entities:
-          - entity: light.cuisine
+          - entity: light.cuisine_2
             tap_action:
               action: toggle
           - sensor.cuisine_2
@@ -105,7 +105,7 @@ views:
         title: Mezzanine
         show_name: false
         entities:
-          - entity: light.mezzanine
+          - entity: light.mezzanine_2
             tap_action:
               action: toggle
           - entity: cover.velux_mezzanine
@@ -156,13 +156,17 @@ views:
               - entity: switch.3d_printers
                 name: 3D printers
                 type: custom:toggle-lock-entity-row
-      - type: glance
-        title: People
+      - type: entity-filter
         entities:
           - device_tracker.phophone
           - device_tracker.iphonedmanuelle
           - device_tracker.huawei_p9_lite_premium
           - device_tracker.oneplus_5t
+        state_filter:
+          - home
+        card:
+          type: glance
+          title: People
   - path: infra_view
     title: infra_view
     badges: []
