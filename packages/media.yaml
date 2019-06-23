@@ -1,32 +1,4 @@
 automation:
-  # - alias: Turn on projector with cube
-  #   trigger:
-  #     platform: event
-  #     event_type: xiaomi_aqara.cube_action
-  #     event_data:
-  #       entity_id: binary_sensor.cube_158d000104d0ed_2
-  #       action_type: shake_air
-  #   condition:
-  #     condition: state
-  #     entity_id: switch.projector
-  #     state: 'off'
-  #   action:
-  #     - service: switch.turn_on
-  #       entity_id: switch.projector
-  # - alias: Turn off projector with cube
-  #   trigger:
-  #     platform: event
-  #     event_type: xiaomi_aqara.cube_action
-  #     event_data:
-  #       entity_id: binary_sensor.cube_158d000104d0ed_2
-  #       action_type: shake_air
-  #   condition:
-  #     condition: state
-  #     entity_id: switch.projector
-  #     state: 'on'
-  #   action:
-  #     - service: switch.turn_off
-  #       entity_id: switch.projector
   - alias: turn up volume with cube
     trigger:
       platform: event
@@ -180,7 +152,7 @@ media_player:
           entity_id: media_player.yamaha_receiver
           source: '{{ source }}'
     attributes:
-      state: switch.projector
+      state: media_player.yamaha_receiver
       is_volume_muted: media_player.yamaha_receiver|is_volume_muted
       volume_level: media_player.yamaha_receiver|volume_level
       source: media_player.yamaha_receiver|source
