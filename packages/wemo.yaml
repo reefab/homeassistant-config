@@ -2,4 +2,4 @@ wemo:
   discovery: false
   static:
     - 192.168.12.106  # 3d printers
-    # - 192.168.12.105
+    - 192.168.12.105  # Fridge
