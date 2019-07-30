@@ -16,7 +16,7 @@ automation:
         from: home
         platform: state
         to: not home
-      - below: '26'
+      - below: '25'
         entity_id: sensor.netatmo_bureau_temperature
         platform: numeric_state
     condition:
