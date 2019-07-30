@@ -1,0 +1,30 @@
+# Custom device: a Beurer LB 50 with a sonoff basic installed inside
+
+automation:
+  - alias: Turn on humidifier if it's too dry
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.netatmo_salon_humidity
+        below: 50
+    action:
+      - service: switch.turn_on
+        entity_id: switch.humidifier
+  - alias: Turn off humidifier if it's too humid
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.netatmo_salon_humidity
+        above: 50
+    action:
+      - service: switch.turn_off
+        entity_id: switch.humidifier
+
+switch:
+  - platform: mqtt
+    name: "humidifier"
+    state_topic: "stat/humidifier/POWER"
+    command_topic: "cmnd/humidifier/POWER"
+    availability_topic: "tele/humidifier/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    payload_on: "ON"
+    payload_off: "OFF"
