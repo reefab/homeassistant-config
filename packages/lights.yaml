@@ -88,6 +88,8 @@ homeassistant:
       icon: 'mdi:wall-sconce'
     light.cuisine_2:
       icon: 'mdi:spotlight-beam'
+    light.spots_salon:
+      icon: 'mdi:spotlight-beam'
     automation.switch_all_lights_off_with_button_press:
       hidden: true
     automation.if_there_is_motion_and_its_dark_turn_on_the_light_in_the_bathroom:
