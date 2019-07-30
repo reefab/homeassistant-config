@@ -13,6 +13,13 @@ automation:
     trigger:
       platform: sun
       event: sunrise
+    condition:
+      - condition: state
+        entity_id: group.guests
+        state: 'not_home'
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
+        below: 25
     action:
       service: cover.open_cover
       entity_id: cover.velux_mezzanine
@@ -23,9 +30,12 @@ automation:
       platform: sun
       event: sunrise
     condition:
-      condition: state
-      entity_id: device_tracker.phophone
-      state: 'not_home'
+      - condition: state
+        entity_id: device_tracker.phophone
+        state: 'not_home'
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
+        below: 25
     action:
       service: cover.open_cover
       entity_id: cover.bedroom_velux

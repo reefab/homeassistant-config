@@ -2,6 +2,16 @@ weather:
   - platform: darksky
     api_key: !secret dark_sky_api
 
+sensor:
+  - platform: darksky
+    api_key: !secret dark_sky_api
+    forecast:
+      - 0
+    monitored_conditions:
+      - apparent_temperature_high
+    scan_interval:
+      hours: 1
+
 homeassistant:
   customize:
     sun.sun:
