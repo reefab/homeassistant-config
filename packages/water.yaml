@@ -1,4 +1,7 @@
 switch:
+  # Custom device with a motorized ball valve and a modified sonoff basic to
+  # create a connected main water valve. Documentation available here:
+  # https://github.com/reefab/homeassistant-water-valve
   - platform: mqtt
     name: Main Water Valve
     state_topic: "stat/water_valve/POWER"
@@ -9,7 +12,6 @@ switch:
     qos: 1
     payload_on: "OFF"
     payload_off: "ON"
-    retain: true
 
 automation:
   - alias: Shut water valve in case of leaks
@@ -37,7 +39,7 @@ automation:
       event: start
     action:
       - delay:
-          seconds: 120
+          seconds: 180
       - service: automation.turn_on
         entity_id: automation.shut_water_valve_in_case_of_leaks
 

@@ -63,8 +63,6 @@ cover:
     availability_topic: "tele/velux/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
-    retain: true
-    qos: 1
   # Using a Broadlink IR Mini to control old style velux interior blinds via IR
   - platform: template
     covers:

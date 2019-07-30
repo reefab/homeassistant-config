@@ -71,10 +71,8 @@ light:
     availability_topic: "tele/office_fan/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
-    qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: true
 
 homeassistant:
   customize:

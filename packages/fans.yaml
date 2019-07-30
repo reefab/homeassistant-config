@@ -101,10 +101,8 @@ fan:
     availability_topic: "tele/black_fan/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
-    qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: true
   # Sonoff Basic with Tasmota
   - platform: mqtt
     name: "Ventilateur Bois"
@@ -113,10 +111,8 @@ fan:
     availability_topic: "tele/salon_fan/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
-    qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: true
 
 homeassistant:
   customize:
