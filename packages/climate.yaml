@@ -49,25 +49,6 @@ automation:
         data:
           tag: "safe-to-open-window"
 
-  # - alias: Turn on bedroom heater during the night
-  #   trigger:
-  #     platform: time
-  #     at: 05:00:00
-  #   action:
-  #     service: climate.set_operation_mode
-  #     entity_id: climate.chambre
-  #     data:
-  #       operation_mode: heat
-  # - alias: Turn off bedroom heater during the day
-  #   trigger:
-  #     platform: time
-  #     at: '14:00:00'
-  #   action:
-  #     service: climate.set_operation_mode
-  #     entity_id: climate.chambre
-  #     data:
-  #       operation_mode: 'off'
-
   - alias: Turn stuff off when a window is opened or no home is one
     trigger:
       - platform: state
