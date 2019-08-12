@@ -21,9 +21,15 @@ views:
             entities:
               - vacuum.xiaomi_vacuum_cleaner
               - switch.flux
+              - entity: binary_sensor.porte_entree
+                icon: mdi:door
             title: Global
           - type: thermostat
             entity: climate.netatmo_my_room
+          - type: entities
+            entities:
+              - entity: switch.main_water_valve
+                type: custom:toggle-lock-entity-row
       - type: vertical-stack
         cards:
           - type: glance
@@ -38,10 +44,12 @@ views:
                   action: toggle
               - sensor.netatmo_salon_temperature
               - sensor.netatmo_salon_humidity
-              - binary_sensor.fenetre_salon
+              - entity: binary_sensor.fenetre_salon
+                icon: mdi:window-closed
               - entity: fan.ventilateur_bois
                 tap_action:
                   action: toggle
+              - binary_sensor.lumi_sensor_smoke
               - sensor.foobot_salon_co2
               - sensor.foobot_salon_pm25
               - sensor.foobot_salon_voc
@@ -56,7 +64,8 @@ views:
           - entity: light.vitrine
             tap_action:
               action: toggle
-          - binary_sensor.openclose_11
+          - entity: binary_sensor.openclose_11
+            icon: mdi:window-closed
           - sensor.netatmo_bureau_temperature
           - sensor.netatmo_bureau_humidity
           - entity: fan.ventilateur_bureau
@@ -67,6 +76,7 @@ views:
           - sensor.netatmo_bureau_co2
           - sensor.bureau_aqi
           - switch.soldering_iron
+          - binary_sensor.fire_37
           - entity: switch.steambox
             icon: 'mdi:steam'
             tap_action:
@@ -93,6 +103,8 @@ views:
               action: toggle
           - sensor.salle_de_bain_2
           - sensor.salle_de_bain_3
+          - entity: binary_sensor.water_12
+            icon: mdi:toilet
       - type: glance
         title: Cuisine
         show_name: false
@@ -103,6 +115,10 @@ views:
           - sensor.cuisine_2
           - sensor.cuisine_3
           - sensor.fridge_power
+          - entity: binary_sensor.compteur_eau
+            icon: mdi:pipe-leak
+          - entity: binary_sensor.buanderie
+            icon: mdi:washing-machine
       - type: glance
         title: Mezzanine
         show_name: false
@@ -113,18 +129,6 @@ views:
           - entity: cover.velux_mezzanine
             tap_action:
               action: toggle
-      - type: entities
-        title: Safety
-        show_header_toggle: false
-        entities:
-          - binary_sensor.lumi_sensor_smoke
-          - binary_sensor.fire_37
-          - binary_sensor.water_12
-          - binary_sensor.compteur_eau
-          - binary_sensor.buanderie
-          - entity: switch.main_water_valve
-            type: custom:toggle-lock-entity-row
-          - binary_sensor.porte_entree
       - type: vertical-stack
         cards:
           - type: glance
