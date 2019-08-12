@@ -66,10 +66,10 @@ automation:
         for:
           minutes: 2
     action:
-      - service: climate.set_away_mode
+      - service: climate.set_preset_mode
         entity_id: climate.netatmo_my_room
         data:
-          away_mode: true
+          preset_mode: 'away'
       - service: fan.turn_off
         entity_id: fan.xiaomi_air_purifier_2
       - service: automation.turn_off
@@ -100,10 +100,10 @@ automation:
           entity_id: binary_sensor.fenetre_salon
           state: 'off'
     action:
-      - service: climate.set_away_mode
+      - service: climate.set_preset_mode
         entity_id: climate.netatmo_my_room
         data:
-          away_mode: false
+          preset_mode: "Schedule"
       - service: automation.turn_on
         entity_id: automation.turn_on_office_purifier_if_aqi_is_too_low
       - service: automation.turn_on
