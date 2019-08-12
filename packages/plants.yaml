@@ -1,31 +1,14 @@
-sensor:
-  - platform: miflora
-    name: flowall_bureau_xiaomi
-    mac: 'C4:7C:8D:66:E7:5D'
-    monitored_conditions:
-      - moisture
-      - light
-      - temperature
-      - conductivity
-      - battery
-  - platform: miflora
-    name: flowall_salon_xiaomi
-    mac: 'C4:7C:8D:66:C9:DA'
-    monitored_conditions:
-      - moisture
-      - light
-      - temperature
-      - conductivity
-      - battery
+# Mi Flora sensors interfaced using
+# https://github.com/ThomDietrich/miflora-mqtt-daemon
 
 plant:
   flowall_bureau:
     sensors:
-      moisture: sensor.flowall_bureau_xiaomi_moisture
-      battery: sensor.flowall_bureau_xiaomi_battery
-      temperature: sensor.flowall_bureau_xiaomi_temperature
-      conductivity: sensor.flowall_bureau_xiaomi_conductivity
-      brightness: sensor.flowall_bureau_xiaomi_light_intensity
+      moisture: sensor.flowallbureau_moisture
+      battery: sensor.flowallbureau_battery
+      temperature: sensor.flowallbureau_temperature
+      conductivity: sensor.flowallbureau_conductivity
+      brightness: sensor.flowallbureau_light
     min_moisture: 20
     max_moisture: 80
     min_battery: 15
@@ -33,11 +16,11 @@ plant:
     min_temperature: 15
   flowall_salon:
     sensors:
-      moisture: sensor.flowall_salon_xiaomi_moisture
-      battery: sensor.flowall_salon_xiaomi_battery
-      temperature: sensor.flowall_salon_xiaomi_temperature
-      conductivity: sensor.flowall_salon_xiaomi_conductivity
-      brightness: sensor.flowall_salon_xiaomi_light_intensity
+      moisture: sensor.flowallsalon_moisture
+      battery: sensor.flowallsalon_battery
+      temperature: sensor.flowallsalon_temperature
+      conductivity: sensor.flowallsalon_conductivity
+      brightness: sensor.flowallsalon_light
     min_moisture: 20
     max_moisture: 80
     min_battery: 15
@@ -50,8 +33,3 @@ homeassistant:
       friendly_name: Flowall Bureau
     plant.flowall_salon:
       friendly_name: Flowall Salon
-  customize_glob:
-    "sensor.flowall_bureau_xiaomi_*":
-      hidden: true
-    "sensor.flowall_salon_xiaomi_*":
-      hidden: true
