@@ -23,3 +23,15 @@ homeassistant:
       friendly_name: Fumée Salon
     binary_sensor.water_12:
       friendly_name: Robinet Toilette
+      icon: mdi:toilet
+    binary_sensor.porte_entree:
+      icon: mdi:door
+    binary_sensor.fenetre_salon:
+      icon: mdi:window-closed
+    binary_sensor.openclose_11:
+      friendly_name: Fenetre bureau
+      icon: mdi:window-closed
+    binary_sensor.compteur_eau:
+      icon: mdi:pipe-leak
+    binary_sensor.buanderie:
+      icon: mdi:washing-machine

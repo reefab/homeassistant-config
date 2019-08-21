@@ -21,8 +21,7 @@ views:
             entities:
               - vacuum.xiaomi_vacuum_cleaner
               - switch.flux
-              - entity: binary_sensor.porte_entree
-                icon: mdi:door
+              - binary_sensor.porte_entree
             title: Global
           - type: thermostat
             entity: climate.netatmo_my_room
@@ -36,16 +35,12 @@ views:
             title: Salon
             show_name: false
             entities:
-              - entity: light.salon
-                tap_action:
-                  action: toggle
               - entity: light.spots_salon
                 tap_action:
                   action: toggle
               - sensor.netatmo_salon_temperature
               - sensor.netatmo_salon_humidity
-              - entity: binary_sensor.fenetre_salon
-                icon: mdi:window-closed
+              - binary_sensor.fenetre_salon
               - entity: fan.ventilateur_bois
                 tap_action:
                   action: toggle
@@ -54,33 +49,45 @@ views:
               - sensor.foobot_salon_pm25
               - sensor.foobot_salon_voc
               - sensor.foobot_salon_index
-      - type: glance
-        title: Bureau
-        show_name: false
-        entities:
-          - entity: light.bureau
-            tap_action:
-              action: toggle
-          - entity: light.vitrine
-            tap_action:
-              action: toggle
-          - entity: binary_sensor.openclose_11
-            icon: mdi:window-closed
-          - sensor.netatmo_bureau_temperature
-          - sensor.netatmo_bureau_humidity
-          - entity: fan.ventilateur_bureau
-            tap_action:
-              action: toggle
-          - fan.xiaomi_air_purifier_2
-          - sensor.netatmo_bureau_noise
-          - sensor.netatmo_bureau_co2
-          - sensor.bureau_aqi
-          - switch.soldering_iron
-          - binary_sensor.fire_37
-          - entity: switch.steambox
-            icon: 'mdi:steam'
-            tap_action:
-              action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.salon
+              - type: sensor
+                graph: line
+                entity: sensor.netatmo_salon_temperature
+      - type: vertical-stack
+        cards:
+          - type: glance
+            title: Bureau
+            show_name: false
+            entities:
+              - entity: light.vitrine
+                tap_action:
+                  action: toggle
+              - binary_sensor.openclose_11
+              - sensor.netatmo_bureau_humidity
+              - entity: fan.ventilateur_bureau
+                tap_action:
+                  action: toggle
+              - fan.xiaomi_air_purifier_2
+              - sensor.netatmo_bureau_noise
+              - sensor.netatmo_bureau_co2
+              - sensor.bureau_aqi
+              - switch.soldering_iron
+              - binary_sensor.fire_37
+              - entity: switch.steambox
+                icon: 'mdi:steam'
+                tap_action:
+                  action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: light
+                entity: light.bureau
+              - type: sensor
+                graph: line
+                entity: sensor.netatmo_bureau_temperature
+
       - type: glance
         title: Chambre
         show_name: false
@@ -103,8 +110,7 @@ views:
               action: toggle
           - sensor.salle_de_bain_2
           - sensor.salle_de_bain_3
-          - entity: binary_sensor.water_12
-            icon: mdi:toilet
+          - binary_sensor.water_12
       - type: glance
         title: Cuisine
         show_name: false
@@ -115,10 +121,8 @@ views:
           - sensor.cuisine_2
           - sensor.cuisine_3
           - sensor.fridge_power
-          - entity: binary_sensor.compteur_eau
-            icon: mdi:pipe-leak
-          - entity: binary_sensor.buanderie
-            icon: mdi:washing-machine
+          - binary_sensor.compteur_eau
+          - binary_sensor.buanderie
       - type: glance
         title: Mezzanine
         show_name: false
@@ -173,6 +177,7 @@ views:
         card:
           type: glance
           title: People
+
   - path: infra_view
     title: infra_view
     badges: []
@@ -198,6 +203,7 @@ views:
           - binary_sensor.sync
           - binary_sensor.ac_ap_lite
         show_header_toggle: false
+
   - path: media_view
     title: media_view
     badges: []
@@ -213,6 +219,7 @@ views:
       - type: media-control
         entity: media_player.ecran_salon
     icon: 'mdi:presentation-play'
+
   - path: settings_view
     title: settings_view
     badges: []
@@ -345,4 +352,3 @@ views:
         title: Battery Status
         show_header_toggle: false
     icon: 'mdi:battery-alert'
-
