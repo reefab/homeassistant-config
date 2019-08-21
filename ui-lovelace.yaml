@@ -13,7 +13,6 @@ views:
     badges: []
     icon: 'mdi:home'
     cards:
-      - type: custom:compact-custom-header
       - type: vertical-stack
         cards:
           - type: glance
@@ -183,7 +182,6 @@ views:
     badges: []
     icon: 'mdi:server-network'
     cards:
-      - type: custom:compact-custom-header
       - type: entities
         title: Server
         entities:
@@ -208,7 +206,6 @@ views:
     title: media_view
     badges: []
     cards:
-      - type: custom:compact-custom-header
       - type: entities
         entities:
           - light.salon
@@ -224,7 +221,6 @@ views:
     title: settings_view
     badges: []
     cards:
-      - type: custom:compact-custom-header
       - type: entities
         entities:
           - automation.close_covers_at_night
@@ -287,11 +283,28 @@ views:
           - script.check_config
         title: Script
     icon: 'mdi:settings'
+
+  - path: test
+    title: Test
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - sensor.airtower_temperature
+          - sensor.airtower_humidity
+          - sensor.airtower_pressure
+          - sensor.airtower_ammonia
+          - sensor.airtower_oxidising_gases
+          - sensor.airtower_reducing_gases
+          - sensor.airtower_light
+          - sensor.airtower_pm_1
+          - sensor.airtower_pm_2_5
+          - sensor.airtower_pm_10
+
   - path: battery_view
     title: Batteries
     badges: []
     cards:
-      - type: custom:compact-custom-header
       - type: entities
         entities:
           - sensor.arrivee_eau_battery
