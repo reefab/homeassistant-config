@@ -4,7 +4,7 @@ background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
 resources:
   - url: /local/toggle-lock-entity-row.js
     type: js
-  - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=0.0.1
+  - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=0.0.2
     type: module
 
 views:
