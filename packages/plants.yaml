@@ -30,6 +30,24 @@ plant:
 homeassistant:
   customize:
     plant.flowall_bureau:
-      friendly_name: Flowall Bureau
+      friendly_name: Plantes murales bureau
     plant.flowall_salon:
-      friendly_name: Flowall Salon
+      friendly_name: Plantes murales salon
+
+alert:
+  bureau_plant:
+    name: Les plantes murales du bureau ont besoin d'attention
+    done_message: Les plantes murales du bureau vous remercient
+    entity_id: plant.flowall_bureau
+    state: 'problem'
+    repeat: 43200
+    notifiers:
+      - ios_phophone
+  salon_plant:
+    name: Les plantes murales du salon ont besoin d'attention
+    done_message: Les plantes murales du salon vous remercient
+    entity_id: plant.flowall_salon
+    state: 'problem'
+    repeat: 43200
+    notifiers:
+      - ios_phophone
