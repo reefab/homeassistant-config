@@ -22,6 +22,11 @@ binary_sensor:
     name: AC-AP Lite
     host: 192.168.1.62
     count: 2
+  - platform: ping
+    name: imac
+    host: 192.168.1.60
+    count: 2
+    scan_interval: 10
 
 homeassistant:
   customize:
@@ -35,3 +40,5 @@ homeassistant:
       icon: 'mdi:cloud-sync'
     binary_sensor.ac_ap_lite:
       icon: 'mdi:access-point-network'
+    binary_sensor.imac:
+      icon: 'mdi:desktop-mac'
