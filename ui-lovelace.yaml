@@ -15,21 +15,50 @@ views:
     cards:
       - type: vertical-stack
         cards:
+          - type: thermostat
+            entity: climate.netatmo_my_room
+          - type: sensor
+            graph: line
+            name: Dehors
+            entity: sensor.netatmo_dehors_temperature
           - type: glance
-            show_name: false
+            title: Global
+            # show_name: false
             entities:
               - vacuum.xiaomi_vacuum_cleaner
               - switch.flux
               - binary_sensor.porte_entree
-            title: Global
-          - type: thermostat
-            entity: climate.netatmo_my_room
-          - type: entities
-            entities:
               - entity: switch.main_water_valve
                 type: custom:toggle-lock-entity-row
+          - type: glance
+            title: Dehors
+            entities:
+              - sensor.netatmo_dehors_humidity
+              - sensor.waqi_paris_centre_paris
+              - sensor.velib_86245c11064e6c59600ed1a72ca437b7
+
+          - type: weather-forecast
+            entity: weather.dark_sky
+          - type: entity-filter
+            entities:
+              - device_tracker.phophone
+              - device_tracker.iphonedmanuelle
+              - device_tracker.huawei_p9_lite_premium
+              - device_tracker.oneplus_5t
+            state_filter:
+              - home
+            card:
+              type: glance
+              title: People
+
       - type: vertical-stack
         cards:
+          - type: light
+            entity: light.salon
+          - type: sensor
+            graph: line
+            name: Salon
+            entity: sensor.netatmo_salon_temperature
           - type: glance
             title: Salon
             show_name: false
@@ -37,26 +66,27 @@ views:
               - entity: light.spots_salon
                 tap_action:
                   action: toggle
-              - sensor.netatmo_salon_temperature
               - sensor.netatmo_salon_humidity
               - binary_sensor.fenetre_salon
               - entity: fan.ventilateur_bois
                 tap_action:
                   action: toggle
-              - binary_sensor.lumi_sensor_smoke
               - sensor.foobot_salon_co2
+              - binary_sensor.lumi_sensor_smoke
               - sensor.foobot_salon_pm25
               - sensor.foobot_salon_voc
               - sensor.foobot_salon_index
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.salon
-              - type: sensor
-                graph: line
-                entity: sensor.netatmo_salon_temperature
+          - type: plant-status
+            entity: plant.flowall_salon
+
       - type: vertical-stack
         cards:
+          - type: light
+            entity: light.bureau
+          - type: sensor
+            graph: line
+            name: Bureau
+            entity: sensor.netatmo_bureau_temperature
           - type: glance
             title: Bureau
             show_name: false
@@ -64,42 +94,57 @@ views:
               - entity: light.vitrine
                 tap_action:
                   action: toggle
-              - binary_sensor.openclose_11
               - sensor.netatmo_bureau_humidity
+              - binary_sensor.openclose_11
               - entity: fan.ventilateur_bureau
                 tap_action:
                   action: toggle
+              - sensor.netatmo_bureau_co2
               - fan.xiaomi_air_purifier_2
               - sensor.netatmo_bureau_noise
-              - sensor.netatmo_bureau_co2
               - sensor.bureau_aqi
               - switch.soldering_iron
-              - binary_sensor.fire_37
               - entity: switch.steambox
                 icon: 'mdi:steam'
                 tap_action:
                   action: toggle
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.bureau
-              - type: sensor
-                graph: line
-                entity: sensor.netatmo_bureau_temperature
+          - type: plant-status
+            entity: plant.flowall_bureau
+          - type: picture-glance
+            title: 3D Printers
+            camera_image: camera.3d_printers
+            entities:
+              - sensor.r2r_current_state
+              - sensor.itopie_current_state
+              - binary_sensor.fire_37
+          - type: entities
+            entities:
+              - entity: switch.3d_printers
+                name: 3D printers
+                type: custom:toggle-lock-entity-row
 
-      - type: glance
-        title: Chambre
-        show_name: false
-        entities:
-          - sensor.netatmo_chambre_temperature
-          - sensor.netatmo_chambre_humidity
-          - entity: fan.petit_ventilateur
-            tap_action:
-              action: toggle
-          - sensor.netatmo_chambre_co2
-          - entity: cover.bedroom_velux
-            tap_action:
-              action: toggle
+      - type: vertical-stack
+        cards:
+          - type: light
+            entity: light.bureau_3
+          - type: sensor
+            graph: line
+            name: chambre
+            entity: sensor.netatmo_chambre_temperature
+          - type: glance
+            title: Chambre
+            show_name: false
+            entities:
+              - light.bureau_3
+              - sensor.netatmo_chambre_humidity
+              - entity: cover.bedroom_velux
+                tap_action:
+                  action: toggle
+              - entity: fan.petit_ventilateur
+                tap_action:
+                  action: toggle
+              - sensor.netatmo_chambre_co2
+
       - type: glance
         title: Salle de Bain
         show_name: false
@@ -107,9 +152,10 @@ views:
           - entity: light.salle_de_bain_2
             tap_action:
               action: toggle
-          - sensor.salle_de_bain_2
           - sensor.salle_de_bain_3
+          - sensor.salle_de_bain_2
           - binary_sensor.water_12
+
       - type: glance
         title: Cuisine
         show_name: false
@@ -117,11 +163,12 @@ views:
           - entity: light.cuisine_2
             tap_action:
               action: toggle
-          - sensor.cuisine_2
           - sensor.cuisine_3
+          - sensor.cuisine_2
           - sensor.fridge_power
           - binary_sensor.compteur_eau
           - binary_sensor.buanderie
+
       - type: glance
         title: Mezzanine
         show_name: false
@@ -132,50 +179,7 @@ views:
           - entity: cover.velux_mezzanine
             tap_action:
               action: toggle
-      - type: vertical-stack
-        cards:
-          - type: glance
-            title: Dehors
-            show_name: false
-            entities:
-              - sensor.netatmo_dehors_temperature
-              - sensor.netatmo_dehors_humidity
-              - sensor.waqi_paris_centre_paris
-              - sensor.velib_86245c11064e6c59600ed1a72ca437b7
-          - type: weather-forecast
-            entity: weather.dark_sky
-      - type: vertical-stack
-        cards:
-          - type: plant-status
-            entity: plant.flowall_bureau
-          - type: plant-status
-            entity: plant.flowall_salon
-      - type: vertical-stack
-        cards:
-          - type: picture-glance
-            title: 3D Printers
-            camera_image: camera.3d_printers
-            entities:
-              - sensor.r2r_current_state
-              - sensor.r2r_job_percentage
-              - sensor.itopie_current_state
-              - sensor.itopie_job_percentage
-          - type: entities
-            entities:
-              - entity: switch.3d_printers
-                name: 3D printers
-                type: custom:toggle-lock-entity-row
-      - type: entity-filter
-        entities:
-          - device_tracker.phophone
-          - device_tracker.iphonedmanuelle
-          - device_tracker.huawei_p9_lite_premium
-          - device_tracker.oneplus_5t
-        state_filter:
-          - home
-        card:
-          type: glance
-          title: People
+
 
   - path: infra_view
     title: infra_view
@@ -200,6 +204,7 @@ views:
           - binary_sensor.pi_hole_2
           - binary_sensor.sync
           - binary_sensor.ac_ap_lite
+          - binary_sensor.imac
         show_header_toggle: false
 
   - path: media_view
