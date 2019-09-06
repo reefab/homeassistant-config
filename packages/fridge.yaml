@@ -4,8 +4,8 @@ sensor:
     sensors:
       fridge_power:
         friendly_name: Fridge power
-        unit_of_measurement: 'w'
-        value_template: "{{states.switch.radiateur_lit.attributes.current_power_w}}"
+        unit_of_measurement: 'W'
+        value_template: "{{state_attr('switch.radiateur_lit', 'current_power_w')}}"
 
 homeassistant:
   customize:
