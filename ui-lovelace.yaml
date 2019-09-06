@@ -6,6 +6,8 @@ resources:
     type: js
   - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=0.0.2
     type: module
+  - url: /local/custom-lovelace/group-card/group-card.js
+    type: js
 
 views:
   - path: default_view
@@ -227,66 +229,17 @@ views:
     badges: []
     cards:
       - type: entities
-        entities:
-          - automation.close_covers_at_night
-          - automation.open_bedroom_cover_during_the_day
-          - automation.open_mezzanine_cover_during_the_day
-          - >-
-            automation.prompt_to_open_windows_if_exterior_temperature_is_below_living_room_temperature
-          - >-
-            automation.prompt_to_open_windows_if_exterior_temperature_is_below_office_temperature
-          - automation.quieten_vacuum_if_back_home_alone
-          - automation.shut_water_valve_in_case_of_leaks
-          - automation.soldering_iron_still_on
-          - automation.start_clearning_before_it_s_too_late
-          - automation.start_clearning_if_home_is_empty
-          - automation.stop_vacuum_if_back_home_with_guests
-          - automation.switch_flux_mode_on_at_start_up
-          - automation.switch_all_lights_off_with_button_press
-          - automation.switch_lights_off_if_no_one_is_home
-          - automation.switch_lights_on_if_people_are_coming_home
-          - automation.switch_lights_on_if_people_are_home_at_sunset
-          - automation.toggle_bed_fan
-          - automation.toggle_bedroom_cover
-          - automation.turn_off_humidifier_if_it_s_too_humid
-          - automation.turn_off_office_purifier_if_aqi_is_fine
-          - automation.turn_on_humidifier_if_it_s_too_dry
-          - automation.turn_on_office_purifier_if_aqi_is_too_low
-          - >-
-            automation.turn_stuff_back_on_when_the_windows_are_closed_or_there_is_people
-          - automation.turn_stuff_off_when_a_window_is_opened_or_no_home_is_one
-          - automation.battery_notification
-          - automation.battery_notification_clear
-          - automation.battery_sensor_from_attributes
-          - automation.clear_mqtt_topic
-          - automation.front_door_has_been_opened
-          - automation.mute_volume_with_cube
-          - automation.switch_entrance_light_on_door_opening
-          - automation.toggle_fans_with_cube
-          - automation.turn_down_volume_with_cube
-          - automation.turn_office_fan_off
-          - automation.turn_office_fan_on
-          - automation.turn_up_volume_with_cube
-          - automation.update_battery_status_group_members
-        title: all automations
+        title: Script
         show_header_toggle: false
-      - type: entities
-        entities:
-          - input_number.battery_alert_threshold_min
-          - input_number.battery_alert_threshold_max
-          - input_text.clear_mqtt_topic
-          - automation.battery_notification
-          - automation.battery_notification_clear
-          - automation.battery_sensor_from_attributes
-          - automation.update_battery_status_group_members
-          - automation.clear_mqtt_topic
-        title: Battery Alert
-        show_header_toggle: false
-      - type: entities
         entities:
           - script.restart_ha
           - script.check_config
-        title: Script
+      - type: custom:group-card
+        title: all automations
+        card:
+          type: entities
+          show_header_toggle: false
+        group: group.all_automations
     icon: 'mdi:settings'
 
   - path: test
@@ -308,65 +261,14 @@ views:
 
   - path: battery_view
     title: Batteries
+    icon: 'mdi:battery-alert'
     badges: []
     cards:
-      - type: entities
-        entities:
-          - sensor.arrivee_eau_battery
-          - sensor.bouton_lit_battery
-          - sensor.buanderie_battery
-          - sensor.bureau_battery_level
-          - sensor.compteur_eau_battery
-          - sensor.cube_158d000104d0ed_battery
-          - sensor.fabien_battery
-          - sensor.fenetre_bureau_battery
-          - sensor.fenetre_salon_battery
-          - sensor.fenetre_salon_battery_2
-          - sensor.flowall_bureau_battery_2
-          - sensor.flowall_bureau_xiaomi_battery
-          - sensor.flowall_salon_battery
-          - sensor.flowall_salon_xiaomi_battery
-          - sensor.fumee_salon_battery
-          - sensor.fumee_salon_battery_2
-          - sensor.humidite_battery
-          - sensor.humidite_battery_2
-          - sensor.humidite_cuisine_battery
-          - sensor.humidite_sdb_battery
-          - sensor.lightlevel_28_battery
-          - sensor.lightlevel_59_battery
-          - sensor.lit_battery_level
-          - sensor.motion_sensor_battery
-          - sensor.mouvement_salle_de_bain_battery
-          - sensor.netatmo_chambre_battery
-          - sensor.netatmo_chambre_battery_percent
-          - sensor.netatmo_dehors_battery
-          - sensor.netatmo_dehors_battery_percent
-          - sensor.netatmo_salon_battery
-          - sensor.netatmo_salon_battery_percent
-          - sensor.openclose_11_battery
-          - sensor.porte_entree_battery
-          - sensor.porte_entree_battery_2
-          - sensor.presence_26_battery
-          - sensor.presence_58_battery
-          - sensor.pression_cuisine_battery
-          - sensor.pression_cuisine_battery_2
-          - sensor.pression_salle_de_bain_battery
-          - sensor.pression_sdb_battery
-          - sensor.robinet_lave_lingevaisselle_battery
-          - sensor.robinet_toilette_battery
-          - sensor.robinet_toilette_battery_2
-          - sensor.roborock_vacuum_battery
-          - sensor.salon_battery_level
-          - sensor.salon_chambre_battery_level
-          - sensor.salon_mezza_battery_level
-          - sensor.spare_battery
-          - sensor.switch_19_battery_level
-          - sensor.switch_57_battery_level
-          - sensor.temperature_27_battery
-          - sensor.temperature_battery
-          - sensor.temperature_battery_2
-          - sensor.temperature_cuisine_battery
-          - sensor.temperature_sdb_battery
-        title: Battery Status
-        show_header_toggle: false
-    icon: 'mdi:battery-alert'
+      - type: custom:group-card
+        card:
+          type: entities
+        group: group.battery_status
+      - type: custom:group-card
+        card:
+          type: entities
+        group: group.battery_alert
