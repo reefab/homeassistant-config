@@ -5,6 +5,7 @@ switch:
       - light.bureau
       - light.salon
       - light.mezzanine
+      - light.chambre
     disable_brightness_adjust: true
     start_colortemp: 4291
     sunset_colortemp: 2890
