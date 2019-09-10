@@ -40,7 +40,12 @@ alert:
     done_message: Les plantes murales du bureau vous remercient
     entity_id: plant.flowall_bureau
     state: 'problem'
-    repeat: 43200
+    skip_first: true
+    can_acknowledge: true
+    repeat:
+      - 20
+      - 60
+      - 360
     notifiers:
       - ios_phophone
   salon_plant:
@@ -48,6 +53,11 @@ alert:
     done_message: Les plantes murales du salon vous remercient
     entity_id: plant.flowall_salon
     state: 'problem'
-    repeat: 43200
+    skip_first: true
+    can_acknowledge: true
+    repeat:
+      - 20
+      - 60
+      - 360
     notifiers:
       - ios_phophone
