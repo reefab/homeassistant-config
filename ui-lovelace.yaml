@@ -128,7 +128,7 @@ views:
       - type: vertical-stack
         cards:
           - type: light
-            entity: light.bureau_3
+            entity: light.chambre
           - type: sensor
             graph: line
             name: chambre
@@ -137,7 +137,9 @@ views:
             title: Chambre
             show_name: false
             entities:
-              - light.bureau_3
+              - entity: light.dressing
+                tap_action:
+                  action: toggle
               - sensor.netatmo_chambre_humidity
               - entity: cover.bedroom_velux
                 tap_action:
