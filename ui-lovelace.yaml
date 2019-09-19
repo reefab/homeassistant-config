@@ -25,10 +25,9 @@ views:
             entity: sensor.netatmo_dehors_temperature
           - type: glance
             title: Global
-            # show_name: false
             entities:
               - vacuum.xiaomi_vacuum_cleaner
-              - switch.flux
+              - switch.circadian_lighting_circadian_lighting
               - binary_sensor.porte_entree
               - entity: switch.main_water_valve
                 type: custom:toggle-lock-entity-row
