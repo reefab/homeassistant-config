@@ -100,6 +100,21 @@ light:
     payload_on: "ON"
     payload_off: "OFF"
 
+switch:
+  - platform: template
+    switches:
+      # When cleaning, switch all lights on to cool white at max
+      menage:
+        value_template: "{{ is_state('switch.circadian_lighting_circadian_lighting', 'off') }}"
+        turn_on:
+          service: scene.turn_on
+          data:
+            entity_id: scene.menage
+        turn_off:
+          service: scene.turn_on
+          data:
+            entity_id: scene.normal
+
 homeassistant:
   customize:
     light.bureau:
@@ -124,3 +139,5 @@ homeassistant:
       hidden: true
     group.main_rooms_lights:
       hidden: true
+    switch.menage:
+      icon: 'mdi:spray-bottle'

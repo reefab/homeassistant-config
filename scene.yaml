@@ -4,3 +4,21 @@
     fan.ventilateur_bureau: off
     fan.ventilateur_bois: off
     switch.steambox: off
+- name: Ménage
+  entities:
+    switch.circadian_lighting_circadian_lighting: off
+    group.all_lights:
+      state: on
+      kelvin: 5000
+      brightness: 255
+- name: Normal
+  entities:
+    switch.circadian_lighting_circadian_lighting: on
+    group.all_lights:
+      state: off
+    light.salon:
+      state: on
+      brightness: 150
+    light.bureau:
+      state: on
+      brightness: 150

@@ -27,7 +27,8 @@ views:
             title: Global
             entities:
               - vacuum.xiaomi_vacuum_cleaner
-              - switch.circadian_lighting_circadian_lighting
+              # - switch.circadian_lighting_circadian_lighting
+              - switch.menage
               - binary_sensor.porte_entree
               - entity: switch.main_water_valve
                 type: custom:toggle-lock-entity-row
