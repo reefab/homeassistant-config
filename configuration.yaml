@@ -19,9 +19,6 @@ homeassistant:
   auth_providers:
     - type: homeassistant
 
-# Show links to resources in log and frontend
-# introduction:
-
 # Enables the frontend
 frontend:
   themes: !include_dir_named themes
@@ -30,9 +27,6 @@ frontend:
 config:
 
 http:
-  trusted_proxies:
-    - 172.128.10.0/24
-  use_x_forwarded_for: true
   ip_ban_enabled: true
   login_attempts_threshold: 5
   base_url: !secret base_url
@@ -63,8 +57,13 @@ history:
   exclude:
     domains:
       - weblink
+      - automation
       - updater
       - weather
+    entities:
+      - sensor.last_boot
+      - sensor.date
+      - sun.sun
 
 # View all events in a logbook
 logbook:
@@ -84,23 +83,16 @@ scene: !include scene.yaml
 #   - platform: google
 
 group: !include groups.yaml
-# automation: !include automations.yaml
 script: !include scripts.yaml
 
 zeroconf:
 
 api:
 
-# panel_iframe:
-#   configurator:
-#     title: Configurator
-#     icon: mdi:wrench
-#     url: http://192.168.1.89:3218
-
 system_health:
 
-# logger:
-#   default: info
+logger:
+  default: error
 #   logs:
 #     pydeconz: debug
 #     homeassistant.components.deconz: debug

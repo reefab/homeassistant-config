@@ -113,13 +113,12 @@ binary_sensor:
 
 media_player:
   - platform: yamaha
-  - platform: plex
+    host: 192.168.1.103
   - platform: universal
     name: Écran salon
     children:
       - media_player.yamaha_receiver
-      - media_player.desktop52i31c0
-    # state_template: '{{ states.switch.projector.state }}'
+    # state_template: '{{ states.media_player.yamah_receiver.state }}'
     commands:
       turn_on:
         service: script.turn_on
