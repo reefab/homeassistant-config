@@ -71,11 +71,8 @@ automation:
         data:
           preset_mode: 'away'
       - service: fan.turn_off
-        entity_id: fan.xiaomi_air_purifier_2
-      - service: automation.turn_off
-        entity_id: automation.turn_on_office_purifier_if_aqi_is_too_low
-      - service: automation.turn_off
-        entity_id: automation.turn_off_office_purifier_if_aqi_is_fine
+        entity_id: fan.xiaomi_air_purifier_2s
+
   - alias: Turn stuff back on when the windows are closed or there is people
     trigger:
       - platform: state
@@ -104,10 +101,8 @@ automation:
         entity_id: climate.netatmo_my_room
         data:
           preset_mode: "Schedule"
-      - service: automation.turn_on
-        entity_id: automation.turn_on_office_purifier_if_aqi_is_too_low
-      - service: automation.turn_on
-        entity_id: automation.turn_off_office_purifier_if_aqi_is_fine
+      - service: fan.turn_on
+        entity_id: fan.xiaomi_air_purifier_2s
 
 climate:
   - platform: netatmo
