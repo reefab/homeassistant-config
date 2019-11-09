@@ -115,6 +115,6 @@ script:
 homeassistant:
   customize:
     cover.bedroom_velux:
-        device_class: 'blind'
+      device_class: 'blind'
     cover.velux_mezzanine:
-        device_class: 'blind'
+      device_class: 'blind'
