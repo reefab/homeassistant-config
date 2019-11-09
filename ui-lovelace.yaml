@@ -27,7 +27,7 @@ views:
             title: Global
             entities:
               - vacuum.xiaomi_vacuum_cleaner
-              # - switch.circadian_lighting_circadian_lighting
+              - switch.circadian_lighting_circadian_lighting
               - switch.menage
               - binary_sensor.porte_entree
               - entity: switch.main_water_valve
@@ -102,10 +102,9 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_bureau_co2
-              - fan.xiaomi_air_purifier_2
+              - fan.xiaomi_air_purifier_2s
               - sensor.netatmo_bureau_noise
               - sensor.bureau_aqi
-              - switch.soldering_iron
               - entity: switch.steambox
                 icon: 'mdi:steam'
                 tap_action:
@@ -148,6 +147,8 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_chambre_co2
+              - fan.xiaomi_air_purifier_2
+              - sensor.chambre_aqi
 
       - type: glance
         title: Salle de Bain
