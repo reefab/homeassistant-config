@@ -44,24 +44,18 @@ automation:
       - service: script.turn_on
         entity_id: script.ht_volume_mute
 
-wake_on_lan:
-
 switch:
   - platform: wake_on_lan
-    name: steambox_wol
+    name: steambox
     host: 192.168.1.70
     mac_address: 'd8:cb:8a:35:32:af'
+    broadcast_address: 192.168.1.255
+    turn_off:
+      service: rest_command.steambox
+      data_template:
+        command: 'shutdown'
   - platform: template
     switches:
-      steambox:
-        value_template: '{{ states.binary_sensor.steambox.state }}'
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.steambox_wol
-        turn_off:
-          service: rest_command.steambox
-          data_template:
-            command: 'shutdown'
       projector:
         value_template: '{{ states.binary_sensor.projector.state }}'
         turn_on:
@@ -162,7 +156,7 @@ script:
     alias: Projo On
     sequence:
       - service: switch.turn_off
-        entity_id: switch.flux
+        entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_off
         entity_id: light.bureau
       - service: light.turn_off
@@ -211,12 +205,13 @@ script:
       - service: switch.turn_off
         entity_id: switch.steambox
       - service: switch.turn_on
-        entity_id: switch.flux
+        entity_id: switch.circadian_lighting_circadian_lighting
       - condition: state
         entity_id: sun.sun
         state: 'above_horizon'
       - service: light.turn_off
         entity_id: light.ecran
+
   ht_volume_up:
     alias: Volume Up
     sequence:
@@ -224,6 +219,7 @@ script:
         entity_id: media_player.yamaha_receiver
         data_template:
           volume_level: '{{ states.media_player.yamaha_receiver.attributes.volume_level + 0.01 }}'
+
   ht_volume_down:
     alias: Volume Down
     sequence:
@@ -231,6 +227,7 @@ script:
         entity_id: media_player.yamaha_receiver
         data_template:
           volume_level: '{{ states.media_player.yamaha_receiver.attributes.volume_level - 0.01 }}'
+
   ht_volume_mute:
     alias: Volume Mute
     sequence:
@@ -238,6 +235,7 @@ script:
         entity_id: media_player.yamaha_receiver
         data:
           is_volume_muted: true
+
   blank_projector:
     alias: Blank the projector display
     sequence:
@@ -245,6 +243,7 @@ script:
         data_template:
           resource: 'blank'
           command: 'on'
+
   restore_projector:
     alias: Restore the projector display
     sequence:
