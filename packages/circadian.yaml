@@ -1,0 +1,12 @@
+circadian_lighting:
+  min_colortemp: 2237
+  max_colortemp: 4291
+
+switch:
+  - platform: circadian_lighting
+    disable_brightness_adjust: true
+    lights_ct:
+      - light.bureau
+      - light.salon
+      - light.mezzanine
+      - light.chambre
