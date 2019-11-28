@@ -47,7 +47,7 @@ alert:
       - 60
       - 360
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone
   salon_plant:
     name: Les plantes murales du salon ont besoin d'attention
     done_message: Les plantes murales du salon vous remercient
@@ -60,4 +60,4 @@ alert:
       - 60
       - 360
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone

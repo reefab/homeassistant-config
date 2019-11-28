@@ -11,11 +11,11 @@ automation:
     alias: front_door_has_been_opened
     trigger:
       - platform: state
-        entity_id: binary_sensor.door_window_sensor_158d0001e48b7c
+        entity_id: binary_sensor.porte_entree
         from: 'off'
         to: 'on'
     action:
-      - service: notify.ios_phophone
+      - service: notify.mobile_app_phophone
         data:
           message: "request_location_update"
 

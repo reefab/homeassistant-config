@@ -18,7 +18,7 @@ automation:
         entity_id: binary_sensor.openclose_11
         state: 'off'
     action:
-      service: notify.ios_phophone
+      service: notify.mobile_app_phophone
       data_template:
         message: 'Open office window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
         data:
@@ -43,7 +43,7 @@ automation:
         entity_id: binary_sensor.fenetre_salon
         state: 'off'
     action:
-      service: notify.ios_phophone
+      service: notify.mobile_app_phophone
       data_template:
         message: 'Open living room window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
         data:

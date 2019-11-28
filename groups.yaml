@@ -120,7 +120,7 @@ people:
   name: People
   control: hidden
   entities:
-    - device_tracker.phophone
+    - device_tracker.phophone_2
     - device_tracker.iphonedmanuelle
     - device_tracker.huawei_p9_lite_premium
     - device_tracker.oneplus_5t

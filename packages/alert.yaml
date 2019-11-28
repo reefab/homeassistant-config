@@ -6,7 +6,7 @@ alert:
     state: 'on'
     repeat: 10
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone
 
   toilet_water_leak:
     name: Water is leaking at toilet
@@ -15,7 +15,7 @@ alert:
     state: 'on'
     repeat: 30
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone
 
   washers_water_leak:
     name: Water is leaking at washers
@@ -24,7 +24,7 @@ alert:
     state: 'on'
     repeat: 10
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone
 
   smoke_living_room:
     name: Smoke detected in living room
@@ -33,7 +33,7 @@ alert:
     state: 'on'
     repeat: 10
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone
 
   smoke_office:
     name: Smoke detected in office
@@ -42,7 +42,7 @@ alert:
     state: 'on'
     repeat: 10
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone
 
   # send alert if front door has been opened for more than 5 minutes
   front_door_not_closed:
@@ -53,4 +53,4 @@ alert:
     repeat: 5
     skip_first: true
     notifiers:
-      - ios_phophone
+      - mobile_app_phophone

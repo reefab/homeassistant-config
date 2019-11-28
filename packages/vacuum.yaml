@@ -59,7 +59,7 @@ automation:
           seconds: 10
       - service: vacuum.start
         entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: notify.ios_phophone
+      - service: notify.mobile_app_phophone
         data_template:
           message: 'Started vacuum cleaning in your absence.'
           data:
@@ -74,7 +74,7 @@ automation:
   - alias: Quieten vacuum if back home alone
     trigger:
       - platform: state
-        entity_id: device_tracker.phophone
+        entity_id: device_tracker.phophone_2
         from: 'not_home'
         to: 'home'
     condition:

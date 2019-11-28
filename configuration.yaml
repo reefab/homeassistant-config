@@ -99,3 +99,5 @@ logger:
 
 lovelace:
   mode: yaml
+
+mobile_app:
