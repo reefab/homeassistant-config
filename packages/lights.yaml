@@ -62,32 +62,6 @@ automation:
       service: scene.turn_on
       entity_id: scene.night_time
 
-  - alias: Turn on office lights if imac is on
-    trigger:
-      platform: state
-      entity_id: binary_sensor.imac
-      to: 'on'
-    condition:
-      condition: state
-      entity_id: sun.sun
-      state: 'below_horizon'
-    action:
-      service: light.turn_on
-      entity_id: light.bureau
-      data:
-        transition: 10
-  - alias: Turn off office lights if imac is off
-    initial_state: false
-    trigger:
-      platform: state
-      entity_id: binary_sensor.imac
-      to: 'off'
-    action:
-      service: light.turn_off
-      entity_id: light.bureau
-      data:
-        transition: 60
-
 light:
   # Ikea light strips controlled using a sonoff iFan02
   - platform: mqtt
