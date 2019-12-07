@@ -4,6 +4,8 @@
     fan.ventilateur_bureau: off
     fan.ventilateur_bois: off
     switch.steambox: off
+    input_boolean.night_time: on
+
 - name: Ménage
   entities:
     switch.circadian_lighting_circadian_lighting: off
@@ -11,6 +13,7 @@
       state: on
       kelvin: 5000
       brightness: 255
+
 - name: Normal
   entities:
     switch.circadian_lighting_circadian_lighting: on

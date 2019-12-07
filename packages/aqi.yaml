@@ -5,7 +5,7 @@ sensor:
     locations:
       - paris
     stations:
-      - Paris Centre, Paris
+      - paris
   # Inside Air Quality: Office taken from Xiaomi Air purifier
   - platform: template
     sensors:
@@ -39,9 +39,9 @@ automation:
   - alias: Silence the air purifier during night time
     trigger:
       platform: state
-      entity_id: cover.bedroom_velux
-      from: 'open'
-      to: 'close'
+      entity_id: input_boolean.night_time
+      from: 'off'
+      to: 'on'
     action:
       service: fan.set_speed
       entity_id: fan.xiaomi_air_purifier_2
@@ -50,9 +50,9 @@ automation:
   - alias: Set the air purifier to auto during day time
     trigger:
       platform: state
-      entity_id: cover.bedroom_velux
-      from: 'close'
-      to: 'open'
+      entity_id: input_boolean.night_time
+      from: 'on'
+      to: 'off'
     action:
       service: fan.set_speed
       entity_id: fan.xiaomi_air_purifier_2

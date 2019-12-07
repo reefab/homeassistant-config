@@ -1,0 +1,13 @@
+input_boolean:
+  night_time:
+
+automation:
+  - alias: Start the day when velux is opened
+    trigger:
+      - platform: state
+        entity_id: cover.bedroom_velux
+        from: 'closed'
+        to: 'open'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.night_time
