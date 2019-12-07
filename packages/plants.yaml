@@ -61,3 +61,47 @@ alert:
       - 360
     notifiers:
       - mobile_app_phophone
+
+sensor:
+  - platform: statistics
+    name: lux_bureau
+    entity_id: sensor.flowallbureau_light
+    max_age:
+      hours: 8
+  - platform: statistics
+    name: lux_salon
+    entity_id: sensor.flowallsalon_light
+    max_age:
+      hours: 8
+
+automation:
+  - alias: Switch lights on during the night if plants didn't get enough light
+    trigger:
+      - platform: state
+        entity_id: input_boolean.night_time
+        from: 'off'
+        to: 'on'
+    condition:
+      condition: or
+      conditions:
+        - condition: numeric_state
+          entity_id: sensor.lux_bureau
+          below: 250
+        - condition: numeric_state
+          entity_id: sensor.lux_salon
+          below: 250
+    action:
+      - delay:
+          minutes: 2
+      - service: switch.turn_off
+        entity_id: switch.circadian_lighting_circadian_lighting
+      - service: light.turn_on
+        entity_id: light.bureau
+        data:
+          color_name: fuchsia
+          brightness: 255
+      - service: light.turn_on
+        entity_id: light.salon
+        data:
+          color_name: fuchsia
+          brightness: 255
