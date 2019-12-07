@@ -2,12 +2,8 @@ title: Appart
 background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
 
 resources:
-  - url: /local/toggle-lock-entity-row.js
-    type: js
-  - url: /local/custom-lovelace/compact-custom-header/compact-custom-header.js?v=0.0.2
+  - url: /local/custom-lovelace/lovelace-auto-entities/auto-entities.js?v=1
     type: module
-  - url: /local/custom-lovelace/group-card/group-card.js
-    type: js
 
 views:
   - path: default_view
@@ -30,13 +26,12 @@ views:
               - switch.circadian_lighting_circadian_lighting
               - switch.menage
               - binary_sensor.porte_entree
-              - entity: switch.main_water_valve
-                type: custom:toggle-lock-entity-row
+              - switch.main_water_valve
           - type: glance
             title: Dehors
             entities:
               - sensor.netatmo_dehors_humidity
-              - sensor.waqi_paris_centre_paris
+              - sensor.waqi_paris
               - sensor.velib_86245c11064e6c59600ed1a72ca437b7
 
           - type: weather-forecast
@@ -73,11 +68,11 @@ views:
               - entity: fan.ventilateur_bois
                 tap_action:
                   action: toggle
-              - sensor.foobot_salon_co2
+              - sensor.foobot_tempbot_co2
               - binary_sensor.lumi_sensor_smoke
-              - sensor.foobot_salon_pm25
-              - sensor.foobot_salon_voc
-              - sensor.foobot_salon_index
+              - sensor.foobot_tempbot_pm2_5
+              - sensor.foobot_tempbot_voc
+              - sensor.foobot_tempbot_index
           - type: plant-status
             entity: plant.flowall_salon
 
@@ -118,11 +113,10 @@ views:
               - sensor.r2r_current_state
               - sensor.itopie_current_state
               - binary_sensor.fire_37
-          - type: entities
-            entities:
-              - entity: switch.3d_printers
-                name: 3D printers
-                type: custom:toggle-lock-entity-row
+          # - type: entities
+          #   entities:
+          #     - entity: switch.3d_printers
+          #       name: 3D printers
 
       - type: vertical-stack
         cards:
@@ -237,12 +231,14 @@ views:
         entities:
           - script.restart_ha
           - script.check_config
-      - type: custom:group-card
+      - type: custom:auto-entities
         title: all automations
         card:
           type: entities
           show_header_toggle: false
-        group: group.all_automations
+        filter:
+          include:
+            - group: group.all_automations
     icon: 'mdi:settings'
 
   - path: test
@@ -267,11 +263,15 @@ views:
     icon: 'mdi:battery-alert'
     badges: []
     cards:
-      - type: custom:group-card
+      - type: custom:auto-entities
         card:
           type: entities
-        group: group.battery_status
-      - type: custom:group-card
+        filter:
+          include:
+            - group: group.battery_status
+      - type: custom:auto-entities
         card:
           type: entities
-        group: group.battery_alert
+        filter:
+          include:
+            - group: group.battery_alert
