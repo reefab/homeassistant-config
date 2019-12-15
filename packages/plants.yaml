@@ -92,7 +92,10 @@ automation:
           below: 250
     action:
       - delay:
-          minutes: 2
+          hours: 4 # Maintain at least 4 hours of darkness
+      - condition: state
+        entity_id:  binary_sensor.porte_chambre
+        state: "closed"
       - service: switch.turn_off
         entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_on
