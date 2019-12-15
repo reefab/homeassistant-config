@@ -91,11 +91,11 @@ api:
 
 system_health:
 
-logger:
-  default: error
-#   logs:
-#     pydeconz: debug
-#     homeassistant.components.deconz: debug
+#logger:
+#  default: error
+#  logs:
+#    pydeconz: debug
+#    homeassistant.components.deconz: debug
 
 lovelace:
   mode: yaml
