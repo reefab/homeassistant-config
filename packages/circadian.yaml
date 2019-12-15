@@ -4,11 +4,12 @@ circadian_lighting:
 
 switch:
   - platform: circadian_lighting
-    disable_brightness_adjust: true
+    min_brightness: 60
+    max_brightness: 80
     lights_ct:
       - light.bureau
       - light.salon
-      - light.mezzanine_2
+      - light.mezzanine
       - light.chambre
 
 automation:

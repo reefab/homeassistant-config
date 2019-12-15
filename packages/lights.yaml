@@ -7,7 +7,7 @@ automation:
         to: 'on'
     action:
       service: light.turn_on
-      entity_id: light.entree_2
+      entity_id: light.entree
 
   # Those replaces the 'presence based light' component but have the advantage
   # of being able to be enabled/disabled on demand
@@ -97,13 +97,13 @@ homeassistant:
       icon: 'mdi:led-strip'
     light.vitrine:
       icon: 'mdi:led-strip'
-    light.mezzanine_2:
+    light.mezzanine:
       icon: 'mdi:lamp'
     light.salle_de_bain_2:
       icon: 'mdi:wall-sconce'
     light.chambre:
       icon: 'mdi:wall-sconce'
-    light.cuisine_2:
+    light.cuisine:
       icon: 'mdi:spotlight-beam'
     light.spots_salon:
       icon: 'mdi:spotlight-beam'

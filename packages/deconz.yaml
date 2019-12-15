@@ -17,19 +17,19 @@ homeassistant:
       friendly_name: Humidité Sdb
     sensor.salle_de_bain_3:
       friendly_name: Temperature Sdb
-    binary_sensor.fire_37:
+    binary_sensor.lumi_sensor_smoke_2:
       friendly_name: Fumée Bureau
     binary_sensor.lumi_sensor_smoke:
       friendly_name: Fumée Salon
-    binary_sensor.water_12:
-      friendly_name: Robinet Toilette
+    binary_sensor.robinet_toilette:
       icon: mdi:toilet
     binary_sensor.porte_entree:
       icon: mdi:door
+    binary_sensor.porte_chambre:
+      icon: mdi:door
     binary_sensor.fenetre_salon:
       icon: mdi:window-closed
-    binary_sensor.openclose_11:
-      friendly_name: Fenetre bureau
+    binary_sensor.fenetre_bureau:
       icon: mdi:window-closed
     binary_sensor.compteur_eau:
       icon: mdi:pipe-leak

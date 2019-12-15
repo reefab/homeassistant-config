@@ -21,7 +21,7 @@ automation:
       - platform: state
         from: 'off'
         to: 'on'
-        entity_id: binary_sensor.water_12
+        entity_id: binary_sensor.robinet_toilette
       - platform: state
         from: 'off'
         to: 'on'

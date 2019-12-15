@@ -11,12 +11,13 @@ alexa:
         - light.bureau
         - light.salon
         - light.spots_salon
-        - light.cuisine_2
-        - light.mezzanine_2
+        - light.cuisine
+        - light.mezzanine
         - light.salle_de_bain_2
         - light.vitrine
         - switch.projector
         - switch.aspirateur
+        - switch.menage
         - media_player.ecran_salon
     entity_config:
       climate.netatmo_my_room:
@@ -43,3 +44,5 @@ alexa:
         name: Ventilateur salon
       media_player.ecran_salon:
         name: Ampli
+      switch.menage:
+        name: Mode menage

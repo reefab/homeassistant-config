@@ -1,5 +1,5 @@
 homekit:
-  # ip_address: 192.168.1.19
+  advertise_ip: 192.168.1.2
   filter:
     include_entities:
       - cover.velux_mezzanine
@@ -10,9 +10,10 @@ homekit:
       - fan.ventilateur_bureau
       - light.bureau
       - light.cuisine_2
-      - light.mezzanine_2
+      - light.mezzanine
       - light.salle_de_bain_2
       - light.salon
       - light.spots_salon
       - switch.projector
       - switch.aspirateur
+      - switch.menage

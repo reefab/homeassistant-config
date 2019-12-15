@@ -92,7 +92,7 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_bureau_humidity
-              - binary_sensor.openclose_11
+              - binary_sensor.fenetre_bureau
               - entity: fan.ventilateur_bureau
                 tap_action:
                   action: toggle
@@ -112,7 +112,7 @@ views:
             entities:
               - sensor.r2r_current_state
               - sensor.itopie_current_state
-              - binary_sensor.fire_37
+              - binary_sensor.lumi_sensor_smoke_2
           # - type: entities
           #   entities:
           #     - entity: switch.3d_printers
@@ -143,6 +143,7 @@ views:
               - sensor.netatmo_chambre_co2
               - fan.xiaomi_air_purifier_2
               - sensor.chambre_aqi
+              - binary_sensor.porte_chambre
 
       - type: glance
         title: Salle de Bain
@@ -153,13 +154,13 @@ views:
               action: toggle
           - sensor.salle_de_bain_3
           - sensor.salle_de_bain_2
-          - binary_sensor.water_12
+          - binary_sensor.robinet_toilette
 
       - type: glance
         title: Cuisine
         show_name: false
         entities:
-          - entity: light.cuisine_2
+          - entity: light.cuisine
             tap_action:
               action: toggle
           - sensor.cuisine_3
@@ -172,7 +173,7 @@ views:
         title: Mezzanine
         show_name: false
         entities:
-          - entity: light.mezzanine_2
+          - entity: light.mezzanine
             tap_action:
               action: toggle
           - entity: cover.velux_mezzanine

@@ -30,18 +30,18 @@ octoprint:
 camera:
   - platform: mjpeg
     name: 3d printers
-    mjpeg_url: http://192.168.1.89:8090/?action=stream
-    still_image_url: http://192.168.1.89:8090/?action=snapshot
+    mjpeg_url: http://192.168.1.49/webcam/?action=stream
+    still_image_url: http://192.168.1.49/webcam/?action=snapshot
 
 automation:
-  - alias: Cut electricity to 3D printers in case of smoke
+  - alias: Cut power to 3D printers in case of smoke
     # To prevent false positives during startup if the sensors are not ready yet
     initial_state: false
     trigger:
       - platform: state
         from: 'off'
         to: 'on'
-        entity_id: binary_sensor.fire_37
+        entity_id: binary_sensor.lumi_sensor_smoke_2
     action:
       service: switch.turn_off
       entity_id: switch.3d_printers
