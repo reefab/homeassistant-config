@@ -1,0 +1,46 @@
+# Benq W1070 connected via serial and esp-link
+# https://github.com/jeelabs/esp-link
+# Hardware is a Wemos D1 mini and a max3232 board
+switch:
+  - platform: telnet
+    switches:
+      benq_w1070:
+        resource: 192.168.12.132
+        command_on: "\r*POW=ON#\r"
+        command_off: "\r*POW=OFF#\r"
+        timeout: 2
+      w1070_blank:
+        resource: 192.168.12.132
+        command_on: "\r*BLANK=ON#\r"
+        command_off: "\r*BLANK=OFF#\r"
+        timeout: 2
+      w1070_3d_fs:  # Frame Sequential 3D mode
+        resource: 192.168.12.132
+        command_on: "\r*3D=FS#\r"
+        command_off: "\r*3D=OFF#\r"
+        timeout: 2
+      w1070_3d_tb:  # Top-Bottom 3D mode
+        resource: 192.168.12.132
+        command_on: "\r*3D=TB#\r"
+        command_off: "\r*3D=OFF#\r"
+        timeout: 2
+      w1070_3d_sbs:  # Side by Side 3D mode
+        resource: 192.168.12.132
+        command_on: "\r*3D=SBS#\r"
+        command_off: "\r*3D=OFF#\r"
+        timeout: 2
+
+homeassistant:
+  customize:
+    switch.w1070_blank:
+      icon: 'mdi:flashlight'
+      friendly_name: Blank projector
+    switch.w1070_3d_fs:
+      icon: 'mdi:view-sequential'
+      friendly_name: 3D - Frame Sequential
+    switch.w1070_3d_tb:
+      icon: 'mdi:view-split-horizontal'
+      friendly_name: 3D - Top-Bottom
+    switch.w1070_3d_sbs:
+      icon: 'mdi:view-split-vertical'
+      friendly_name: 3D - Side by Side

@@ -114,10 +114,6 @@ views:
               - sensor.r2r_current_state
               - sensor.itopie_current_state
               - binary_sensor.lumi_sensor_smoke_2
-          # - type: entities
-          #   entities:
-          #     - entity: switch.3d_printers
-          #       name: 3D printers
 
       - type: vertical-stack
         cards:
@@ -211,17 +207,20 @@ views:
   - path: media_view
     title: media_view
     badges: []
+    icon: 'mdi:presentation-play'
     cards:
       - type: entities
         entities:
-          - light.salon
-          - script.blank_projector
-          - script.restore_projector
+          - light.projo
+          - light.ecran
+          - switch.w1070_blank
+          - switch.w1070_3d_fs
+          - switch.w1070_3d_tb
+          - switch.w1070_3d_sbs
         show_header_toggle: false
         title: Light
       - type: media-control
         entity: media_player.ecran_salon
-    icon: 'mdi:presentation-play'
 
   - path: settings_view
     title: settings_view

@@ -48,7 +48,7 @@ switch:
   - platform: wake_on_lan
     name: steambox
     host: 192.168.1.70
-    mac_address: 'd8:cb:8a:35:32:af'
+    mac: 'd8:cb:8a:35:32:af'
     broadcast_address: 192.168.1.255
     turn_off:
       service: rest_command.steambox
@@ -57,7 +57,7 @@ switch:
   - platform: template
     switches:
       projector:
-        value_template: '{{ states.binary_sensor.projector.state }}'
+        value_template: '{{ states.switch.benq_w1070.state }}'
         turn_on:
           service: script.turn_on
           entity_id: script.projo_on
@@ -66,44 +66,9 @@ switch:
           entity_id: script.projo_off
 
 rest_command:
-  # Custom device: https://github.com/reefab/Projo to control a serial connected
-  # projector with a REST interface over wifi
-  projo:
-    url: 'http://192.168.1.44/cgi-bin/luci/projo/{{ resource }}/{{ command }}'
-    method: 'POST'
-    # "3D SBS" = "POST /cgi-bin/luci/projo/3d/sbs\n";
-    # "CURSOR LEFT" = "POST /cgi-bin/luci/projo/menu/left\n";
-    # "CURSOR DOWN" = "POST /cgi-bin/luci/projo/menu/down\n";
-    # "CURSOR ENTER" = "POST /cgi-bin/luci/projo/menu/enter\n";
-    # "3D OFF" = "POST /cgi-bin/luci/projo/3d/off\n";
-    # "MENU OFF" = "POST /cgi-bin/luci/projo/menu/off\n";
-    # "BLANK OFF" = "POST /cgi-bin/luci/projo/blank/off\n";
-    # "POWER ON" = "POST /cgi-bin/luci/projo/power/on\n";
-    # "MENU ON" = "POST /cgi-bin/luci/projo/menu/on\n";
-    # "CURSOR UP" = "POST /cgi-bin/luci/projo/menu/up\n";
-    # "POWER OFF" = "POST /cgi-bin/luci/projo/power/off\n";
-    # "CURSOR RIGHT" = "POST /cgi-bin/luci/projo/menu/right\n";
-    # "3D FS" = "POST /cgi-bin/luci/projo/3d/fs\n";
-    # "3D TB" = "POST /cgi-bin/luci/projo/3d/tb\n";
-    # "BLANK ON" = "POST /cgi-bin/luci/projo/blank/on\n";
   steambox:
     # Small windows software to shut it down remotely
     url: 'http://192.168.1.70:5001/{{ command }}'
-  screenbloom:
-    # http://www.screenbloom.com
-    url: 'http://192.168.1.70:5000/{{ command }}'
-
-
-binary_sensor:
-  - platform: rest
-    resource: http://192.168.1.44/cgi-bin/luci/projo/power/
-    name: projector
-    value_template: '{{value_json.status}}'
-  - platform: ping
-    host: 192.168.1.70
-    name: Steambox
-    count: 2
-    scan_interval: 30
 
 media_player:
   - platform: yamaha
@@ -112,7 +77,6 @@ media_player:
     name: Écran salon
     children:
       - media_player.yamaha_receiver
-    # state_template: '{{ states.media_player.yamah_receiver.state }}'
     commands:
       turn_on:
         service: script.turn_on
@@ -159,47 +123,35 @@ script:
         entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_off
         entity_id: light.bureau
-      - service: light.turn_off
+      - service: light.turn_on
         entity_id: light.projo
+        data:
+          brightness: 0
+          transition: 60
       - service: light.turn_on
         entity_id: light.ecran
         data:
-          brightness: 150
+          brightness: 100
           transition: 60
       - service: switch.turn_on
         entity_id: switch.steambox
-      - service: rest_command.projo
-        data_template:
-          resource: 'power'
-          command: 'on'
+      - service: switch.turn_on
+        entity_id: switch.benq_w1070
       - service: media_player.turn_on
         entity_id: media_player.yamaha_receiver
       - service: media_player.select_source
         entity_id: media_player.yamaha_receiver
         data:
           source: 'HDMI2'
-      - service: light.turn_on
-        entity_id: light.projo
-        data:
-          brightness: 0
-          transition: 60
       - delay: '00:01:00'
-      - service: rest_command.screenbloom
-        data_template:
-          command: 'start'
       - service: light.turn_off
         entity_id: light.projo
 
   projo_off:
     alias: Projo Off
     sequence:
-      - service: rest_command.screenbloom
-        data_template:
-          command: 'stop'
-      - service: rest_command.projo
-        data_template:
-          resource: 'power'
-          command: 'off'
+      - service: switch.turn_off
+        entity_id: switch.benq_w1070
       - service: media_player.turn_off
         entity_id: media_player.yamaha_receiver
       - service: switch.turn_off
@@ -236,22 +188,6 @@ script:
         data:
           is_volume_muted: true
 
-  blank_projector:
-    alias: Blank the projector display
-    sequence:
-      - service: rest_command.projo
-        data_template:
-          resource: 'blank'
-          command: 'on'
-
-  restore_projector:
-    alias: Restore the projector display
-    sequence:
-      - service: rest_command.projo
-        data_template:
-          resource: 'blank'
-          command: 'off'
-
 homeassistant:
   customize:
     switch.steambox:
@@ -262,15 +198,9 @@ homeassistant:
       hidden: true
     script.projo_off:
       hidden: true
-    script.blank_projector:
-      icon: 'mdi:flashlight-off'
-    script.un-blank_projector:
-      icon: 'mdi:flashlight-on'
     switch.projector:
       friendly-name: Projo
       icon: 'mdi:projector'
-    binary_sensor.projector:
-      hidden: true
     media_player.yamaha_receiver:
       hidden: true
   customize_glob:
