@@ -19,10 +19,11 @@ views:
             graph: line
             name: Dehors
             entity: sensor.netatmo_dehors_temperature
-          - type: glance
+          - type: picture-glance
             title: Global
+            camera_image: camera.vacuum_map
             entities:
-              - vacuum.xiaomi_vacuum_cleaner
+              - vacuum.rockrobo
               - switch.circadian_lighting_circadian_lighting
               - switch.menage
               - binary_sensor.porte_entree
