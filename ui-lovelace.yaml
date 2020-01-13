@@ -152,7 +152,7 @@ views:
           - entity: light.salle_de_bain_2
             tap_action:
               action: toggle
-          - sensor.salle_de_bain_3
+          - sensor.salle_de_bain
           - sensor.salle_de_bain_2
           - binary_sensor.robinet_toilette
 
@@ -163,7 +163,7 @@ views:
           - entity: light.cuisine
             tap_action:
               action: toggle
-          - sensor.cuisine_3
+          - sensor.cuisine
           - sensor.cuisine_2
           - sensor.fridge_power
           - binary_sensor.compteur_eau

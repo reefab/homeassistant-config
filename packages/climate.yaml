@@ -15,7 +15,7 @@ automation:
         after: '14:00:00'
         before: '06:00:00'
       - condition: state
-        entity_id: binary_sensor.openclose_11
+        entity_id: binary_sensor.fenetre_bureau
         state: 'off'
     action:
       service: notify.mobile_app_phophone
@@ -52,7 +52,7 @@ automation:
   - alias: Turn stuff off when a window is opened or no home is one
     trigger:
       - platform: state
-        entity_id: binary_sensor.openclose_11
+        entity_id: binary_sensor.fenetre_bureau
         from: 'off'
         to: 'on'
       - platform: state
@@ -76,7 +76,7 @@ automation:
   - alias: Turn stuff back on when the windows are closed or there is people
     trigger:
       - platform: state
-        entity_id: binary_sensor.openclose_11
+        entity_id: binary_sensor.fenetre_bureau
         from: 'on'
         to: 'off'
       - platform: state
@@ -91,7 +91,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: binary_sensor.openclose_11
+          entity_id: binary_sensor.fenetre_bureau
           state: 'off'
         - condition: state
           entity_id: binary_sensor.fenetre_salon
