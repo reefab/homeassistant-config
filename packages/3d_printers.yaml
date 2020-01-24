@@ -1,23 +1,10 @@
 # 2 3D printers, each with their https://octoprint.org server
 octoprint:
   - host: 192.168.1.49
-    name: R2R
+    name: prusa
     api_key: !secret octoprint_r2r_api
     bed: false
     number_of_tools: 2
-    sensors:
-      monitored_conditions:
-        - Current State
-        - Job Percentage
-    binary_sensors:
-      monitored_conditions:
-        - Printing
-  - host: 192.168.1.49
-    port: 5001
-    name: iTopie
-    api_key: !secret octoprint_itopie_api
-    bed: false
-    number_of_tools: 1
     sensors:
       monitored_conditions:
         - Current State
@@ -35,8 +22,6 @@ camera:
 
 automation:
   - alias: Cut power to 3D printers in case of smoke
-    # To prevent false positives during startup if the sensors are not ready yet
-    initial_state: false
     trigger:
       - platform: state
         from: 'off'
@@ -45,12 +30,3 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.3d_printers
-  - alias: Activate=3d printers fire safety
-    trigger:
-      platform: homeassistant
-      event: start
-    action:
-      - delay:
-          seconds: 120
-      - service: automation.turn_on
-        entity_id: automation.cut_electricity_to_3d_printers_in_case_of_smoke

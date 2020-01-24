@@ -112,8 +112,7 @@ views:
             title: 3D Printers
             camera_image: camera.3d_printers
             entities:
-              - sensor.r2r_current_state
-              - sensor.itopie_current_state
+              - sensor.prusa_current_state
               - binary_sensor.lumi_sensor_smoke_2
 
       - type: vertical-stack
