@@ -1,14 +1,4 @@
 automation:
-  - alias: switch entrance light on door opening
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.porte_entree
-        from: 'off'
-        to: 'on'
-    action:
-      service: light.turn_on
-      entity_id: light.entree
-
   # Those replaces the 'presence based light' component but have the advantage
   # of being able to be enabled/disabled on demand
   - alias: Switch lights off if no one is home

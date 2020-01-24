@@ -15,8 +15,6 @@ switch:
 
 automation:
   - alias: Shut water valve in case of leaks
-    # To prevent false positives during startup if the sensors are not ready yet
-    initial_state: false
     trigger:
       - platform: state
         from: 'off'
@@ -33,15 +31,6 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.main_water_valve
-  - alias: Activate leak prevention automation
-    trigger:
-      platform: homeassistant
-      event: start
-    action:
-      - delay:
-          seconds: 180
-      - service: automation.turn_on
-        entity_id: automation.shut_water_valve_in_case_of_leaks
 
 homeassistant:
   customize:
