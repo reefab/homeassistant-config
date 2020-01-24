@@ -74,6 +74,7 @@ views:
               - sensor.foobot_tempbot_pm2_5
               - sensor.foobot_tempbot_voc
               - sensor.foobot_tempbot_index
+              - switch.humidifier
           - type: plant-status
             entity: plant.flowall_salon
 
