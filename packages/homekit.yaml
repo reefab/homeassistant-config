@@ -17,3 +17,33 @@ homekit:
       - switch.projector
       - switch.aspirateur
       - switch.menage
+      - switch.circadian_lighting_circadian_lighting
+  entity_config:
+    climate.netatmo_my_room:
+      name: Chaudière
+    light.bureau:
+      name: Lumière Bureau
+    light.cuisine:
+      name: Lumière Cuisine
+    light.mezzanine:
+      name: Lumière Mezzanine
+    light.salon:
+      name: Lumière Salon
+    light.salle_de_bain:
+      name: Lumière Salle de Bain
+    light.vitrine:
+      name: Lumière Vitrine
+    switch.projector:
+      name: Projecteur
+    cover.velux_mezzanine:
+      name: Store Mezzanine
+    cover.bedroom_velux:
+      name: Store Chambre
+    fan.ventilateur_bois:
+      name: Ventilateur salon
+    media_player.ecran_salon:
+      name: Ampli
+    switch.menage:
+      name: Mode menage
+    switch.circadian_lighting_circadian_lighting:
+      name: Mode circadien

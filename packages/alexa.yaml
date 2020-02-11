@@ -19,6 +19,7 @@ alexa:
         - switch.aspirateur
         - switch.menage
         - media_player.ecran_salon
+        - switch.circadian_lighting_circadian_lighting
     entity_config:
       climate.netatmo_my_room:
         name: Chaudière
@@ -46,3 +47,5 @@ alexa:
         name: Ampli
       switch.menage:
         name: Mode menage
+      switch.circadian_lighting_circadian_lighting:
+        name: Mode circadien
