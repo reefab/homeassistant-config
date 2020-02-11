@@ -11,7 +11,7 @@ automation:
           minutes: 2
     action:
       - service: light.turn_off
-        entity_id: group.all_lights
+        entity_id: all
   - alias: Switch lights on if people are coming home
     trigger:
       - platform: state
@@ -51,8 +51,14 @@ automation:
         id: bouton_lit
         event: 1004
     action:
-      service: scene.turn_on
-      entity_id: scene.night_time
+      - service: light.turn_off
+        entity_id: all
+      - service: fan.turn_off
+        entity_id: fan.ventilateur_bureau
+      - service: fan.turn_off
+        entity_id: fan.ventilateur_bois
+      - service: switch.turn_off
+        entity_id: switch.steambox
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
@@ -71,15 +77,26 @@ switch:
     switches:
       # When cleaning, switch all lights on to cool white at max
       menage:
-        value_template: "{{ is_state('switch.circadian_lighting_circadian_lighting', 'off') }}"
+        value_template: "{{ is_state('input_boolean.menage_mode', 'on') }}"
         turn_on:
-          service: scene.turn_on
-          data:
-            entity_id: scene.menage
+          - service: light.turn_on
+            entity_id: all
+            data:
+              kelvin: 4291
+              brightness: 255
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.menage_mode
         turn_off:
-          service: scene.turn_on
-          data:
-            entity_id: scene.normal
+          - service: input_boolean.turn_off
+            entity_id: input_boolean.menage_mode
+          - service: switch.turn_on
+            entity_id: switch.circadian_lighting_circadian_lighting
+          - service: light.turn_off
+            entity_id: all
+          - service: light.turn_on
+            entity_id: [light.salon, light.bureau]
+            data:
+              brightness: 150
 
 homeassistant:
   customize:

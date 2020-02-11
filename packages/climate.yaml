@@ -6,7 +6,7 @@ automation:
         value_template: '{{ states("sensor.netatmo_bureau_temperature") > states("sensor.netatmo_dehors_temperature") }}'
     condition:
       - condition: state
-        entity_id: group.all_devices
+        entity_id: group.people
         state: "home"
       - condition: numeric_state
         entity_id: sensor.netatmo_bureau_temperature
@@ -31,7 +31,7 @@ automation:
         value_template: '{{ states("sensor.netatmo_salon_temperature") > states("sensor.netatmo_dehors_temperature") }}'
     condition:
       - condition: state
-        entity_id: group.all_devices
+        entity_id: group.people
         state: "home"
       - condition: numeric_state
         entity_id: sensor.netatmo_salon_temperature
@@ -49,7 +49,7 @@ automation:
         data:
           tag: "safe-to-open-window"
 
-  - alias: Turn stuff off when a window is opened or no home is one
+  - alias: Turn stuff off when a window is opened
     trigger:
       - platform: state
         entity_id: binary_sensor.fenetre_bureau
@@ -59,8 +59,18 @@ automation:
         entity_id: binary_sensor.fenetre_salon
         from: 'off'
         to: 'on'
+    action:
+      - service: climate.set_preset_mode
+        entity_id: climate.netatmo_my_room
+        data:
+          preset_mode: 'Frost Guard'
+      - service: fan.turn_off
+        entity_id: fan.xiaomi_air_purifier_2s
+
+  - alias: Turn heating down when people are not here
+    trigger:
       - platform: state
-        entity_id: group.all_devices
+        entity_id: group.people
         from: 'home'
         to: 'not_home'
         for:
@@ -70,8 +80,6 @@ automation:
         entity_id: climate.netatmo_my_room
         data:
           preset_mode: 'away'
-      - service: fan.turn_off
-        entity_id: fan.xiaomi_air_purifier_2s
 
   - alias: Turn stuff back on when the windows are closed or there is people
     trigger:
@@ -84,7 +92,7 @@ automation:
         from: 'on'
         to: 'off'
       - platform: state
-        entity_id: group.all_devices
+        entity_id: group.people
         from: 'not_home'
         to: 'home'
     condition:

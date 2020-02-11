@@ -6,7 +6,7 @@ automation:
       event: sunset
     action:
       service: cover.close_cover
-      entity_id: group.all_covers
+      entity_id: [cover.velux_mezzanine, cover.bedroom_velux]
 
   - alias: Open mezzanine cover during the day
     initial_state: true

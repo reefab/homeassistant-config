@@ -41,7 +41,7 @@ automation:
   - alias: Start clearning if home is empty
     trigger:
       - platform: state
-        entity_id: group.all_devices
+        entity_id: group.people
         from: 'home'
         to: 'not_home'
         for:
