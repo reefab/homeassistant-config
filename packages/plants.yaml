@@ -11,7 +11,7 @@ plant:
       brightness: sensor.flowallbureau_light
     min_moisture: 20
     max_moisture: 80
-    min_battery: 15
+    min_battery: 20
     min_conductivity: 10
     min_temperature: 15
   flowall_salon:
@@ -23,7 +23,7 @@ plant:
       brightness: sensor.flowallsalon_light
     min_moisture: 20
     max_moisture: 80
-    min_battery: 15
+    min_battery: 20
     min_conductivity: 10
     min_temperature: 15
 
@@ -92,10 +92,10 @@ automation:
           below: 250
     action:
       - delay:
-          hours: 4 # Maintain at least 4 hours of darkness
+          hours: 4  # Maintain at least 4 hours of darkness
       - condition: state
-        entity_id:  binary_sensor.porte_chambre
-        state: "closed"
+        entity_id: binary_sensor.porte_chambre
+        state: 'off'
       - service: switch.turn_off
         entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_on
