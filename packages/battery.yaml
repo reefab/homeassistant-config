@@ -533,7 +533,7 @@ automation:
         notification_id: low_battery_alert
 
 - alias: battery_notification_default
-  initial_state: 'on'
+  initial_state: 'off'
   trigger:
     - platform: time
       at: '10:00:00'
@@ -559,7 +559,7 @@ automation:
         message: *message
 
 - alias: battery_notification_slack
-  initial_state: 'on'
+  initial_state: 'off'
   trigger:
     - platform: time
       at: '10:00:00'

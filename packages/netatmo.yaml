@@ -3,3 +3,10 @@ netatmo:
   secret_key: !secret netatmo_secret
   username: !secret netatmo_user
   password: !secret netatmo_password
+
+homeassistant:
+  customize:
+    sensor.netatmo_dehors_battery_percent:
+      battery_alert_disabled: true
+    sensor.netatmo_dehors_battery:
+      battery_alert_disabled: true
