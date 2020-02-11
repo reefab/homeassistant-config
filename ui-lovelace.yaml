@@ -106,6 +106,10 @@ views:
                 icon: 'mdi:steam'
                 tap_action:
                   action: toggle
+              - entity: switch.light_15
+                tap_action:
+                  action: toggle
+
           - type: plant-status
             entity: plant.flowall_bureau
           - type: picture-glance
@@ -150,7 +154,7 @@ views:
             tap_action:
               action: toggle
           - sensor.salle_de_bain
-          - sensor.salle_de_bain_2
+          - sensor.salle_de_bain_3
           - binary_sensor.robinet_toilette
 
       - type: glance
@@ -239,7 +243,7 @@ views:
           show_header_toggle: false
         filter:
           include:
-            - group: group.all_automations
+            - domain: automation
     icon: 'mdi:settings'
 
   - path: test

@@ -1,5 +1,6 @@
 input_boolean:
   night_time:
+  menage_mode:
 
 automation:
   - alias: Start the day when velux is opened
@@ -10,4 +11,14 @@ automation:
         to: 'open'
     action:
       - service: input_boolean.turn_off
+        entity_id: input_boolean.night_time
+  - alias: Start the night on button press
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: bouton_lit
+        event: 1004
+    action:
+      - service: input_boolean.turn_on
         entity_id: input_boolean.night_time

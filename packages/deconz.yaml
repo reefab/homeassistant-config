@@ -13,9 +13,9 @@ homeassistant:
       friendly_name: Pression Cuisine
     sensor.salle_de_bain:
       friendly_name: Temperature Sdb
-    sensor.salle_de_bain_2:
-      friendly_name: Humidité Sdb
     sensor.salle_de_bain_3:
+      friendly_name: Humidité Sdb
+    sensor.salle_de_bain_2:
       friendly_name: Pression Sdb
     binary_sensor.lumi_sensor_smoke_2:
       friendly_name: Fumée Bureau

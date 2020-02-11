@@ -10,23 +10,29 @@ binary_sensor:
     count: 2
     scan_interval: 30
   - platform: ping
-    host: 192.168.1.19
-    name: Pi-hole 2
+    host: 192.168.1.139
+    name: Slab
+    count: 2
+  - platform: ping
+    name: Plex
+    host: 192.168.1.149
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.1.159
+    name: Sliver
     count: 2
     scan_interval: 30
   - platform: ping
     name: Sync
     host: 192.168.1.112
     count: 2
+    scan_interval: 30
   - platform: ping
     name: AC-AP Lite
     host: 192.168.1.62
     count: 2
-  - platform: ping
-    name: imac
-    host: 192.168.1.60
-    count: 2
-    scan_interval: 10
+    scan_interval: 30
 
 homeassistant:
   customize:
@@ -34,11 +40,7 @@ homeassistant:
       icon: 'mdi:nas'
     binary_sensor.routeur:
       icon: 'mdi:router-wireless'
-    binary_sensor.pi_hole_2:
-      icon: 'mdi:dns'
     binary_sensor.sync:
       icon: 'mdi:cloud-sync'
     binary_sensor.ac_ap_lite:
       icon: 'mdi:access-point-network'
-    binary_sensor.imac:
-      icon: 'mdi:desktop-mac'

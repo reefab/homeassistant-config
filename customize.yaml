@@ -1,8 +1,2 @@
-group.all_automations:
-  hidden: false
-group.all_scripts:
-  hidden: true
-scene.night_time:
-  icon: mdi:weather-night
 script.restart_ha:
   icon: 'mdi:restart'
