@@ -1,3 +1,10 @@
+group:
+  main_rooms_lights:
+    name: Main Lights
+    entities:
+      - light.salon
+      - light.bureau
+
 automation:
   # Those replaces the 'presence based light' component but have the advantage
   # of being able to be enabled/disabled on demand
@@ -72,32 +79,6 @@ light:
     payload_on: "ON"
     payload_off: "OFF"
 
-switch:
-  - platform: template
-    switches:
-      # When cleaning, switch all lights on to cool white at max
-      menage:
-        value_template: "{{ is_state('input_boolean.menage_mode', 'on') }}"
-        turn_on:
-          - service: light.turn_on
-            entity_id: all
-            data:
-              kelvin: 4291
-              brightness: 255
-          - service: input_boolean.turn_on
-            entity_id: input_boolean.menage_mode
-        turn_off:
-          - service: input_boolean.turn_off
-            entity_id: input_boolean.menage_mode
-          - service: switch.turn_on
-            entity_id: switch.circadian_lighting_circadian_lighting
-          - service: light.turn_off
-            entity_id: all
-          - service: light.turn_on
-            entity_id: [light.salon, light.bureau]
-            data:
-              brightness: 150
-
 homeassistant:
   customize:
     light.bureau:
@@ -122,5 +103,3 @@ homeassistant:
       hidden: true
     group.main_rooms_lights:
       hidden: true
-    switch.menage:
-      icon: 'mdi:spray-bottle'

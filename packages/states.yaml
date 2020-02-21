@@ -1,6 +1,5 @@
 input_boolean:
   night_time:
-  menage_mode:
 
 automation:
   - alias: Start the day when velux is opened
