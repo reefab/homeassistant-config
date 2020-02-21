@@ -192,8 +192,6 @@ views:
         entities:
           - sensor.processor_use
           - sensor.memory_use_percent
-          - sensor.plex
-          - sensor.pi_hole_ads_blocked_today
           - sensor.nut_ups_battery_runtime
           - sensor.nut_ups_load
         show_header_toggle: false
@@ -202,8 +200,10 @@ views:
         entities:
           - binary_sensor.routeur
           - binary_sensor.nas
-          - binary_sensor.pi_hole_2
-          - binary_sensor.sync
+          - binary_sensor.mirror
+          - binary_sensor.slice
+          - binary_sensor.sliver
+          - binary_sensor.slab
           - binary_sensor.ac_ap_lite
           - binary_sensor.imac
         show_header_toggle: false
@@ -246,23 +246,6 @@ views:
             - domain: automation
     icon: 'mdi:settings'
 
-  - path: test
-    title: Test
-    badges: []
-    cards:
-      - type: entities
-        entities:
-          - sensor.airtower_temperature
-          - sensor.airtower_humidity
-          - sensor.airtower_pressure
-          - sensor.airtower_ammonia
-          - sensor.airtower_oxidising_gases
-          - sensor.airtower_reducing_gases
-          - sensor.airtower_light
-          - sensor.airtower_pm_1
-          - sensor.airtower_pm_2_5
-          - sensor.airtower_pm_10
-
   - path: battery_view
     title: Batteries
     icon: 'mdi:battery-alert'
@@ -280,3 +263,21 @@ views:
         filter:
           include:
             - group: group.battery_alert
+
+  - path: test
+    title: Test
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - sensor.airtower_temperature
+          - sensor.airtower_humidity
+          - sensor.airtower_pressure
+          - sensor.airtower_ammonia
+          - sensor.airtower_oxidising_gases
+          - sensor.airtower_reducing_gases
+          - sensor.airtower_light
+          - sensor.airtower_pm_1
+          - sensor.airtower_pm_2_5
+          - sensor.airtower_pm_10
+

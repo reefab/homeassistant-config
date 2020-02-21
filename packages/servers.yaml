@@ -1,31 +1,31 @@
 binary_sensor:
   - platform: ping
-    host: 192.168.1.1
+    host: gw
     name: Routeur
     count: 2
     scan_interval: 30
   - platform: ping
-    host: 192.168.1.40
+    host: freenas
     name: Nas
     count: 2
     scan_interval: 30
   - platform: ping
-    host: 192.168.1.139
-    name: Slab
-    count: 2
-  - platform: ping
-    name: Plex
-    host: 192.168.1.149
+    host: mirror
+    name: Mirror
     count: 2
     scan_interval: 30
   - platform: ping
-    host: 192.168.1.159
+    host: slab
+    name: Slab
+    count: 2
+  - platform: ping
+    host: sliver
     name: Sliver
     count: 2
     scan_interval: 30
   - platform: ping
-    name: Sync
-    host: 192.168.1.112
+    host: slice
+    name: Slice
     count: 2
     scan_interval: 30
   - platform: ping
@@ -38,6 +38,16 @@ homeassistant:
   customize:
     binary_sensor.nas:
       icon: 'mdi:nas'
+    binary_sensor.mirror:
+      icon: 'mdi:nas'
+    binary_sensor.slab:
+      icon: 'mdi:ubuntu'
+    binary_sensor.sliver:
+      icon: 'mdi:ubuntu'
+    binary_sensor.slice:
+      icon: 'mdi:ubuntu'
+    binary_sensor.imac:
+      icon: 'mdi:desktop-mac'
     binary_sensor.routeur:
       icon: 'mdi:router-wireless'
     binary_sensor.sync:
