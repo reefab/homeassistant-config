@@ -92,19 +92,32 @@ automation:
           below: 250
     action:
       - delay:
-          hours: 4  # Maintain at least 4 hours of darkness
+          hours: 2  # Maintain at least some hours of darkness
       - condition: state
-        entity_id: binary_sensor.porte_chambre
-        state: 'off'
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: template  # doesn't work using a simple state condition
+        value_template: "{{ is_state('binary_sensor.porte_chambre', 'off') }}"
       - service: switch.turn_off
         entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_on
-        entity_id: light.bureau
+        entity_id: group.main_group_rooms_lights
         data:
           color_name: fuchsia
           brightness: 255
-      - service: light.turn_on
-        entity_id: light.salon
-        data:
-          color_name: fuchsia
-          brightness: 255
+  - alias: Switch grow Lights off at sunrise
+    trigger:
+      - platform: sun
+        event: sunrise
+        offset: "01:00:00"
+    condition:
+      condition: state
+      entity_id: switch.circadian_lighting_circadian_lighting
+      state: 'off'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.circadian_lighting_circadian_lighting
+      - delay:
+          seconds: 10
+      - service: light.turn_off
+        entity_id: group.main_group_rooms_lights
