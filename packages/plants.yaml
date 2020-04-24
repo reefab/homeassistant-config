@@ -101,7 +101,7 @@ automation:
       - service: switch.turn_off
         entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_on
-        entity_id: group.main_group_rooms_lights
+        entity_id: group.main_rooms_lights
         data:
           color_name: fuchsia
           brightness: 255
@@ -120,4 +120,4 @@ automation:
       - delay:
           seconds: 10
       - service: light.turn_off
-        entity_id: group.main_group_rooms_lights
+        entity_id: group.main_rooms_lights
