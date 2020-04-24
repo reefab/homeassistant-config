@@ -1,0 +1,11 @@
+# For use with: https://github.com/codechimp-org/ha-menu
+group:
+  ha_menu:
+    name: HA Menu switches
+    entities:
+      - light.bureau
+      - light.salon
+      - switch.steambox
+      - switch.aspirateur
+      - switch.menage
+      - switch.circadian_lighting_circadian_lighting
