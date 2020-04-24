@@ -10,3 +10,6 @@ recorder:
       - sun.sun 
       - sensor.last_boot 
       - sensor.date
+      - sensor.lux_bureau
+      - sensor.lux_salon
+      - sensor.time_spent_vacuuming_today
