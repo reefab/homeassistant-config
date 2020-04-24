@@ -9,6 +9,30 @@ automation:
     action:
       service: fan.toggle
       entity_id: fan.petit_ventilateur
+  - alias: turn on office fan
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: tradfri_on_off_switch
+        event: 1003
+    action:
+      service: fan.set_speed
+      entity_id: fan.ventilateur_bureau
+      data:
+         speed: 'low'
+  - alias: turn off office fan
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: tradfri_on_off_switch
+        event: 2003
+    action:
+      service: fan.set_speed
+      entity_id: fan.ventilateur_bureau
+      data:
+         speed: 'off'
   # auto switch off when it's cool enough
   - alias: turn office fan off
     trigger:
