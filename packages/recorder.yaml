@@ -1,5 +1,5 @@
 recorder:
-  db_url: !secret postgres_url
+  db_url: !secret mariadb_url # MariaDB Galera cluster on docker swarm: https://github.com/colinmollenhour/mariadb-galera-swarm
   purge_keep_days: 7
   exclude:
     domains:
