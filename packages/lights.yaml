@@ -44,7 +44,7 @@ automation:
         entity_id: group.people
         state: home
       - condition: state
-        entity_id: switch.steambox
+        entity_id: switch.benq_w1070
         state: 'off'
     action:
       - service: light.turn_on
@@ -84,9 +84,11 @@ homeassistant:
     light.bureau:
       icon: 'mdi:ceiling-light'
     light.salon:
-      icon: 'mdi:led-strip'
+      icon: 'mdi:led-strip-variant'
     light.vitrine:
-      icon: 'mdi:led-strip'
+      icon: 'mdi:led-strip-variant'
+    light.atelier:
+      icon: 'mdi:led-strip-variant'
     light.mezzanine:
       icon: 'mdi:lamp'
     light.salle_de_bain_2:
