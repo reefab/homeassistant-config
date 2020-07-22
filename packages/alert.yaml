@@ -7,6 +7,15 @@ alert:
     repeat: 10
     notifiers:
       - mobile_app_phophone
+    data:
+      push:
+        thread-id: 'leak-notification-group'
+        sound:
+          name: "US-EN-Alexa-Water-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
+      apns_headers:
+        apns-collapse-id: 'leak-notification-group'
 
   toilet_water_leak:
     name: Water is leaking at toilet
@@ -16,6 +25,15 @@ alert:
     repeat: 30
     notifiers:
       - mobile_app_phophone
+    data:
+      push:
+        thread-id: 'leak-notification-group'
+        sound:
+          name: "US-EN-Alexa-Water-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
+      apns_headers:
+        apns-collapse-id: 'open-window-notification-group'
 
   washers_water_leak:
     name: Water is leaking at washers
@@ -25,6 +43,15 @@ alert:
     repeat: 10
     notifiers:
       - mobile_app_phophone
+    data:
+      push:
+        thread-id: 'leak-notification-group'
+        sound:
+          name: "US-EN-Alexa-Water-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
+      apns_headers:
+        apns-collapse-id: 'leak-notification-group'
 
   smoke_living_room:
     name: Smoke detected in living room
@@ -34,6 +61,13 @@ alert:
     repeat: 10
     notifiers:
       - mobile_app_phophone
+    data:
+      push:
+        sound:
+          name: "US-EN-Alexa-Smoke-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
+
 
   smoke_office:
     name: Smoke detected in office
@@ -43,6 +77,12 @@ alert:
     repeat: 10
     notifiers:
       - mobile_app_phophone
+    data:
+      push:
+        sound:
+          name: "US-EN-Alexa-Smoke-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
 
   # send alert if front door has been opened for more than 5 minutes
   front_door_not_closed:
@@ -54,3 +94,12 @@ alert:
     skip_first: true
     notifiers:
       - mobile_app_phophone
+    data:
+      push:
+        thread-id: 'door-opened-notification-group'
+        sound:
+          name: "US-EN-Daisy-Front-Door-Open.wav"
+          critical: 1
+          volume: 1.0
+      apns_headers:
+        apns-collapse-id: 'door-opened-notification-group'
