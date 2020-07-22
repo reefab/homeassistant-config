@@ -1,4 +1,4 @@
-# 2 3D printers, each with their https://octoprint.org server
+# 3D printer with a https://octoprint.org server
 octoprint:
   - host: 192.168.1.49
     name: prusa
@@ -13,7 +13,7 @@ octoprint:
       monitored_conditions:
         - Printing
 
-# Webcam monitoring, actually running in a mjpeg streamer docker container
+# Webcam monitoring
 camera:
   - platform: mjpeg
     name: 3d printers
@@ -30,3 +30,24 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.3d_printers
+  - alias: Send notification when printing is done
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.prusa_printing
+        from: 'on'
+        to: 'off'
+    condition:
+      # to filter out prints cancelled before the end
+      - condition: numeric_state
+        entity_id: sensor.prusa_job_percentage
+        above: 95
+    action:
+      - service: notify.mobile_app_phophone
+        data:
+          message: 'Print finished.'
+          data:
+            attachment:
+              content-type: jpeg
+            push:
+              category: camera
+            entity_id: camera.3d_printers
