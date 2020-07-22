@@ -36,8 +36,8 @@ homeassistant:
 
 alert:
   bureau_plant:
-    name: Les plantes murales du bureau ont besoin d'attention
-    done_message: Les plantes murales du bureau vous remercient
+    name: Les plantes murales du bureau ont besoin d'attention.
+    done_message: Les plantes murales du bureau vous remercient.
     entity_id: plant.flowall_bureau
     state: 'problem'
     skip_first: true
@@ -46,11 +46,17 @@ alert:
       - 20
       - 60
       - 360
+    data:
+      push:
+        thread-id: 'plant-notification-group'
+      apns_headers:
+        'apns-collapse-id': 'plant-notification-group'
     notifiers:
       - mobile_app_phophone
+
   salon_plant:
-    name: Les plantes murales du salon ont besoin d'attention
-    done_message: Les plantes murales du salon vous remercient
+    name: Les plantes murales du salon ont besoin d'attention.
+    done_message: Les plantes murales du salon vous remercient.
     entity_id: plant.flowall_salon
     state: 'problem'
     skip_first: true
@@ -59,6 +65,11 @@ alert:
       - 20
       - 60
       - 360
+    data:
+      push:
+        thread-id: 'plant-notification-group'
+      apns_headers:
+        'apns-collapse-id': 'plant-notification-group'
     notifiers:
       - mobile_app_phophone
 
