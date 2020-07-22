@@ -48,8 +48,8 @@ automation:
         id: bouton_lit
         event: 1005
     action:
-      service: script.turn_on
-      entity_id: script.toggle_cover
+      service: cover.toggle
+      entity_id: cover.bedroom_velux
 
 cover:
   # Custom device for controlling velux exterior blinds:
@@ -63,12 +63,32 @@ cover:
     availability_topic: "tele/velux/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
-  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
   - platform: template
     covers:
-      bedroom_velux:
+      office_blind:  # Template over Ikea blinds controlled via deconz because it doesn't remember it's position
+        friendly_name: "Store Bureau"
+        optimistic: true
+        open_cover:
+          service: cover.open_cover
+          data:
+            entity_id: cover.store_bureau
+        close_cover:
+          service: cover.close_cover
+          data:
+            entity_id: cover.store_bureau
+        set_cover_position:
+          service: cover.set_cover_position
+          data_template:
+            entity_id: cover.store_bureau
+            position: "{{position}}"
+        stop_cover:
+          service: cover.stop_cover
+          data:
+            entity_id: cover.store_bureau
+
+      bedroom_velux:  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
         friendly_name: "Velux Chambre"
-        optimistic: false
+        optimistic: true
         open_cover:
           service: broadlink.send
           data:
@@ -100,21 +120,11 @@ cover:
               - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
               - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
 
-script:
-  # toggle script to open/close cover using one button
-  toggle_cover:
-    sequence:
-      - service_template: >
-          {% if is_state('cover.bedroom_velux', 'open') %}
-            cover.close_cover
-          {% else %}
-            cover.open_cover
-          {% endif %}
-        entity_id: cover.bedroom_velux
-
 homeassistant:
   customize:
     cover.bedroom_velux:
       device_class: 'blind'
     cover.velux_mezzanine:
+      device_class: 'blind'
+    cover.office_blind:
       device_class: 'blind'
