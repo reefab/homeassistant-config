@@ -119,20 +119,8 @@ script:
   projo_on:
     alias: Projo On
     sequence:
-      - service: switch.turn_off
-        entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_off
         entity_id: light.bureau
-      - service: light.turn_on
-        entity_id: light.projo
-        data:
-          brightness: 0
-          transition: 60
-      - service: light.turn_on
-        entity_id: light.ecran
-        data:
-          brightness: 100
-          transition: 60
       - service: switch.turn_on
         entity_id: switch.steambox
       - service: switch.turn_on
@@ -142,10 +130,17 @@ script:
       - service: media_player.select_source
         entity_id: media_player.yamaha_receiver
         data:
-          source: 'HDMI2'
+          source: 'HDMI1'
+      - service: light.turn_on
+        entity_id:
+          - light.projo
+          - light.ecran
+        data:
+          brightness: 0
+          transition: 60
       - delay: '00:01:00'
       - service: light.turn_off
-        entity_id: light.projo
+        entity_id: all
 
   projo_off:
     alias: Projo Off
@@ -156,13 +151,17 @@ script:
         entity_id: media_player.yamaha_receiver
       - service: switch.turn_off
         entity_id: switch.steambox
-      - service: switch.turn_on
-        entity_id: switch.circadian_lighting_circadian_lighting
+      - service: light.turn_off
+        entity_id:
+          - light.hue_ws2812_ring_1
+          - light.hue_ws2812_ring_2
       - condition: state
         entity_id: sun.sun
-        state: 'above_horizon'
-      - service: light.turn_off
-        entity_id: light.ecran
+        state: 'below_horizon'
+      - service: light.turn_on
+        entity_id: light.salon
+        data:
+          transition: 60
 
   ht_volume_up:
     alias: Volume Up
@@ -201,8 +200,11 @@ homeassistant:
     switch.projector:
       friendly-name: Projo
       icon: 'mdi:projector'
+    media_player.ecran_salon:
+      device_class: tv
     media_player.yamaha_receiver:
       hidden: true
+      device_class: speaker
   customize_glob:
     "automation.*with_cube":
       hidden: true
