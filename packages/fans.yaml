@@ -36,10 +36,6 @@ automation:
   # auto switch off when it's cool enough
   - alias: turn office fan off
     trigger:
-      - entity_id: device_tracker.imac
-        from: home
-        platform: state
-        to: not home
       - below: '25'
         entity_id: sensor.netatmo_bureau_temperature
         platform: numeric_state
@@ -87,6 +83,17 @@ automation:
     action:
       - service: fan.toggle
         entity_id: fan.ventilateur_bois
+  - alias: Switch fans off if no one is home
+    trigger:
+      - platform: state
+        entity_id: group.people
+        from: 'home'
+        to: 'not_home'
+        for:
+          minutes: 2
+    action:
+      - service: fans.turn_off
+        entity_id: all
 
 fan:
   # Sonoff iFan02 with Tasmota
