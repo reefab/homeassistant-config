@@ -29,7 +29,7 @@ automation:
         entity_id: binary_sensor.lumi_sensor_smoke_2
     action:
       service: switch.turn_off
-      entity_id: switch.3d_printers
+      entity_id: switch.on_off_plug_in_unit_20
   - alias: Send notification when printing is done
     trigger:
       - platform: state
