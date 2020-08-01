@@ -64,8 +64,6 @@ automation:
         entity_id: fan.ventilateur_bureau
       - service: fan.turn_off
         entity_id: fan.ventilateur_bois
-      - service: switch.turn_off
-        entity_id: switch.steambox
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
@@ -82,23 +80,25 @@ light:
 homeassistant:
   customize:
     light.bureau:
-      icon: 'mdi:ceiling-light'
+      icon: 'mdi:desk'
     light.salon:
-      icon: 'mdi:led-strip-variant'
+      icon: 'mdi:sofa'
     light.vitrine:
       icon: 'mdi:led-strip-variant'
     light.atelier:
-      icon: 'mdi:led-strip-variant'
+      icon: 'mdi:tools'
     light.mezzanine:
-      icon: 'mdi:lamp'
+      icon: 'mdi:bed-double'
     light.salle_de_bain_2:
-      icon: 'mdi:wall-sconce'
+      icon: 'mdi:shower'
     light.chambre:
-      icon: 'mdi:wall-sconce'
+      icon: 'mdi:bed-queen'
     light.cuisine:
-      icon: 'mdi:spotlight-beam'
+      icon: 'mdi:pot-mix'
     light.spots_salon:
-      icon: 'mdi:spotlight-beam'
+      icon: 'mdi:wallpaper'
+    light.dressing:
+      icon: 'mdi:hanger'
     automation.switch_all_lights_off_with_button_press:
       hidden: true
     automation.if_there_is_motion_and_its_dark_turn_on_the_light_in_the_bathroom:
