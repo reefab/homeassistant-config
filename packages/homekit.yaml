@@ -2,23 +2,33 @@ homekit:
   advertise_ip: 192.168.1.2
   filter:
     include_entities:
+      - camera.reefab_mainstream
       - cover.velux_mezzanine
       - cover.bedroom_velux
+      - cover.office_blind
       - climate.netatmo_my_room
       - fan.petit_ventilateur
       - fan.ventilateur_bois
       - fan.ventilateur_bureau
+      - light.atelier
+      - light.chambre
       - light.bureau
-      - light.cuisine_2
+      - light.cuisine
       - light.mezzanine
       - light.salle_de_bain_2
       - light.salon
       - light.spots_salon
-      - switch.projector
-      - switch.aspirateur
+      - media_player.ecran_salon
+      - sensor.netatmo_salon_temperature
+      - sensor.netatmo_bureau_temperature
+      - sensor.netatmo_chambre_temperature
+      - sensor.salle_de_bain
+      - sensor.cuisine
       - switch.menage
-      - switch.circadian_lighting_circadian_lighting
+      - vacuum.rockrobo
   entity_config:
+    camera.3d_printers:
+      name: Prusa
     climate.netatmo_my_room:
       name: Chaudière
     light.bureau:
@@ -29,12 +39,8 @@ homekit:
       name: Lumière Mezzanine
     light.salon:
       name: Lumière Salon
-    light.salle_de_bain:
+    light.salle_de_bain_2:
       name: Lumière Salle de Bain
-    light.vitrine:
-      name: Lumière Vitrine
-    switch.projector:
-      name: Projecteur
     cover.velux_mezzanine:
       name: Store Mezzanine
     cover.bedroom_velux:
@@ -42,8 +48,12 @@ homekit:
     fan.ventilateur_bois:
       name: Ventilateur salon
     media_player.ecran_salon:
+      name: Projecteur
+    media_player.yamaha_receiver:
       name: Ampli
     switch.menage:
-      name: Mode menage
+      name: Mode ménage
     switch.circadian_lighting_circadian_lighting:
       name: Mode circadien
+    vacuum.rockrobo:
+      name: Aspirateur

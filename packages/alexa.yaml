@@ -4,22 +4,22 @@ alexa:
       include_entities:
         - cover.velux_mezzanine
         - cover.bedroom_velux
+        - cover.office_blind
         - climate.netatmo_my_room
         - fan.petit_ventilateur
         - fan.ventilateur_bois
         - fan.ventilateur_bureau
+        - light.atelier
+        - light.chambre
         - light.bureau
-        - light.salon
-        - light.spots_salon
         - light.cuisine
         - light.mezzanine
         - light.salle_de_bain_2
-        - light.vitrine
-        - switch.projector
-        - switch.aspirateur
-        - switch.menage
+        - light.salon
+        - light.spots_salon
         - media_player.ecran_salon
-        - switch.circadian_lighting_circadian_lighting
+        - switch.menage
+        - switch.aspirateur
     entity_config:
       climate.netatmo_my_room:
         name: Chaudière
@@ -31,12 +31,8 @@ alexa:
         name: Lumière Mezzanine
       light.salon:
         name: Lumière Salon
-      light.salle_de_bain:
+      light.salle_de_bain_2:
         name: Lumière Salle de Bain
-      light.vitrine:
-        name: Lumière Vitrine
-      switch.projector:
-        name: Projecteur
       cover.velux_mezzanine:
         name: Store Mezzanine
       cover.bedroom_velux:
@@ -44,8 +40,6 @@ alexa:
       fan.ventilateur_bois:
         name: Ventilateur salon
       media_player.ecran_salon:
-        name: Ampli
+        name: Projecteur
       switch.menage:
-        name: Mode menage
-      switch.circadian_lighting_circadian_lighting:
-        name: Mode circadien
+        name: Mode ménage
