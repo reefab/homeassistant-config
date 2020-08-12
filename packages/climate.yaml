@@ -22,7 +22,10 @@ automation:
       data_template:
         message: 'Open office window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
         data:
-          tag: "safe-to-open-window"
+          push:
+            thread-id: 'open-window-notification-group'
+          apns_headers:
+            'apns-collapse-id': 'open-window-notification-group'
 
   - alias: Prompt to open windows if exterior temperature is below living room temperature
     initial_state: true
@@ -47,7 +50,10 @@ automation:
       data_template:
         message: 'Open living room window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
         data:
-          tag: "safe-to-open-window"
+          push:
+            thread-id: 'open-window-notification-group'
+          apns_headers:
+            'apns-collapse-id': 'open-window-notification-group'
 
   - alias: Turn stuff off when a window is opened
     trigger:
