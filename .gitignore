@@ -13,3 +13,4 @@ __pycache__
 /phue.conf
 /.uuid
 /known_devices.yaml
+/packages/people.yaml

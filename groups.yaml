@@ -1,16 +1,16 @@
 people:
   name: People
   entities:
-    - device_tracker.phophone_2
-    - device_tracker.mi9t_miphone
-    - device_tracker.huawei_p9_lite_premium
-    - device_tracker.oneplus_5t
+    - person.fabien
+    - person.hana
+    - person.emmanuelle
+    - person.capucine
+    - person.royce
 
 guests:
   name: Guest
   entities:
-    - device_tracker.mi9t_miphone
-    - device_tracker.huawei_p9_lite_premium
-    - device_tracker.oneplus_5t
-
-
+    - person.hana
+    - person.emmanuelle
+    - person.capucine
+    - person.royce
