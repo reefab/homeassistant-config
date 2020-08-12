@@ -49,6 +49,15 @@ automation:
     action:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
+  - alias: Switch lights off after sunrise
+    trigger:
+      - platform: numeric_state
+        entity_id: sun.sun
+        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+        above: 3.0
+    action:
+      - service: light.turn_off
+        entity_id: group.main_rooms_lights
 
   - alias: Switch all lights off with button press
     trigger:
