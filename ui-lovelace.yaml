@@ -4,6 +4,8 @@ background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
 resources:
   - url: /local/custom-lovelace/lovelace-auto-entities/auto-entities.js?v=1
     type: module
+  - url: /local/xiaomi-vacuum-card.js?v=3.0.1
+    type: module
 
 views:
   - path: default_view
@@ -13,36 +15,40 @@ views:
     cards:
       - type: vertical-stack
         cards:
-          - type: thermostat
-            entity: climate.netatmo_my_room
           - type: sensor
             graph: line
             name: Dehors
+            detail: 2
             entity: sensor.netatmo_dehors_temperature
-          - type: picture-glance
-            title: Global
-            camera_image: camera.vacuum_map
-            entities:
-              - vacuum.rockrobo
-              - switch.circadian_lighting_circadian_lighting
-              - switch.menage
-              - binary_sensor.porte_entree
-              - switch.main_water_valve
           - type: glance
             title: Dehors
+            show_name: false
             entities:
+              - sensor.dark_sky_temperature 
+              - weather.dark_sky
               - sensor.netatmo_dehors_humidity
               - sensor.waqi_paris
               - sensor.velib_86245c11064e6c59600ed1a72ca437b7
-
-          - type: weather-forecast
-            entity: weather.dark_sky
+          - type: picture-glance
+            camera_image: camera.vacuum_map
+            title: Global
+            entities:
+              - switch.menage
+              - binary_sensor.porte_entree
+              - switch.main_water_valve
+              - climate.netatmo_my_room
+          - type: custom:xiaomi-vacuum-card
+            entity: vacuum.rockrobo
+            name: false
+            image: false
+            vendor: valetudo
           - type: entity-filter
             entities:
-              - device_tracker.phophone_2
-              - device_tracker.iphonedmanuelle
-              - device_tracker.huawei_p9_lite_premium
-              - device_tracker.oneplus_5t
+              - person.capucine
+              - person.hana
+              - person.emmanuelle
+              - person.fabien
+              - person.royce
             state_filter:
               - home
             card:
@@ -51,16 +57,18 @@ views:
 
       - type: vertical-stack
         cards:
-          - type: light
-            entity: light.salon
           - type: sensor
             graph: line
             name: Salon
             entity: sensor.netatmo_salon_temperature
+            detail: 2
           - type: glance
             title: Salon
             show_name: false
             entities:
+              - entity: light.salon
+                tap_action:
+                  action: toggle
               - entity: light.spots_salon
                 tap_action:
                   action: toggle
@@ -69,28 +77,29 @@ views:
               - entity: fan.ventilateur_bois
                 tap_action:
                   action: toggle
-              - sensor.foobot_tempbot_co2
+              - sensor.netatmo_salon_co2
               - binary_sensor.lumi_sensor_smoke
-              - sensor.foobot_tempbot_pm2_5
-              - sensor.foobot_tempbot_voc
-              - sensor.foobot_tempbot_index
               - switch.humidifier
           - type: plant-status
             entity: plant.flowall_salon
+          - type: picture-entity
+            entity: camera.reefab_mainstream
 
       - type: vertical-stack
         cards:
-          - type: light
-            entity: light.bureau
           - type: sensor
             graph: line
             name: Bureau
             entity: sensor.netatmo_bureau_temperature
+            detail: 2
           - type: glance
             title: Bureau
             show_name: false
             entities:
-              - entity: light.vitrine
+              - entity: light.bureau
+                tap_action:
+                  action: toggle
+              - entity: light.atelier
                 tap_action:
                   action: toggle
               - sensor.netatmo_bureau_humidity
@@ -100,16 +109,14 @@ views:
                   action: toggle
               - sensor.netatmo_bureau_co2
               - fan.xiaomi_air_purifier_2s
-              - sensor.netatmo_bureau_noise
+              - entity: cover.office_blind
+                tap_action:
+                  action: toggle
               - sensor.bureau_aqi
               - entity: switch.steambox
                 icon: 'mdi:steam'
                 tap_action:
                   action: toggle
-              - entity: switch.light_15
-                tap_action:
-                  action: toggle
-
           - type: plant-status
             entity: plant.flowall_bureau
           - type: picture-glance
@@ -121,16 +128,18 @@ views:
 
       - type: vertical-stack
         cards:
-          - type: light
-            entity: light.chambre
           - type: sensor
             graph: line
             name: chambre
             entity: sensor.netatmo_chambre_temperature
+            detail: 2
           - type: glance
             title: Chambre
             show_name: false
             entities:
+              - entity: light.chambre
+                tap_action:
+                  action: toggle
               - entity: light.dressing
                 tap_action:
                   action: toggle
@@ -145,56 +154,59 @@ views:
               - fan.xiaomi_air_purifier_2
               - sensor.chambre_aqi
               - binary_sensor.porte_chambre
-
-      - type: glance
-        title: Salle de Bain
-        show_name: false
-        entities:
-          - entity: light.salle_de_bain_2
-            tap_action:
-              action: toggle
-          - sensor.salle_de_bain
-          - sensor.salle_de_bain_3
-          - binary_sensor.robinet_toilette
-
-      - type: glance
-        title: Cuisine
-        show_name: false
-        entities:
-          - entity: light.cuisine
-            tap_action:
-              action: toggle
-          - sensor.cuisine
-          - sensor.cuisine_2
-          - sensor.fridge_power
-          - binary_sensor.compteur_eau
-          - binary_sensor.buanderie
-
-      - type: glance
-        title: Mezzanine
-        show_name: false
-        entities:
-          - entity: light.mezzanine
-            tap_action:
-              action: toggle
-          - entity: cover.velux_mezzanine
-            tap_action:
-              action: toggle
-
+          - type: glance
+            title: Salle de Bain
+            show_name: false
+            entities:
+              - entity: light.salle_de_bain_2
+                tap_action:
+                  action: toggle
+              - sensor.salle_de_bain
+              - sensor.salle_de_bain_2
+              - binary_sensor.robinet_toilette
+          - type: glance
+            title: Cuisine
+            show_name: false
+            entities:
+              - entity: light.cuisine
+                tap_action:
+                  action: toggle
+              - sensor.cuisine
+              - sensor.cuisine_2
+              - binary_sensor.compteur_eau
+              - binary_sensor.buanderie
+          - type: glance
+            title: Mezzanine
+            show_name: false
+            entities:
+              - entity: light.mezzanine
+                tap_action:
+                  action: toggle
+              - sensor.temperature_50
+              - sensor.humidity_51
+              - entity: cover.velux_mezzanine
+                tap_action:
+                  action: toggle
 
   - path: infra_view
     title: infra_view
     badges: []
     icon: 'mdi:server-network'
     cards:
+      - type: sensor
+        graph: line
+        name: Bureau
+        entity: sensor.server_rack_temperature
+        detail: 2
       - type: entities
         title: Server
         entities:
           - sensor.processor_use
           - sensor.memory_use_percent
           - sensor.nut_ups_battery_runtime
-          - sensor.nut_ups_load
         show_header_toggle: false
+      - type: gauge
+        entity: sensor.nut_ups_load
       - type: entities
         title: Network
         entities:
