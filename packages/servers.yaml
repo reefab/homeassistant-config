@@ -34,6 +34,17 @@ binary_sensor:
     count: 2
     scan_interval: 30
 
+sensor:
+    # DHT11 temp sensor connected to the GPIO ports of a PI that's inside
+    # the server rack. Software used: https://github.com/flyte/pi-mqtt-gpio
+  - platform: mqtt
+    availability_topic: "pi_gpio/status"
+    state_topic: "pi_gpio/sensor/dht22_temperature"
+    device_class: temperature 
+    name: Server Rack Temperature
+    payload_available: running
+    unit_of_measurement: "°C"
+
 homeassistant:
   customize:
     binary_sensor.nas:
