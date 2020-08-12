@@ -42,10 +42,6 @@ updater:
 
 # Discover some devices automatically
 discovery:
-  ignore:
-    - apple_tv
-    - roku
-    - google_cast
 
 ios:
 
@@ -101,3 +97,6 @@ lovelace:
   mode: yaml
 
 mobile_app:
+
+stream:
+ffmpeg:
