@@ -17,6 +17,10 @@ homeassistant:
       friendly_name: Humidité Sdb
     sensor.salle_de_bain_2:
       friendly_name: Pression Sdb
+    sensor.temperature_50:
+      friendly_name: Temperature Mezzanine
+    sensor.humidity_51:
+      friendly_name: Humidité Mezzanine
     binary_sensor.lumi_sensor_smoke_2:
       friendly_name: Fumée Bureau
     binary_sensor.lumi_sensor_smoke:
@@ -35,3 +39,5 @@ homeassistant:
       icon: mdi:pipe-leak
     binary_sensor.buanderie:
       icon: mdi:washing-machine
+    switch.on_off_plug_in_unit_20:
+      friendly_name: Alimentation Imprimantes 3D
