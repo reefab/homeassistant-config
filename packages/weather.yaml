@@ -8,6 +8,7 @@ sensor:
     forecast:
       - 0
     monitored_conditions:
+      - temperature
       - apparent_temperature_high
     scan_interval:
       hours: 1
