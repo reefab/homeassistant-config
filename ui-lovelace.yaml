@@ -1,11 +1,4 @@
 title: Appart
-background: center / cover no-repeat url("/local/photos/bg.jpg") fixed
-
-resources:
-  - url: /local/custom-lovelace/lovelace-auto-entities/auto-entities.js?v=1
-    type: module
-  - url: /local/xiaomi-vacuum-card.js?v=3.0.1
-    type: module
 
 views:
   - path: default_view
@@ -34,8 +27,12 @@ views:
             title: Global
             entities:
               - switch.menage
+              - switch.mop
               - binary_sensor.porte_entree
-              - switch.main_water_valve
+              - entity: switch.main_water_valve
+                tap_action:
+                  action: toggle
+                  confirmation: true
               - climate.netatmo_my_room
           - type: custom:xiaomi-vacuum-card
             entity: vacuum.rockrobo
@@ -78,10 +75,10 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_salon_co2
-              - binary_sensor.lumi_sensor_smoke
               - switch.humidifier
-          - type: plant-status
-            entity: plant.flowall_salon
+              - binary_sensor.lumi_sensor_smoke
+              - entity: sensor.flowallsalon_moisture
+                icon: 'mdi:sprout'
           - type: picture-entity
             entity: camera.reefab_mainstream
 
@@ -113,17 +110,22 @@ views:
                 tap_action:
                   action: toggle
               - sensor.bureau_aqi
-              - entity: switch.steambox
-                icon: 'mdi:steam'
-                tap_action:
-                  action: toggle
-          - type: plant-status
-            entity: plant.flowall_bureau
+              - entity: sensor.flowallbureau_moisture
+                icon: 'mdi:sprout'
           - type: picture-glance
             title: 3D Printers
             camera_image: camera.3d_printers
             entities:
-              - sensor.prusa_current_state
+              - entity: switch.on_off_plug_in_unit_20
+                tap_action:
+                  action: toggle
+                  confirmation: true
+              - entity: light.atelier
+                tap_action:
+                  action: toggle
+                icon: 'mdi:lightbulb'
+              - entity: sensor.prusa_current_state
+                icon: 'mdi:printer-3d-nozzle'
               - binary_sensor.lumi_sensor_smoke_2
 
       - type: vertical-stack
@@ -144,16 +146,16 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_chambre_humidity
-              - entity: cover.bedroom_velux
-                tap_action:
-                  action: toggle
+              - binary_sensor.porte_chambre
               - entity: fan.petit_ventilateur
                 tap_action:
                   action: toggle
               - sensor.netatmo_chambre_co2
               - fan.xiaomi_air_purifier_2
+              - entity: cover.bedroom_velux
+                tap_action:
+                  action: toggle
               - sensor.chambre_aqi
-              - binary_sensor.porte_chambre
           - type: glance
             title: Salle de Bain
             show_name: false
@@ -196,7 +198,7 @@ views:
       - type: sensor
         graph: line
         name: Bureau
-        entity: sensor.server_rack_temperature
+        entity: sensor.filtered_server_rack_temperature
         detail: 2
       - type: entities
         title: Server
@@ -211,6 +213,8 @@ views:
         title: Network
         entities:
           - binary_sensor.routeur
+          - binary_sensor.deconz
+          - binary_sensor.pi
           - binary_sensor.nas
           - binary_sensor.mirror
           - binary_sensor.slice
@@ -227,6 +231,9 @@ views:
     cards:
       - type: entities
         entities:
+          - switch.light_15
+          - switch.on_off_plug_in_unit_21
+          - switch.steambox
           - light.projo
           - light.ecran
           - switch.w1070_blank
@@ -234,9 +241,24 @@ views:
           - switch.w1070_3d_tb
           - switch.w1070_3d_sbs
         show_header_toggle: false
-        title: Light
+      - type: media-control
+        entity: media_player.yamaha_receiver
       - type: media-control
         entity: media_player.ecran_salon
+
+  - path: night_view
+    title: night_view
+    badges: []
+    icon: 'mdi:weather-night'
+    cards:
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - input_boolean.night_time
+          - input_select.night_time_playlist
+          - switch.ambient_audio
+      - type: media-control
+        entity: media_player.forked_daapd_server
 
   - path: settings_view
     title: settings_view
@@ -256,7 +278,7 @@ views:
         filter:
           include:
             - domain: automation
-    icon: 'mdi:settings'
+    icon: 'mdi:cog'
 
   - path: battery_view
     title: Batteries
