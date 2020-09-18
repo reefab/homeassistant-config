@@ -51,6 +51,28 @@ automation:
       service: cover.toggle
       entity_id: cover.bedroom_velux
 
+  - alias: Open office cover
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: tradfri_open_close_switch
+        event: 1002
+    action:
+      service: cover.open_cover
+      entity_id: cover.store_bureau
+  - alias: Close office cover
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: tradfri_open_close_switch
+        event: 2002
+    action:
+      service: cover.close_cover
+      entity_id: cover.store_bureau
+
+
 cover:
   # Custom device for controlling velux exterior blinds:
   # https://github.com/reefab/homeassistant-velux
@@ -65,7 +87,7 @@ cover:
     payload_not_available: "Offline"
   - platform: template
     covers:
-      office_blind:  # Template over Ikea blinds controlled via deconz because it doesn't remember it's position
+      office_blind:  # Template over Ikea blinds controlled via deconz because it doesn't remember its position
         friendly_name: "Store Bureau"
         optimistic: true
         open_cover:
@@ -87,7 +109,7 @@ cover:
             entity_id: cover.store_bureau
 
       bedroom_velux:  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
-        friendly_name: "Velux Chambre"
+        friendly_name: "Store Chambre"
         optimistic: true
         open_cover:
           service: broadlink.send

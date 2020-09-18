@@ -20,10 +20,10 @@ automation:
 
 binary_sensor:
   - platform: ping
-    host: 192.168.1.140
     name: iMac
+    host: 192.168.1.140
     count: 2
-    scan_interval: 30
+    scan_interval: 10
 
 homeassistant:
   customize:

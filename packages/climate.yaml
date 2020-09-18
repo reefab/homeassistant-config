@@ -141,7 +141,7 @@ homeassistant:
       icon: 'mdi:radiator'
     sensor.netatmo_chambre_co2:
       friendly_name: Co2
-      icon: mdi:periodic-table-co2
+      icon: mdi:molecule-co2
     sensor.netatmo_chambre_humidity:
       friendly_name: Humidité
     sensor.netatmo_chambre_temperature:
@@ -154,7 +154,7 @@ homeassistant:
       friendly_name: Bruit
     sensor.netatmo_bureau_co2:
       friendly_name: Co2
-      icon: mdi:periodic-table-co2
+      icon: mdi:molecule-co2
     sensor.netatmo_bureau_humidity:
       friendly_name: Humidité
     sensor.netatmo_bureau_temperature:
@@ -163,7 +163,7 @@ homeassistant:
       friendly_name: AQI
     sensor.netatmo_salon_co2:
       friendly_name: Co2
-      icon: mdi:periodic-table-co2
+      icon: mdi:molecule-co2
       hidden: true
     sensor.netatmo_salon_humidity:
       friendly_name: Humidité

@@ -39,5 +39,12 @@ homeassistant:
       icon: mdi:pipe-leak
     binary_sensor.buanderie:
       icon: mdi:washing-machine
+    switch.light_15:
+      friendly_name: Moniteurs bureau
+      icon: mdi:speaker
     switch.on_off_plug_in_unit_20:
       friendly_name: Alimentation Imprimantes 3D
+      icon: mdi:printer-3d
+    switch.on_off_plug_in_unit_21:
+      friendly_name: Caisson de basse
+      icon: mdi:smoke-detector

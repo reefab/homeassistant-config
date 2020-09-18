@@ -1,9 +1,28 @@
+alert:
+  deconz_crash:
+    name: Deconz crashed again
+    message: Deconz crashed again
+    entity_id: binary_sensor.deconz
+    state: 'off'
+    repeat: 720
+    notifiers:
+      - mobile_app_phophone
+
 binary_sensor:
   - platform: ping
     host: gw
     name: Routeur
     count: 2
     scan_interval: 30
+  - platform: ping
+    host: phoscon
+    name: deconz
+    count: 2
+    scan_interval: 30
+  - platform: ping
+    host: 192.168.1.145
+    name: pi
+    count: 2
   - platform: ping
     host: freenas
     name: Nas
@@ -44,6 +63,13 @@ sensor:
     name: Server Rack Temperature
     payload_available: running
     unit_of_measurement: "°C"
+  - platform: filter
+    name: Filtered server rack temperature
+    entity_id: sensor.server_rack_temperature
+    filters:
+      - filter: outlier
+        window_size: 4
+        radius: 5
 
 homeassistant:
   customize:
@@ -65,3 +91,7 @@ homeassistant:
       icon: 'mdi:cloud-sync'
     binary_sensor.ac_ap_lite:
       icon: 'mdi:access-point-network'
+    binary_sensor.pi:
+      icon: 'mdi:raspberry-pi'
+    binary_sensor.deconz:
+      icon: 'mdi:raspberry-pi'

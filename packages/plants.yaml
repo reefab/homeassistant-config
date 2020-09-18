@@ -36,16 +36,15 @@ homeassistant:
 
 alert:
   bureau_plant:
+    title: "🌿"
     name: Les plantes murales du bureau ont besoin d'attention.
-    done_message: Les plantes murales du bureau vous remercient.
+    message: "{{ state_attr('plant.flowall_bureau', 'friendly_name') }} needs help ({{ state_attr('plant.flowall_bureau', 'problem') }})"
     entity_id: plant.flowall_bureau
     state: 'problem'
     skip_first: true
     can_acknowledge: true
     repeat:
-      - 20
-      - 60
-      - 360
+      - 720
     data:
       push:
         thread-id: 'plant-notification-group'
@@ -56,15 +55,14 @@ alert:
 
   salon_plant:
     name: Les plantes murales du salon ont besoin d'attention.
-    done_message: Les plantes murales du salon vous remercient.
+    title: "🌿"
+    message: "{{ state_attr('plant.flowall_salon', 'friendly_name') }} needs help ({{ state_attr('plant.flowall_salon', 'problem') }})"
     entity_id: plant.flowall_salon
     state: 'problem'
     skip_first: true
     can_acknowledge: true
     repeat:
-      - 20
-      - 60
-      - 360
+      - 720
     data:
       push:
         thread-id: 'plant-notification-group'
