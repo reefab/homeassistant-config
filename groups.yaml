@@ -5,6 +5,7 @@ people:
     - person.hana
     - person.emmanuelle
     - person.capucine
+    - person.marc
     - person.royce
 
 guests:
@@ -13,4 +14,5 @@ guests:
     - person.hana
     - person.emmanuelle
     - person.capucine
+    - person.marc
     - person.royce
