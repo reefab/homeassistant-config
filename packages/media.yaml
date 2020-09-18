@@ -1,4 +1,21 @@
 automation:
+  - alias: turn subwoofer on when receiver is active
+    trigger:
+      platform: state
+      entity_id: media_player.yamaha_receiver
+      from: 'off'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.on_off_plug_in_unit_21
+  - alias: turn subwoofer off when receiver is inactive
+    trigger:
+      platform: state
+      entity_id: media_player.yamaha_receiver
+      to: 'off'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.on_off_plug_in_unit_21
+      
   - alias: turn up volume with cube
     trigger:
       platform: event
