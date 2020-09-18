@@ -95,6 +95,11 @@ system_health:
 
 lovelace:
   mode: yaml
+  resources:
+    - url: /local/custom-lovelace/lovelace-auto-entities/auto-entities.js?v=1
+      type: module
+    - url: /local/xiaomi-vacuum-card.js?v=3.0.1
+      type: module
 
 mobile_app:
 
