@@ -11,10 +11,11 @@ camera:
     framerate: 1
 
 switch:
-  # This switch is only used to control the vacuum via homekit/alexa
   - platform: template
     switches:
+      # This switch is only used to control the vacuum via alexa
       aspirateur:
+        friendly_name: "robot aspirateur"
         turn_on:
           service: vacuum.start
           entity_id: vacuum.rockrobo
@@ -22,6 +23,29 @@ switch:
           service: vacuum.return_to_base
           entity_id: vacuum.rockrobo
         value_template: '{% if states.vacuum.rockrobo.state == "cleaning" %}
+                            on
+                         {% else %}
+                            off
+                         {% endif %}'
+      # Mopping has to be launched manually once the mop has been installed on the vacuum underside
+      mop:
+        friendly_name: "robot serpillière"
+        turn_on:
+          - service: vacuum.set_fan_speed
+            entity_id: vacuum.rockrobo
+            data:
+              fan_speed: 'mop'
+            entity_id: vacuum.rockrobo
+          - service: vacuum.start
+            entity_id: vacuum.rockrobo
+        turn_off:
+          - service: vacuum.set_fan_speed
+            entity_id: vacuum.rockrobo
+            data:
+              fan_speed: 'min'
+          - service: vacuum.return_to_base
+            entity_id: vacuum.rockrobo
+        value_template: '{% if states.vacuum.rockrobo.attributes.fan_speed == "mop" %}
                             on
                          {% else %}
                             off
@@ -134,5 +158,7 @@ homeassistant:
   customize:
     switch.aspirateur:
       hidden: true
+    switch.mop:
+      icon: 'mdi:broom'
     sensor.time_spent_vacuuming_today:
       hidden: true

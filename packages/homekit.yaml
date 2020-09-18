@@ -25,6 +25,7 @@ homekit:
       - sensor.salle_de_bain
       - sensor.cuisine
       - switch.menage
+      - switch.mop
       - vacuum.rockrobo
   entity_config:
     camera.3d_printers:

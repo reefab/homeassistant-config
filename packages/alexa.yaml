@@ -19,6 +19,7 @@ alexa:
         - light.spots_salon
         - media_player.ecran_salon
         - switch.menage
+        - switch.mop
         - switch.aspirateur
     entity_config:
       climate.netatmo_my_room:
