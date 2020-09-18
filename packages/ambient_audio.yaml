@@ -4,6 +4,15 @@
 # Sound output is an Airplay speaker
 # Music is "Long ambients 1 & 2" by Moby. It's free, thanks Moby! https://moby.com/la/
 
+input_select:
+  night_time_playlist:
+    name: night time playlist
+    options:
+      - "long ambient"
+      - "weightless"
+      - "rain calm"
+    icon: mdi:playlist-music
+
 automation:
   - alias: play ambient audio during the night
     trigger:
@@ -28,46 +37,36 @@ switch:
   platform: template
   switches:
     ambient_audio:
-      turn_on:
-        service: script.turn_on
-        data: 
-          entity_id: script.ambient_audio_on
-      turn_off:
-        service: script.turn_on
-        data: 
-          entity_id: script.ambient_audio_off
       value_template: "{{ is_state('media_player.forked_daapd_server', 'playing') }}"
-
-script:
-  ambient_audio_on:
-    sequence:
-      - condition: template
-        value_template: "{{ is_state('binary_sensor.porte_chambre', 'off') }}"
-      - condition: template
-        value_template: "{{ not is_state('media_player.forked_daapd_server', 'playing') }}"
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.forked_daapd_server
-          source: 'Clear queue'
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.forked_daapd_server
-          source: 'long ambient (playlist)'
-      - service: media_player.turn_on
-        data:
-          entity_id: media_player.forked_daapd_output_portable
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.forked_daapd_output_portable
-          volume_level: 0.2
-      - service: media_player.media_play
-        data:
-          entity_id: media_player.forked_daapd_server
-  ambient_audio_off:
-    sequence:
-      - service: media_player.media_stop
-        data:
-          entity_id: media_player.forked_daapd_server
-      - service: media_player.turn_off
-        data:
-          entity_id: media_player.forked_daapd_output_portable
+      turn_on:
+        # - condition: template
+        #  value_template: "{{ is_state('binary_sensor.porte_chambre', 'off') }}"
+        - condition: template
+          value_template: "{{ not is_state('media_player.forked_daapd_server', 'playing') }}"
+        - service: media_player.select_source
+          data:
+            entity_id: media_player.forked_daapd_server
+            source: 'Clear queue'
+        - service: media_player.select_source
+          data_template:
+            entity_id: media_player.forked_daapd_server
+            source: "{{ states('input_select.night_time_playlist') }} (playlist)"
+        - service: media_player.turn_on
+          data:
+            entity_id: media_player.forked_daapd_output_portable
+        - service: media_player.volume_set
+          data:
+            entity_id: media_player.forked_daapd_output_portable
+            volume_level: 0.2
+        - service: media_player.media_play
+          data:
+            entity_id: media_player.forked_daapd_server
+        - service: input_select.select_next
+          entity_id: input_select.night_time_playlist
+      turn_off:
+        - service: media_player.media_stop
+          data:
+            entity_id: media_player.forked_daapd_server
+        - service: media_player.turn_off
+          data:
+            entity_id: media_player.forked_daapd_output_portable
