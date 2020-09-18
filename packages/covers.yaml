@@ -112,35 +112,35 @@ cover:
         friendly_name: "Store Chambre"
         optimistic: true
         open_cover:
-          service: broadlink.send
+          service: remote.send_command
           data:
-            host: 192.168.12.122
-            packet:
-              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
-              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
-              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
-              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
-              - "JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA"
+            entity_id: remote.ir_bedroom_remote
+            command:
+              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
+              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
+              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
+              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
+              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
         close_cover:
-          service: broadlink.send
+          service: remote.send_command
           data:
-            host: 192.168.12.122
-            packet:
-              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
-              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
-              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
-              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
-              - "JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA"
+            entity_id: remote.ir_bedroom_remote
+            command:
+              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
+              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
+              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
+              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
+              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
         stop_cover:
-          service: broadlink.send
+          service: remote.send_command
           data:
-            host: 192.168.12.122
-            packet:
-              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
-              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
-              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
-              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
-              - "JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA"
+            entity_id: remote.ir_bedroom_remote
+            command:
+              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
+              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
+              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
+              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
+              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
 
 homeassistant:
   customize:
