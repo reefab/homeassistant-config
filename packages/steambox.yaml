@@ -1,0 +1,20 @@
+switch:
+  - platform: wake_on_lan
+    name: steambox
+    host: 192.168.1.70
+    mac: 'd8:cb:8a:35:32:af'
+    broadcast_address: 192.168.1.255
+    turn_off:
+      service: rest_command.steambox
+      data_template:
+        command: 'shutdown'
+
+rest_command:
+  steambox:
+    # Small windows software to shut it down remotely
+    url: 'http://192.168.1.70:5001/{{ command }}'
+
+homeassistant:
+  customize:
+    switch.steambox:
+      icon: 'mdi:steam'

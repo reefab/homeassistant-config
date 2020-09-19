@@ -1,95 +1,56 @@
-automation:
-  - alias: turn subwoofer on when receiver is active
-    trigger:
-      platform: state
-      entity_id: media_player.yamaha_receiver
-      from: 'off'
-    action:
-      - service: switch.turn_on
-        entity_id: switch.on_off_plug_in_unit_21
-  - alias: turn subwoofer off when receiver is inactive
-    trigger:
-      platform: state
-      entity_id: media_player.yamaha_receiver
-      to: 'off'
-    action:
-      - service: switch.turn_off
-        entity_id: switch.on_off_plug_in_unit_21
-      
-  - alias: turn up volume with cube
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        entity: lumi_sensor_cube_21
-    condition:
-      - condition: template
-        value_template: '{{ trigger.event.data.event > 0 }}'
-      - condition: state
-        entity_id: media_player.yamaha_receiver
-        state: 'on'
-    action:
-      - service: script.turn_on
-        entity_id: script.ht_volume_up
-  - alias: turn down volume with cube
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        entity: lumi_sensor_cube_21
-    condition:
-      - condition: template
-        value_template: '{{ trigger.event.data.event < 0 }}'
-      - condition: state
-        entity_id: media_player.yamaha_receiver
-        state: 'on'
-    action:
-      - service: script.turn_on
-        entity_id: script.ht_volume_down
-  - alias: mute volume with cube
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        entity: lumi_sensor_cube_20
-        event: 7007
-    condition:
-      condition: state
-      entity_id: media_player.yamaha_receiver
-      state: 'on'
-    action:
-      - service: script.turn_on
-        entity_id: script.ht_volume_mute
-
 switch:
-  - platform: wake_on_lan
-    name: steambox
-    host: 192.168.1.70
-    mac: 'd8:cb:8a:35:32:af'
-    broadcast_address: 192.168.1.255
-    turn_off:
-      service: rest_command.steambox
-      data_template:
-        command: 'shutdown'
   - platform: template
     switches:
       projector:
         value_template: '{{ states.switch.benq_w1070.state }}'
         turn_on:
-          service: script.turn_on
-          entity_id: script.projo_on
+          - service: switch.turn_off
+            entity_id: switch.circadian_lighting_circadian_lighting
+          - service: light.turn_off
+            entity_id: light.bureau
+          - service: switch.turn_on
+            entity_id: switch.steambox
+          - service: switch.turn_on
+            entity_id: switch.benq_w1070
+          - service: media_player.turn_on
+            entity_id: media_player.yamaha_receiver
+          - service: media_player.select_source
+            entity_id: media_player.yamaha_receiver
+            data:
+              source: 'HDMI1'
+          - service: light.turn_on
+            entity_id:
+              - light.projo
+              - light.ecran
+            data:
+              brightness: 0
+              transition: 60
+          - delay: '00:01:00'
+          - service: light.turn_off
+            entity_id: all
+          - delay: '00:01:00'
+          - service: switch.turn_on
+            entity_id: switch.circadian_lighting_circadian_lighting
         turn_off:
-          service: script.turn_on
-          entity_id: script.projo_off
-
-rest_command:
-  steambox:
-    # Small windows software to shut it down remotely
-    url: 'http://192.168.1.70:5001/{{ command }}'
+          - service: switch.turn_off
+            entity_id: switch.benq_w1070
+          - service: media_player.turn_off
+            entity_id: media_player.yamaha_receiver
+          - service: switch.turn_off
+            entity_id: switch.steambox
+          - service: light.turn_off
+            entity_id:
+              - light.hue_ws2812_ring_1
+              - light.hue_ws2812_ring_2
+          - condition: state
+            entity_id: sun.sun
+            state: 'below_horizon'
+          - service: light.turn_on
+            entity_id: light.salon
+            data:
+              transition: 60
 
 media_player:
-  - platform: yamaha
-    host: 192.168.1.103
   - platform: universal
     name: Écran salon
     children:
@@ -132,96 +93,10 @@ media_player:
       source: media_player.yamaha_receiver|source
       source_list: media_player.yamaha_receiver|source_list
 
-script:
-  projo_on:
-    alias: Projo On
-    sequence:
-      - service: light.turn_off
-        entity_id: light.bureau
-      - service: switch.turn_on
-        entity_id: switch.steambox
-      - service: switch.turn_on
-        entity_id: switch.benq_w1070
-      - service: media_player.turn_on
-        entity_id: media_player.yamaha_receiver
-      - service: media_player.select_source
-        entity_id: media_player.yamaha_receiver
-        data:
-          source: 'HDMI1'
-      - service: light.turn_on
-        entity_id:
-          - light.projo
-          - light.ecran
-        data:
-          brightness: 0
-          transition: 60
-      - delay: '00:01:00'
-      - service: light.turn_off
-        entity_id: all
-
-  projo_off:
-    alias: Projo Off
-    sequence:
-      - service: switch.turn_off
-        entity_id: switch.benq_w1070
-      - service: media_player.turn_off
-        entity_id: media_player.yamaha_receiver
-      - service: switch.turn_off
-        entity_id: switch.steambox
-      - service: light.turn_off
-        entity_id:
-          - light.hue_ws2812_ring_1
-          - light.hue_ws2812_ring_2
-      - condition: state
-        entity_id: sun.sun
-        state: 'below_horizon'
-      - service: light.turn_on
-        entity_id: light.salon
-        data:
-          transition: 60
-
-  ht_volume_up:
-    alias: Volume Up
-    sequence:
-      - service: media_player.volume_set
-        entity_id: media_player.yamaha_receiver
-        data_template:
-          volume_level: '{{ states.media_player.yamaha_receiver.attributes.volume_level + 0.01 }}'
-
-  ht_volume_down:
-    alias: Volume Down
-    sequence:
-      - service: media_player.volume_set
-        entity_id: media_player.yamaha_receiver
-        data_template:
-          volume_level: '{{ states.media_player.yamaha_receiver.attributes.volume_level - 0.01 }}'
-
-  ht_volume_mute:
-    alias: Volume Mute
-    sequence:
-      - service: media_player.volume_mute
-        entity_id: media_player.yamaha_receiver
-        data:
-          is_volume_muted: true
-
 homeassistant:
   customize:
-    switch.steambox:
-      icon: 'mdi:steam'
-    switch.steambox_wol:
-      hidden: true
-    script.projo_on:
-      hidden: true
-    script.projo_off:
-      hidden: true
     switch.projector:
       friendly-name: Projo
       icon: 'mdi:projector'
     media_player.ecran_salon:
       device_class: tv
-    media_player.yamaha_receiver:
-      hidden: true
-      device_class: speaker
-  customize_glob:
-    "automation.*with_cube":
-      hidden: true
