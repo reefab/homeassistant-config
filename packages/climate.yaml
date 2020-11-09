@@ -1,83 +1,8 @@
 automation:
-  - alias: Prompt to open windows if exterior temperature is below office temperature
-    initial_state: true
-    trigger:
-      - platform: template
-        value_template: '{{ states("sensor.netatmo_bureau_temperature") > states("sensor.netatmo_dehors_temperature") }}'
-    condition:
-      - condition: state
-        entity_id: group.people
-        state: "home"
-      - condition: numeric_state
-        entity_id: sensor.netatmo_bureau_temperature
-        above: 25
-      - condition: time
-        after: '14:00:00'
-        before: '06:00:00'
-      - condition: state
-        entity_id: binary_sensor.fenetre_bureau
-        state: 'off'
-    action:
-      service: notify.mobile_app_phophone
-      data_template:
-        message: 'Open office window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
-        data:
-          push:
-            thread-id: 'open-window-notification-group'
-          apns_headers:
-            'apns-collapse-id': 'open-window-notification-group'
-
-  - alias: Prompt to open windows if exterior temperature is below living room temperature
-    initial_state: true
-    trigger:
-      - platform: template
-        value_template: '{{ states("sensor.netatmo_salon_temperature") > states("sensor.netatmo_dehors_temperature") }}'
-    condition:
-      - condition: state
-        entity_id: group.people
-        state: "home"
-      - condition: numeric_state
-        entity_id: sensor.netatmo_salon_temperature
-        above: 25
-      - condition: time
-        after: '14:00:00'
-        before: '06:00:00'
-      - condition: state
-        entity_id: binary_sensor.fenetre_salon
-        state: 'off'
-    action:
-      service: notify.mobile_app_phophone
-      data_template:
-        message: 'Open living room window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
-        data:
-          push:
-            thread-id: 'open-window-notification-group'
-          apns_headers:
-            'apns-collapse-id': 'open-window-notification-group'
-
-  - alias: Turn stuff off when a window is opened
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.fenetre_bureau
-        from: 'off'
-        to: 'on'
-      - platform: state
-        entity_id: binary_sensor.fenetre_salon
-        from: 'off'
-        to: 'on'
-    action:
-      - service: climate.set_preset_mode
-        entity_id: climate.netatmo_my_room
-        data:
-          preset_mode: 'Frost Guard'
-      - service: fan.turn_off
-        entity_id: fan.xiaomi_air_purifier_2s
-
   - alias: Turn heating down when people are not here
     trigger:
       - platform: state
         entity_id: group.people
-        from: 'home'
         to: 'not_home'
         for:
           minutes: 2
@@ -86,57 +11,33 @@ automation:
         entity_id: climate.netatmo_my_room
         data:
           preset_mode: 'away'
-
-  - alias: Turn stuff back on when the windows are closed or there is people
+  - alias: Turn stuff back on when there is people coming back
     trigger:
       - platform: state
-        entity_id: binary_sensor.fenetre_bureau
-        from: 'on'
-        to: 'off'
-      - platform: state
-        entity_id: binary_sensor.fenetre_salon
-        from: 'on'
-        to: 'off'
-      - platform: state
         entity_id: group.people
-        from: 'not_home'
         to: 'home'
     condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: binary_sensor.fenetre_bureau
-          state: 'off'
-        - condition: state
-          entity_id: binary_sensor.fenetre_salon
-          state: 'off'
+      - condition: state
+        entity_id: binary_sensor.windows_open
+        state: 'off'
     action:
       - service: climate.set_preset_mode
         entity_id: climate.netatmo_my_room
         data:
           preset_mode: "Schedule"
-      - service: fan.turn_on
-        entity_id: fan.xiaomi_air_purifier_2s
 
 climate:
   - platform: netatmo
 
+binary_sensor:
+  - platform: template
+    sensors:
+      windows_open:
+        value_template: "{{ is_state('binary_sensor.fenetre_bureau', 'on') and
+                            is_state('binary_sensor.fenetre_salon', 'on') }}"
+
 homeassistant:
   customize:
-    automation.exterior_temperature_is_below_office_temperature:
-      hidden: false
-    automation.exterior_temperature_is_below_living_room_temperature:
-      hidden: false
-    automation.turn_off_bedroom_heater_during_the_day:
-      hidden: false
-    automation.turn_office_fan_on:
-      hidden: false
-    automation.turn_on_bedroom_heater_during_the_night:
-      hidden: false
-    automation.turn_stuff_back_on_when_the_windows_are_closed:
-      hidden: false
-    automation.turn_stuff_off_when_a_window_is_opened:
-      hidden: false
     climate.chambre:
       icon: 'mdi:radiator'
     sensor.netatmo_chambre_co2:
