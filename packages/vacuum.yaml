@@ -35,14 +35,13 @@ switch:
             entity_id: vacuum.rockrobo
             data:
               fan_speed: 'mop'
-            entity_id: vacuum.rockrobo
           - service: vacuum.start
             entity_id: vacuum.rockrobo
         turn_off:
           - service: vacuum.set_fan_speed
             entity_id: vacuum.rockrobo
             data:
-              fan_speed: 'min'
+              fan_speed: 'medium'
           - service: vacuum.return_to_base
             entity_id: vacuum.rockrobo
         value_template: '{% if states.vacuum.rockrobo.attributes.fan_speed == "mop" %}
@@ -99,12 +98,12 @@ automation:
       - service: vacuum.set_fan_speed
         entity_id: vacuum.rockrobo
         data:
-          fan_speed: 'min'
+          fan_speed: 'medium'
 
   - alias: Quieten vacuum if back home alone
     trigger:
       - platform: state
-        entity_id: device_tracker.phophone_2
+        entity_id: people.fabien
         from: 'not_home'
         to: 'home'
     condition:
@@ -148,7 +147,7 @@ automation:
       - service: vacuum.set_fan_speed
         entity_id: vacuum.rockrobo
         data:
-          fan_speed: 'min'
+          fan_speed: 'medium'
       - delay:
           seconds: 10
       - service: vacuum.start
@@ -156,9 +155,5 @@ automation:
 
 homeassistant:
   customize:
-    switch.aspirateur:
-      hidden: true
     switch.mop:
       icon: 'mdi:broom'
-    sensor.time_spent_vacuuming_today:
-      hidden: true
