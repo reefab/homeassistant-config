@@ -1,3 +1,5 @@
+# Gaming PC
+
 switch:
   - platform: wake_on_lan
     name: steambox
@@ -18,3 +20,17 @@ homeassistant:
   customize:
     switch.steambox:
       icon: 'mdi:steam'
+
+automation:
+  # for backups and stuff, will sleep after finishing
+  - alias: weekly steambox housekeeping
+    trigger:
+      - platform: time
+        at: '08:00:00'
+    condition:  
+      - condition: time
+        weekday: 
+          - sun
+    action:
+      - service: switch.turn_on
+        entity_id: switch.steambox

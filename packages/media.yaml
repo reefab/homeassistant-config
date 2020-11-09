@@ -19,18 +19,13 @@ switch:
             data:
               source: 'HDMI1'
           - service: light.turn_on
-            entity_id:
-              - light.projo
-              - light.ecran
+            entity_id: light.salon
             data:
-              brightness: 0
+              brightness: 1
               transition: 60
           - delay: '00:01:00'
-          - service: light.turn_off
-            entity_id: all
-          - delay: '00:01:00'
-          - service: switch.turn_on
-            entity_id: switch.circadian_lighting_circadian_lighting
+          # - service: light.turn_off
+          #   entity_id: all
         turn_off:
           - service: switch.turn_off
             entity_id: switch.benq_w1070
@@ -42,13 +37,23 @@ switch:
             entity_id:
               - light.hue_ws2812_ring_1
               - light.hue_ws2812_ring_2
-          - condition: state
-            entity_id: sun.sun
-            state: 'below_horizon'
-          - service: light.turn_on
-            entity_id: light.salon
-            data:
-              transition: 60
+          - choose:
+            - conditions:
+              - condition: state
+                entity_id: sun.sun
+                state: 'below_horizon'
+              sequence:
+                - service: light.turn_on
+                  entity_id: light.salon
+                  data:
+                    brightness: 60
+                    transition: 60
+                - delay: '00:01:00'
+                - service: switch.turn_on
+                  entity_id: switch.circadian_lighting_circadian_lighting
+            default:
+              - service: switch.turn_on
+                entity_id: switch.circadian_lighting_circadian_lighting
 
 media_player:
   - platform: universal
@@ -57,13 +62,13 @@ media_player:
       - media_player.yamaha_receiver
     commands:
       turn_on:
-        service: script.turn_on
+        service: switch.turn_on
         data:
-          entity_id: script.projo_on
+          entity_id: switch.projector
       turn_off:
-        service: script.turn_on
+        service: switch.turn_off
         data:
-          entity_id: script.projo_off
+          entity_id: switch.projector
       volume_up:
         service: script.turn_on
         data:
@@ -98,5 +103,5 @@ homeassistant:
     switch.projector:
       friendly-name: Projo
       icon: 'mdi:projector'
-    media_player.ecran_salon:
-      device_class: tv
+    # media_player.ecran_salon:
+    #   device_class: tv

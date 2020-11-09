@@ -20,50 +20,40 @@ automation:
       - service: switch.turn_off
         entity_id: switch.on_off_plug_in_unit_21
       
-  - alias: turn up volume with cube
+  - alias: turn up volume
     trigger:
       platform: event
       event_type: deconz_event
       event_data:
-        entity: lumi_sensor_cube_21
-    condition:
-      - condition: template
-        value_template: '{{ trigger.event.data.event > 0 }}'
-      - condition: state
-        entity_id: media_player.yamaha_receiver
-        state: 'on'
+        id: tradfri_wireless_dimmer
+        event: 2002
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_up
-  - alias: turn down volume with cube
+  - alias: turn down volume
     trigger:
       platform: event
       event_type: deconz_event
       event_data:
-        entity: lumi_sensor_cube_21
-    condition:
-      - condition: template
-        value_template: '{{ trigger.event.data.event < 0 }}'
-      - condition: state
-        entity_id: media_player.yamaha_receiver
-        state: 'on'
+        id: tradfri_wireless_dimmer
+        event: 3002
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_down
-  - alias: mute volume with cube
+
+  - alias: Switch off receiver if inactive
     trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        entity: lumi_sensor_cube_20
-        event: 7007
+      platform: state
+      entity_id: media_player.yamaha_receiver
+      to: 'idle'
+      for: "00:10:00"
     condition:
       condition: state
-      entity_id: media_player.yamaha_receiver
-      state: 'on'
+      entity_id: switch.steambox
+      state: 'off'
     action:
-      - service: script.turn_on
-        entity_id: script.ht_volume_mute
+      - service: media_player.turn_off
+        entity_id: media_player.yamaha_receiver
 
 script:
   ht_volume_up:
