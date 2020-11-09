@@ -48,41 +48,6 @@ automation:
         service: fan.set_speed
         data:
           speed: 'off'
-  - alias: toggle fans with cube
-    trigger:
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_20
-          event: 1001
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_20
-          event: 2002
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_20
-          event: 3003
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_20
-          event: 4004
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_20
-          event: 5005
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_20
-          event: 6006
-    action:
-      - service: fan.toggle
-        entity_id: fan.ventilateur_bois
   - alias: Switch fans off if no one is home
     trigger:
       - platform: state
@@ -92,7 +57,7 @@ automation:
         for:
           minutes: 2
     action:
-      - service: fans.turn_off
+      - service: fan.turn_off
         entity_id: all
 
 fan:
