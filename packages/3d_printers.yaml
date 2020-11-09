@@ -30,6 +30,15 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.on_off_plug_in_unit_20
+  - alias: Switch power off when idling for too long
+    trigger:
+      - platform: state
+        to: 'off'
+        for: '01:00:00'
+        entity_id: binary_sensor.prusa_printing
+    action:
+      service: switch.turn_off
+      entity_id: switch.on_off_plug_in_unit_20
   - alias: Send notification when printing is done
     trigger:
       - platform: state
@@ -42,6 +51,10 @@ automation:
         entity_id: sensor.prusa_job_percentage
         above: 95
     action:
+      - service: light.turn_on
+        entity_id: light.atelier
+      - delay:
+          seconds: 1
       - service: notify.mobile_app_phophone
         data:
           message: 'Print finished.'
@@ -51,3 +64,5 @@ automation:
             push:
               category: camera
             entity_id: camera.3d_printers
+      - service: light.turn_off
+        entity_id: light.atelier
