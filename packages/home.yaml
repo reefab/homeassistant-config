@@ -1,0 +1,6 @@
+# Overriding Home zone to reduce the radius
+
+homeassistant:
+  customize:
+    zone.home:
+      radius: 50
