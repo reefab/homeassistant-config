@@ -101,7 +101,7 @@ automation:
           below: 250
     action:
       - delay:
-          hours: 2  # Maintain at least some hours of darkness
+          hours: 1  # Maintain at least some hours of darkness
       - condition: state
         entity_id: sun.sun
         state: 'below_horizon'
