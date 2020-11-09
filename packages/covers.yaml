@@ -31,7 +31,7 @@ automation:
       event: sunrise
     condition:
       - condition: state
-        entity_id: device_tracker.phophone_2
+        entity_id: group.people
         state: 'not_home'
       - condition: numeric_state
         entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
