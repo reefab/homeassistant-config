@@ -31,6 +31,7 @@ automation:
         entity_id: switch.light_15
 
 homeassistant:
+  customize:
     switch.light_15:
       icon: 'mdi:speaker'
       friendly_name: 'Monitors'
