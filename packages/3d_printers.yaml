@@ -29,7 +29,7 @@ automation:
         entity_id: binary_sensor.lumi_sensor_smoke_2
     action:
       service: switch.turn_off
-      entity_id: switch.on_off_plug_in_unit_20
+      entity_id: switch.prusa
   - alias: Switch power off when idling for too long
     trigger:
       - platform: state
@@ -38,7 +38,7 @@ automation:
         entity_id: binary_sensor.prusa_printing
     action:
       service: switch.turn_off
-      entity_id: switch.on_off_plug_in_unit_20
+      entity_id: switch.prusa
   - alias: Send notification when printing is done
     trigger:
       - platform: state
@@ -54,7 +54,7 @@ automation:
       - service: light.turn_on
         entity_id: light.atelier
       - delay:
-          seconds: 1
+          seconds: 5
       - service: notify.mobile_app_phophone
         data:
           message: 'Print finished.'
@@ -66,3 +66,34 @@ automation:
             entity_id: camera.3d_printers
       - service: light.turn_off
         entity_id: light.atelier
+
+switch:
+  - platform: command_line
+    switches:
+      # I use https://github.com/darksid3r/OctoPrint-TFT to control octoprint via a touch screen directly connected to the raspberry pi
+      # GPIO pins. It does have an issue: if the printer is off and thus octoprint is not connected to it, it'll keep trying to connect
+      # and it eventually makes octoprint crash (known bug). So this switch is used to disable it alongside the printer power supply.
+      # Cool side effect: it'll make octoprint connect to the printer automatically when started.
+      octoprint_screen:
+        command_on: ssh -i /config/id_rsa_octopi -o 'StrictHostKeyChecking no' pi@192.168.1.49 'sudo service octoprint-tft start'
+        command_off: ssh -i /config/id_rsa_octopi -o 'StrictHostKeyChecking no' pi@192.168.1.49 'sudo service octoprint-tft stop'
+        command_timeout: 60  # it can be pretty slow sometimes, not to actually start or stop but for the command to finish
+  - platform: template
+    switches:
+      prusa:
+        turn_on:
+          - service: switch.turn_on
+            entity_id: switch.on_off_plug_in_unit_20
+          - service: switch.turn_on
+            entity_id: switch.octoprint_screen
+        turn_off:
+          - service: switch.turn_off
+            entity_id: switch.on_off_plug_in_unit_20
+          - service: switch.turn_off
+            entity_id: switch.octoprint_screen
+
+homeassistant:
+  customize:
+    switch.prusa:
+      friendly_name: Prusa Mk3s
+      icon: mdi:printer-3d
