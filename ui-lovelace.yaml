@@ -26,6 +26,7 @@ views:
             camera_image: camera.vacuum_map
             title: Global
             entities:
+              - switch.circadian_lighting_circadian_lighting
               - switch.menage
               - switch.mop
               - binary_sensor.porte_entree
@@ -76,6 +77,9 @@ views:
                   action: toggle
               - sensor.netatmo_salon_co2
               - switch.humidifier
+              - entity: cover.living_room_blind
+                tap_action:
+                  action: toggle
               - binary_sensor.lumi_sensor_smoke
               - entity: sensor.flowallsalon_moisture
                 icon: 'mdi:sprout'
@@ -169,7 +173,7 @@ views:
             title: 3D Printers
             camera_image: camera.3d_printers
             entities:
-              - entity: switch.on_off_plug_in_unit_20
+              - entity: switch.prusa
                 tap_action:
                   action: toggle
                   confirmation: true
@@ -282,36 +286,44 @@ views:
     badges: []
     icon: 'mdi:presentation-play'
     cards:
+      - type: media-control
+        entity: media_player.ecran_salon
       - type: entities
         entities:
-          - switch.light_15
-          - switch.on_off_plug_in_unit_21
           - switch.steambox
-          - light.projo
-          - light.ecran
+          - light.salon
           - switch.w1070_blank
           - switch.w1070_3d_fs
           - switch.w1070_3d_tb
           - switch.w1070_3d_sbs
         show_header_toggle: false
+
+  - path: music_view
+    title: music_view
+    badges: []
+    icon: 'mdi:music'
+    cards:
       - type: media-control
         entity: media_player.yamaha_receiver
-      - type: media-control
-        entity: media_player.ecran_salon
+      - type: entities
+        entities:
+          - switch.light_15
+          - switch.on_off_plug_in_unit_21
+        show_header_toggle: false
 
   - path: night_view
     title: night_view
     badges: []
     icon: 'mdi:weather-night'
     cards:
+      - type: media-control
+        entity: media_player.forked_daapd_server
       - type: entities
         show_header_toggle: false
         entities:
           - input_boolean.night_time
           - input_select.night_time_playlist
           - switch.ambient_audio
-      - type: media-control
-        entity: media_player.forked_daapd_server
 
   - path: settings_view
     title: settings_view
