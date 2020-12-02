@@ -4,9 +4,14 @@ automation:
     trigger:
       platform: sun
       event: sunset
+      offset: '00:30:00'
     action:
       service: cover.close_cover
-      entity_id: [cover.velux_mezzanine, cover.bedroom_velux]
+      entity_id: 
+        - cover.velux_mezzanine
+        - cover.bedroom_velux
+        - cover.office_blind
+        - cover.living_room_blind
 
   - alias: Open mezzanine cover during the day
     initial_state: true
@@ -22,7 +27,9 @@ automation:
         below: 25
     action:
       service: cover.open_cover
-      entity_id: cover.velux_mezzanine
+      entity_id:
+        - cover.velux_mezzanine
+        - cover.living_room_blind
 
   - alias: Open bedroom cover during the day
     initial_state: true
@@ -40,6 +47,19 @@ automation:
       service: cover.open_cover
       entity_id: cover.bedroom_velux
 
+  - alias: Open office blinds during the day
+    initial_state: true
+    trigger:
+      platform: sun
+      event: sunrise
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
+        below: 25
+    action:
+      service: cover.open_cover
+      entity_id: cover.office_blind
+
   - alias: Toggle bedroom cover
     trigger:
       platform: event
@@ -51,7 +71,7 @@ automation:
       service: cover.toggle
       entity_id: cover.bedroom_velux
 
-  - alias: Open office cover
+  - alias: Open office cover with switch
     trigger:
       platform: event
       event_type: deconz_event
@@ -60,8 +80,8 @@ automation:
         event: 1002
     action:
       service: cover.open_cover
-      entity_id: cover.store_bureau
-  - alias: Close office cover
+      entity_id: cover.office_blind
+  - alias: Close office cover with switch
     trigger:
       platform: event
       event_type: deconz_event
@@ -70,7 +90,28 @@ automation:
         event: 2002
     action:
       service: cover.close_cover
-      entity_id: cover.store_bureau
+      entity_id: cover.office_blind
+
+  - alias: Open living room cover with switch
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: tradfri_open_close_remote
+        event: 1002
+    action:
+      service: cover.open_cover
+      entity_id: cover.living_room_blind
+  - alias: Close living room cover with switch
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: tradfri_open_close_remote
+        event: 2002
+    action:
+      service: cover.close_cover
+      entity_id: cover.living_room_blind
 
 
 cover:
@@ -95,9 +136,12 @@ cover:
           data:
             entity_id: cover.store_bureau
         close_cover:
-          service: cover.close_cover
-          data:
-            entity_id: cover.store_bureau
+          - condition: state
+            entity_id: binary_sensor.fenetre_bureau
+            state: 'off'
+          - service: cover.close_cover
+            data:
+              entity_id: cover.store_bureau
         set_cover_position:
           service: cover.set_cover_position
           data_template:
@@ -107,6 +151,29 @@ cover:
           service: cover.stop_cover
           data:
             entity_id: cover.store_bureau
+      living_room_blind:  # Template over Ikea blinds controlled via deconz because it doesn't remember its position
+        friendly_name: "Store Salon"
+        optimistic: true
+        open_cover:
+          service: cover.open_cover
+          data:
+            entity_id: cover.window_covering_device_25
+        close_cover:
+          - condition: state
+            entity_id: binary_sensor.fenetre_salon
+            state: 'off'
+          - service: cover.close_cover
+            data:
+              entity_id: cover.window_covering_device_25
+        set_cover_position:
+          service: cover.set_cover_position
+          data_template:
+            entity_id: cover.window_covering_device_25
+            position: "{{position}}"
+        stop_cover:
+          service: cover.stop_cover
+          data:
+            entity_id: cover.window_covering_device_25
 
       bedroom_velux:  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
         friendly_name: "Store Chambre"
@@ -149,4 +216,6 @@ homeassistant:
     cover.velux_mezzanine:
       device_class: 'blind'
     cover.office_blind:
+      device_class: 'blind'
+    cover.living_room_blind:
       device_class: 'blind'
