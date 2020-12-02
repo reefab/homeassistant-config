@@ -58,7 +58,10 @@ automation:
           minutes: 2
     action:
       - service: fan.turn_off
-        entity_id: all
+        entity_id: 
+          - fan.ventilateur_bureau
+          - fan.petit_ventilateur
+          - fan.ventilateur_bois
 
 fan:
   # Sonoff iFan02 with Tasmota
@@ -109,8 +112,3 @@ fan:
     payload_not_available: "Offline"
     payload_on: "ON"
     payload_off: "OFF"
-
-homeassistant:
-  customize:
-    automation.toggle_bed_fan:
-      hidden: true
