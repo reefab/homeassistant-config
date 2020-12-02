@@ -13,11 +13,3 @@ sensor:
       - apparent_temperature_high
     scan_interval:
       hours: 1
-
-homeassistant:
-  customize:
-    sun.sun:
-      hidden: true
-  customize_glob:
-    "sensor.dark_sky*":
-      hidden: true
