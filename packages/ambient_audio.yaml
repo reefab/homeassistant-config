@@ -8,9 +8,10 @@ input_select:
   night_time_playlist:
     name: night time playlist
     options:
-      - "long ambient"
-      - "weightless"
+      # - "long ambient"
+      # - "weightless"
       - "rain calm"
+      - "ocean calm"
     icon: mdi:playlist-music
 
 automation:
