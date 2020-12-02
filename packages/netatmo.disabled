@@ -4,7 +4,7 @@ netatmo:
 
 homeassistant:
   customize:
-    sensor.netatmo_dehors_battery_percent:
+    sensor.netatmo_mezon_bureau_dehors_battery_percent:
       battery_alert_disabled: true
-    sensor.netatmo_dehors_battery:
+    sensor.netatmo_mezon_bureau_dehors_battery:
       battery_alert_disabled: true
