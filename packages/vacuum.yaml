@@ -13,20 +13,6 @@ camera:
 switch:
   - platform: template
     switches:
-      # This switch is only used to control the vacuum via alexa
-      aspirateur:
-        friendly_name: "robot aspirateur"
-        turn_on:
-          service: vacuum.start
-          entity_id: vacuum.rockrobo
-        turn_off:
-          service: vacuum.return_to_base
-          entity_id: vacuum.rockrobo
-        value_template: '{% if states.vacuum.rockrobo.state == "cleaning" %}
-                            on
-                         {% else %}
-                            off
-                         {% endif %}'
       # Mopping has to be launched manually once the mop has been installed on the vacuum underside
       mop:
         friendly_name: "robot serpillière"
@@ -65,10 +51,7 @@ automation:
     trigger:
       - platform: state
         entity_id: group.people
-        from: 'home'
         to: 'not_home'
-        for:
-          minutes: 2
     condition:
       - condition: time
         after: '09:00:00'
@@ -88,11 +71,11 @@ automation:
           seconds: 10
       - service: vacuum.start
         entity_id: vacuum.rockrobo
-      - service: notify.mobile_app_phophone
-        data_template:
-          message: 'Started vacuum cleaning in your absence.'
-          data:
-            tag: 'vacuum-auto-started-cleaning'
+      #- service: notify.mobile_app_phophone
+      #  data_template:
+      #    message: 'Started vacuum cleaning in your absence.'
+      #    data:
+      #      tag: 'vacuum-auto-started-cleaning'
       - delay:
           minutes: 40
       - service: vacuum.set_fan_speed
@@ -104,7 +87,6 @@ automation:
     trigger:
       - platform: state
         entity_id: people.fabien
-        from: 'not_home'
         to: 'home'
     condition:
       - condition: state
@@ -120,7 +102,6 @@ automation:
     trigger:
       - platform: state
         entity_id: group.guests
-        from: 'not_home'
         to: 'home'
     condition:
       - condition: state
