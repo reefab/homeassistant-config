@@ -19,12 +19,12 @@ homekit:
       - light.salle_de_bain_2
       - light.salon
       - light.spots_salon
-      - sensor.netatmo_mezon_bureau_salon_temperature
-      - sensor.netatmo_mezon_bureau_salon_co2
       - sensor.netatmo_mezon_bureau_temperature
       - sensor.netatmo_mezon_bureau_co2
       - sensor.netatmo_mezon_bureau_chambre_temperature
       - sensor.netatmo_mezon_bureau_chambre_co2
+      - sensor.netatmo_mezon_bureau_salon_temperature
+      - sensor.netatmo_mezon_bureau_salon_co2
       - sensor.salle_de_bain
       - sensor.cuisine
       - switch.menage
