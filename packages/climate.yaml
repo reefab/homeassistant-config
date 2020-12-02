@@ -38,34 +38,34 @@ homeassistant:
   customize:
     climate.chambre:
       icon: 'mdi:radiator'
-    sensor.netatmo_chambre_co2:
+    sensor.netatmo_mezon_bureau_chambre_co2:
       friendly_name: Co2
       icon: mdi:molecule-co2
-    sensor.netatmo_chambre_humidity:
+    sensor.netatmo_mezon_bureau_chambre_humidity:
       friendly_name: Humidité
-    sensor.netatmo_chambre_temperature:
+    sensor.netatmo_mezon_bureau_chambre_temperature:
       friendly_name: Temperature
-    sensor.netatmo_dehors_humidity:
+    sensor.netatmo_mezon_bureau_dehors_humidity:
       friendly_name: Humidité
-    sensor.netatmo_dehors_temperature:
+    sensor.netatmo_mezon_bureau_dehors_temperature:
       friendly_name: Temperature
-    sensor.netatmo_bureau_noise:
+    sensor.netatmo_mezon_bureau_noise:
       friendly_name: Bruit
-    sensor.netatmo_bureau_co2:
+    sensor.netatmo_mezon_bureau_co2:
       friendly_name: Co2
       icon: mdi:molecule-co2
-    sensor.netatmo_bureau_humidity:
+    sensor.netatmo_mezon_bureau_humidity:
       friendly_name: Humidité
-    sensor.netatmo_bureau_temperature:
+    sensor.netatmo_mezon_bureau_temperature:
       friendly_name: Temperature
     sensor.bureau_aqi:
       friendly_name: AQI
-    sensor.netatmo_salon_co2:
+    sensor.netatmo_mezon_bureau_salon_co2:
       friendly_name: Co2
       icon: mdi:molecule-co2
-    sensor.netatmo_salon_humidity:
+    sensor.netatmo_mezon_bureau_salon_humidity:
       friendly_name: Humidité
-    sensor.netatmo_salon_temperature:
+    sensor.netatmo_mezon_bureau_salon_temperature:
       friendly_name: Temperature
     climate.netatmo_my_room:
       friendly_name: Chaudière

@@ -37,7 +37,7 @@ automation:
   - alias: turn office fan off
     trigger:
       - below: '25'
-        entity_id: sensor.netatmo_bureau_temperature
+        entity_id: sensor.netatmo_mezon_bureau_temperature
         platform: numeric_state
     condition:
       - condition: state

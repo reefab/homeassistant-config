@@ -12,14 +12,14 @@ views:
             graph: line
             name: Dehors
             detail: 2
-            entity: sensor.netatmo_dehors_temperature
+            entity: sensor.netatmo_mezon_bureau_dehors_temperature
           - type: glance
             title: Dehors
             show_name: false
             entities:
               - sensor.dark_sky_temperature 
               - weather.dark_sky
-              - sensor.netatmo_dehors_humidity
+              - sensor.netatmo_mezon_bureau_dehors_humidity
               - sensor.waqi_paris
               - sensor.velib_86245c11064e6c59600ed1a72ca437b7
           - type: picture-glance
@@ -58,7 +58,7 @@ views:
           - type: sensor
             graph: line
             name: Salon
-            entity: sensor.netatmo_salon_temperature
+            entity: sensor.netatmo_mezon_bureau_salon_temperature
             detail: 2
           - type: glance
             title: Salon
@@ -70,12 +70,12 @@ views:
               - entity: light.spots_salon
                 tap_action:
                   action: toggle
-              - sensor.netatmo_salon_humidity
+              - sensor.netatmo_mezon_bureau_salon_humidity
               - binary_sensor.fenetre_salon
               - entity: fan.ventilateur_bois
                 tap_action:
                   action: toggle
-              - sensor.netatmo_salon_co2
+              - sensor.netatmo_mezon_bureau_salon_co2
               - switch.humidifier
               - entity: cover.living_room_blind
                 tap_action:
@@ -144,7 +144,7 @@ views:
           - type: sensor
             graph: line
             name: Bureau
-            entity: sensor.netatmo_bureau_temperature
+            entity: sensor.netatmo_mezon_bureau_temperature
             detail: 2
           - type: glance
             title: Bureau
@@ -156,12 +156,12 @@ views:
               - entity: light.atelier
                 tap_action:
                   action: toggle
-              - sensor.netatmo_bureau_humidity
+              - sensor.netatmo_mezon_bureau_humidity
               - binary_sensor.fenetre_bureau
               - entity: fan.ventilateur_bureau
                 tap_action:
                   action: toggle
-              - sensor.netatmo_bureau_co2
+              - sensor.netatmo_mezon_bureau_co2
               - fan.xiaomi_air_purifier_2s
               - entity: cover.office_blind
                 tap_action:
@@ -190,7 +190,7 @@ views:
           - type: sensor
             graph: line
             name: chambre
-            entity: sensor.netatmo_chambre_temperature
+            entity: sensor.netatmo_mezon_bureau_chambre_temperature
             detail: 2
           - type: glance
             title: Chambre
@@ -202,12 +202,12 @@ views:
               - entity: light.dressing
                 tap_action:
                   action: toggle
-              - sensor.netatmo_chambre_humidity
+              - sensor.netatmo_mezon_bureau_chambre_humidity
               - binary_sensor.porte_chambre
               - entity: fan.petit_ventilateur
                 tap_action:
                   action: toggle
-              - sensor.netatmo_chambre_co2
+              - sensor.netatmo_mezon_bureau_chambre_co2
               - fan.xiaomi_air_purifier_2
               - entity: cover.bedroom_velux
                 tap_action:

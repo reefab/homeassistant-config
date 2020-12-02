@@ -2,13 +2,13 @@ automation:
   - alias: Prompt to open windows if exterior temperature is below inside temperature when it's warm
     trigger:
       - platform: template
-        value_template: '{{ (states("sensor.netatmo_bureau_temperature") > states("sensor.netatmo_dehors_temperature")) and (states("sensor.netatmo_bureau_temperature") > states("sensor.netatmo_dehors_temperature")) }}'
+        value_template: '{{ (states("sensor.netatmo_mezon_bureau_temperature") > states("sensor.netatmo_mezon_bureau_dehors_temperature")) and (states("sensor.netatmo_mezon_bureau_temperature") > states("sensor.netatmo_mezon_bureau_dehors_temperature")) }}'
     condition:
       - condition: state
         entity_id: group.people
         state: "home"
       - condition: numeric_state
-        entity_id: sensor.netatmo_bureau_temperature
+        entity_id: sensor.netatmo_mezon_bureau_temperature
         above: 25
       - condition: time
         after: '14:00:00'
@@ -19,7 +19,7 @@ automation:
     action:
       service: notify.mobile_app_phophone
       data_template:
-        message: 'Open office window now! Indoor: {{ states("sensor.netatmo_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_dehors_temperature") }}'
+        message: 'Open office window now! Indoor: {{ states("sensor.netatmo_mezon_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_mezon_bureau_dehors_temperature") }}'
         data:
           push:
             thread-id: 'open-window-notification-group'
@@ -35,7 +35,7 @@ automation:
         entity_id: group.people
         state: "home"
       - condition: numeric_state
-        entity_id: sensor.netatmo_dehors_temperature
+        entity_id: sensor.netatmo_mezon_bureau_dehors_temperature
         below: 18
       - condition: state
         entity_id: binary_sensor.windows_open
