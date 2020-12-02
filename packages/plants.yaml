@@ -71,42 +71,24 @@ alert:
     notifiers:
       - mobile_app_phophone
 
-sensor:
-  - platform: statistics
-    name: lux_bureau
-    entity_id: sensor.flowallbureau_light
-    max_age:
-      hours: 8
-  - platform: statistics
-    name: lux_salon
-    entity_id: sensor.flowallsalon_light
-    max_age:
-      hours: 8
-
 automation:
-  - alias: Switch lights on during the night if plants didn't get enough light
+  - alias: Switch grow lights on during the night
     trigger:
       - platform: state
-        entity_id: input_boolean.night_time
-        from: 'off'
-        to: 'on'
+        entity_id: group.main_rooms_lights
+        to: 'off'
+        for: '01:00:00'
     condition:
-      condition: or
-      conditions:
-        - condition: numeric_state
-          entity_id: sensor.lux_bureau
-          below: 250
-        - condition: numeric_state
-          entity_id: sensor.lux_salon
-          below: 250
-    action:
-      - delay:
-          hours: 1  # Maintain at least some hours of darkness
       - condition: state
-        entity_id: sun.sun
-        state: 'below_horizon'
-      - condition: template  # doesn't work using a simple state condition
-        value_template: "{{ is_state('binary_sensor.porte_chambre', 'off') }}"
+        entity_id: binary_sensor.sun_up
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.porte_chambre
+        state: 'off'
+      - condition: state
+        entity_id: group.guests
+        state: 'not_home'
+    action:
       - service: switch.turn_off
         entity_id: switch.circadian_lighting_circadian_lighting
       - service: light.turn_on
@@ -114,11 +96,22 @@ automation:
         data:
           color_name: fuchsia
           brightness: 255
-  - alias: Switch grow Lights off at sunrise
+          transition: 60
+      - delay: '04:00:00'
+      - service: switch.turn_on
+        entity_id: switch.circadian_lighting_circadian_lighting
+      - delay:
+          seconds: 10
+      - service: light.turn_off
+        entity_id: group.main_rooms_lights
+
+  - alias: Switch grow Lights off at sunrise or wakeup
     trigger:
       - platform: sun
         event: sunrise
-        offset: "01:00:00"
+      - platform: state
+        entity_id: input_boolean.night_time
+        to: 'off'
     condition:
       condition: state
       entity_id: switch.circadian_lighting_circadian_lighting
