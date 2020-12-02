@@ -12,49 +12,45 @@ automation:
     trigger:
       - platform: state
         entity_id: group.people
-        from: 'home'
         to: 'not_home'
-        for:
-          minutes: 2
     action:
       - service: light.turn_off
         entity_id: all
+
   - alias: Switch lights on if people are coming home
     trigger:
       - platform: state
         entity_id: group.people
-        from: 'not_home'
         to: 'home'
     condition:
-      - condition: numeric_state
-        entity_id: sun.sun
-        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-        below: 3.0
+      - condition: state
+        entity_id: binary_sensor.sun_up
+        state: 'off'
     action:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
+
   - alias: Switch lights on if people are home at sunset
     trigger:
-      - platform: numeric_state
-        entity_id: sun.sun
-        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-        below: 3.0
+      - platform: state
+        entity_id: binary_sensor.sun_up
+        to: 'off'
     condition:
       - condition: state
         entity_id: group.people
         state: home
       - condition: state
-        entity_id: switch.benq_w1070
+        entity_id: switch.projector
         state: 'off'
     action:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
+
   - alias: Switch lights off after sunrise
     trigger:
-      - platform: numeric_state
-        entity_id: sun.sun
-        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-        above: 3.0
+      - platform: state
+        entity_id: binary_sensor.sun_up
+        to: 'on'
     action:
       - service: light.turn_off
         entity_id: group.main_rooms_lights
@@ -67,12 +63,19 @@ automation:
         id: bouton_lit
         event: 1004
     action:
+      - service: switch.turn_off
+        entity_id: switch.circadian_lighting_circadian_lighting
+      - service: fan.turn_off
+        entity_id: 
+          - fan.ventilateur_bureau
+          - fan.ventilateur_bois
       - service: light.turn_off
         entity_id: all
-      - service: fan.turn_off
-        entity_id: fan.ventilateur_bureau
-      - service: fan.turn_off
-        entity_id: fan.ventilateur_bois
+        data:
+          transition: 10
+      - delay: '00:00:10'
+      - service: switch.turn_on
+        entity_id: switch.circadian_lighting_circadian_lighting
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
@@ -85,6 +88,13 @@ light:
     payload_not_available: "Offline"
     payload_on: "ON"
     payload_off: "OFF"
+
+binary_sensor:
+  - platform: template
+    sensors:
+      sun_up:
+        friendly_name: "Sun is up"
+        value_template: "{{ state_attr('sun.sun', 'elevation') | float > 3.0 }}"
 
 homeassistant:
   customize:
@@ -108,9 +118,3 @@ homeassistant:
       icon: 'mdi:wallpaper'
     light.dressing:
       icon: 'mdi:hanger'
-    automation.switch_all_lights_off_with_button_press:
-      hidden: true
-    automation.if_there_is_motion_and_its_dark_turn_on_the_light_in_the_bathroom:
-      hidden: true
-    group.main_rooms_lights:
-      hidden: true
