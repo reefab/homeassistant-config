@@ -4,8 +4,6 @@ automation:
       - platform: state
         entity_id: group.people
         to: 'not_home'
-        for:
-          minutes: 2
     action:
       - service: climate.set_preset_mode
         entity_id: climate.netatmo_my_room
@@ -33,7 +31,7 @@ binary_sensor:
   - platform: template
     sensors:
       windows_open:
-        value_template: "{{ is_state('binary_sensor.fenetre_bureau', 'on') and
+        value_template: "{{ is_state('binary_sensor.fenetre_bureau', 'on') or
                             is_state('binary_sensor.fenetre_salon', 'on') }}"
 
 homeassistant:
@@ -65,21 +63,9 @@ homeassistant:
     sensor.netatmo_salon_co2:
       friendly_name: Co2
       icon: mdi:molecule-co2
-      hidden: true
     sensor.netatmo_salon_humidity:
       friendly_name: Humidité
     sensor.netatmo_salon_temperature:
       friendly_name: Temperature
-    sensor.netatmo_bureau_pressure:
-      hidden: true
-    sensor.netatmo_bureau_wifi:
-      hidden: true
-    switch.radiateur_lit:
-      hidden: true
-    switch.humidifier:
-      hidden: true
     climate.netatmo_my_room:
       friendly_name: Chaudière
-  customize_glob:
-    "sensor.netatmo_*_radio":
-      hidden: true
