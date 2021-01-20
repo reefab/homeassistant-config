@@ -40,7 +40,7 @@ automation:
         entity_id: group.people
         state: home
       - condition: state
-        entity_id: switch.projector
+        entity_id: media_player.ecran_salon
         state: 'off'
     action:
       - service: light.turn_on
