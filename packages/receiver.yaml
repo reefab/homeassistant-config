@@ -22,24 +22,56 @@ automation:
       
   - alias: turn up volume
     trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: tradfri_wireless_dimmer
-        event: 2002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: tradfri_wireless_dimmer
+          event: 2002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_21
+          gesture: 7
+    condition:
+      condition: state
+      entity_id: media_player.yamaha_receiver
+      state: 'on'
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_up
   - alias: turn down volume
     trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: tradfri_wireless_dimmer
-        event: 3002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: tradfri_wireless_dimmer
+          event: 3002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_21
+          gesture: 8
+    condition:
+      condition: state
+      entity_id: media_player.yamaha_receiver
+      state: 'on'
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_down
+  - alias: mute volume
+    trigger:
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: lumi_sensor_cube_21
+          gesture: 1
+    condition:
+      condition: state
+      entity_id: media_player.yamaha_receiver
+      state: 'on'
+    action:
+      - service: script.turn_on
+        entity_id: script.ht_volume_mute
 
   - alias: Switch off receiver if inactive
     trigger:
