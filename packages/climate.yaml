@@ -24,9 +24,6 @@ automation:
         data:
           preset_mode: "Schedule"
 
-climate:
-  - platform: netatmo
-
 binary_sensor:
   - platform: template
     sensors:

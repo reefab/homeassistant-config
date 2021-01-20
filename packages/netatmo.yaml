@@ -1,0 +1,3 @@
+netatmo:
+  client_id: !secret netatmo_api
+  client_secret: !secret netatmo_secret
