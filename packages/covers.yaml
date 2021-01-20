@@ -13,7 +13,7 @@ automation:
         - cover.office_blind
         - cover.living_room_blind
 
-  - alias: Open mezzanine cover during the day
+  - alias: Open living room covers during the day
     initial_state: true
     trigger:
       platform: sun
@@ -92,27 +92,40 @@ automation:
       service: cover.close_cover
       entity_id: cover.office_blind
 
-  - alias: Open living room cover with switch
+  - alias: Open living room covers with switch
     trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: tradfri_open_close_remote
-        event: 1002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: tradfri_open_close_switch_2
+          event: 1002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: tradfri_remote_control
+          event: 2002
     action:
       service: cover.open_cover
-      entity_id: cover.living_room_blind
-  - alias: Close living room cover with switch
+      entity_id:
+        - cover.living_room_blind
+        - cover.velux_mezzanine
+  - alias: Close living room covers with switch
     trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: tradfri_open_close_remote
-        event: 2002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: tradfri_open_close_switch_2
+          event: 2002
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: tradfri_remote_control
+          event: 3002
     action:
       service: cover.close_cover
-      entity_id: cover.living_room_blind
-
+      entity_id:
+        - cover.living_room_blind
+        - cover.velux_mezzanine
 
 cover:
   # Custom device for controlling velux exterior blinds:
@@ -155,16 +168,18 @@ cover:
         friendly_name: "Store Salon"
         optimistic: true
         open_cover:
-          service: cover.open_cover
-          data:
-            entity_id: cover.window_covering_device_25
+          - service: cover.set_cover_position
+            data:
+              entity_id: cover.window_covering_device_25
+              position: 100
         close_cover:
           - condition: state
             entity_id: binary_sensor.fenetre_salon
             state: 'off'
-          - service: cover.close_cover
+          - service: cover.set_cover_position
             data:
               entity_id: cover.window_covering_device_25
+              position: 0
         set_cover_position:
           service: cover.set_cover_position
           data_template:
