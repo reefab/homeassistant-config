@@ -76,7 +76,7 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_co2
-              - switch.humidifier
+              - fan.xiaomi_evaporative_humidifier_cb1
               - entity: cover.living_room_blind
                 tap_action:
                   action: toggle

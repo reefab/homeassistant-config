@@ -34,6 +34,10 @@ fan:
     name: Xiaomi Air Purifier 2S
     host: 192.168.1.137
     token: !secret air_purifier_token_2S
+  - platform: xiaomi_miio
+    name: Xiaomi Evaporative Humidifier cb1
+    host: 192.168.1.193
+    token: !secret humidifier_cb1_token
 
 automation:
   - alias: Silence the air purifier during night time
@@ -78,3 +82,5 @@ homeassistant:
       friendly_name: Co2
     sensor.foobot_salon_humidity:
       hidden: true
+    fan.xiaomi_evaporative_humidifier_cb1:
+      icon: 'mdi:air-humidifier'
