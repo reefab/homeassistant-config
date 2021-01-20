@@ -98,6 +98,9 @@ automation:
           brightness: 255
           transition: 60
       - delay: '04:00:00'
+      - condition: state # if it's back on, it's been reactived elsewhere, stop sequence
+        entity_id: switch.circadian_lighting_circadian_lighting
+        state: 'off'
       - service: switch.turn_on
         entity_id: switch.circadian_lighting_circadian_lighting
       - delay:
