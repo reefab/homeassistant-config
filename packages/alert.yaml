@@ -84,6 +84,21 @@ alert:
           critical: 1
           volume: 1.0
 
+  co_kitchen:
+    name: Carbon monoxide detected in kitchen
+    done_message: Carbon monoxide cleared in kitchen
+    entity_id: binary_sensor.carbonmonoxide_67
+    state: 'on'
+    repeat: 10
+    notifiers:
+      - mobile_app_phophone
+    data:
+      push:
+        sound:
+          name: "US-EN-Alexa-Smoke-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
+
   # send alert if front door has been opened for more than 5 minutes
   front_door_not_closed:
     name: Front door is open

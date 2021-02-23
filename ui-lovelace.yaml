@@ -234,6 +234,7 @@ views:
               - sensor.cuisine_2
               - binary_sensor.compteur_eau
               - binary_sensor.buanderie
+              - binary_sensor.carbonmonoxide_67
           - type: glance
             title: Mezzanine
             show_name: false
