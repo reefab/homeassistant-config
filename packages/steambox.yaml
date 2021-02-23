@@ -4,7 +4,7 @@ switch:
   - platform: wake_on_lan
     name: steambox
     host: 192.168.1.70
-    mac: 'd8:cb:8a:35:32:af'
+    mac: '0c:c4:7a:9a:2d:06'
     broadcast_address: 192.168.1.255
     turn_off:
       service: rest_command.steambox
