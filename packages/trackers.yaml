@@ -1,11 +1,3 @@
-device_tracker:
-  - platform: unifi_direct
-    host: 192.168.1.62
-    username: !secret unifi_user
-    password: !secret unifi_password
-    track_new_devices: false
-    consider_home: 180
-
 automation:
   - id: front_door_opened
     alias: front_door_has_been_opened
