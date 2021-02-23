@@ -62,6 +62,16 @@ automation:
           - fan.ventilateur_bureau
           - fan.petit_ventilateur
           - fan.ventilateur_bois
+  - alias: Switch fans off at night time
+    trigger:
+      platform: state
+      entity_id: input_boolean.night_time
+      to: 'on'
+    action:
+      - service: fan.turn_off
+        entity_id: 
+          - fan.ventilateur_bureau
+          - fan.ventilateur_bois
 
 fan:
   # Sonoff iFan02 with Tasmota

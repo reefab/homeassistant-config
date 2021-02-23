@@ -55,27 +55,14 @@ automation:
       - service: light.turn_off
         entity_id: group.main_rooms_lights
 
-  - alias: Switch all lights off with button press
+  - alias: Switch all lights off at night time
     trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: bouton_lit
-        event: 1004
+      platform: state
+      entity_id: input_boolean.night_time
+      to: 'on'
     action:
-      - service: switch.turn_off
-        entity_id: switch.circadian_lighting_circadian_lighting
-      - service: fan.turn_off
-        entity_id: 
-          - fan.ventilateur_bureau
-          - fan.ventilateur_bois
       - service: light.turn_off
         entity_id: all
-        data:
-          transition: 10
-      - delay: '00:00:10'
-      - service: switch.turn_on
-        entity_id: switch.circadian_lighting_circadian_lighting
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
