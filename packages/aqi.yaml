@@ -19,11 +19,6 @@ sensor:
         value_template: "{{ states.fan.xiaomi_air_purifier_2.attributes.aqi }}"
         icon_template: mdi:cloud
         unit_of_measurement: "AQI"
-  # Inside Air Quality: Living Room taken from https://foobot.io
-  - platform: foobot
-    token: !secret foobot_token
-    username: reefab@demenzia.net
-    scan_interval: 1200
 
 fan:
   - platform: xiaomi_miio
@@ -44,7 +39,6 @@ automation:
     trigger:
       platform: state
       entity_id: input_boolean.night_time
-      from: 'off'
       to: 'on'
     action:
       service: fan.set_speed
@@ -55,7 +49,6 @@ automation:
     trigger:
       platform: state
       entity_id: input_boolean.night_time
-      from: 'on'
       to: 'off'
     action:
       service: fan.set_speed
@@ -69,18 +62,5 @@ homeassistant:
       icon: 'mdi:air-purifier'
     fan.xiaomi_air_purifier_2s:
       icon: 'mdi:air-purifier'
-    sensor.foobot_salon_pm25:
-      friendly_name: PM 2.5
-    sensor.foobot_salon_voc:
-      friendly_name: COV
-    sensor.foobot_salon_index:
-      friendly_name: Index Pollution
-    sensor.foobot_salon_temperature:
-      hidden: true
-    sensor.foobot_salon_co2:
-      hidden: false
-      friendly_name: Co2
-    sensor.foobot_salon_humidity:
-      hidden: true
     fan.xiaomi_evaporative_humidifier_cb1:
       icon: 'mdi:air-humidifier'
