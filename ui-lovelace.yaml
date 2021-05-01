@@ -30,7 +30,7 @@ views:
               - switch.menage
               - switch.mop
               - binary_sensor.porte_entree
-              - entity: switch.main_water_valve
+              - entity: switch.water_valve
                 tap_action:
                   action: toggle
                   confirmation: true
@@ -72,7 +72,7 @@ views:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_humidity
               - binary_sensor.fenetre_salon
-              - entity: fan.ventilateur_bois
+              - entity: fan.ventilateur_salon
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_co2
@@ -220,8 +220,8 @@ views:
               - entity: light.salle_de_bain_2
                 tap_action:
                   action: toggle
-              - sensor.salle_de_bain
-              - sensor.salle_de_bain_2
+              - sensor.temperature_48
+              - sensor.humidity_68
               - binary_sensor.robinet_toilette
           - type: glance
             title: Cuisine
@@ -255,8 +255,8 @@ views:
     cards:
       - type: sensor
         graph: line
-        name: Bureau
-        entity: sensor.filtered_server_rack_temperature
+        name: Rack temperature
+        entity: sensor.salle_de_bain
         detail: 2
       - type: entities
         title: Server
@@ -293,6 +293,9 @@ views:
         entities:
           - switch.steambox
           - light.salon
+          - light.wled
+          - light.first_led_hardware_instance
+          - switch.first_led_hardware_instance_component_platform_capture
           - switch.w1070_blank
           - switch.w1070_3d_fs
           - switch.w1070_3d_tb
@@ -380,4 +383,3 @@ views:
           - sensor.airtower_pm_1
           - sensor.airtower_pm_2_5
           - sensor.airtower_pm_10
-
