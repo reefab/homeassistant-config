@@ -1,5 +1,6 @@
 homekit:
-  advertise_ip: 192.168.1.2
+  advertise_ip: 192.168.1.159
+  # ip_address: 192.168.1.159
   filter:
     include_entities:
       - camera.tapo_camera_hd
@@ -9,7 +10,7 @@ homekit:
       - cover.living_room_blind
       - climate.netatmo_my_room
       - fan.petit_ventilateur
-      - fan.ventilateur_bois
+      - fan.ventilateur_salon
       - fan.ventilateur_bureau
       - light.atelier
       - light.chambre
@@ -25,7 +26,7 @@ homekit:
       - sensor.netatmo_mezon_bureau_chambre_co2
       - sensor.netatmo_mezon_bureau_salon_temperature
       - sensor.netatmo_mezon_bureau_salon_co2
-      - sensor.salle_de_bain
+      - sensor.temperature_48
       - sensor.cuisine
       - switch.menage
       - switch.mop

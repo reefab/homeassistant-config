@@ -1,4 +1,4 @@
 mqtt:
-  broker: mosquitto
+  broker: swarm
   discovery: true
   discovery_prefix: homeassistant
