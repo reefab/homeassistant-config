@@ -55,11 +55,13 @@ automation:
       - service: light.turn_off
         entity_id: group.main_rooms_lights
 
-  - alias: Switch all lights off at night time
+  - alias: Switch all lights off on button press
     trigger:
-      platform: state
-      entity_id: input_boolean.night_time
-      to: 'on'
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: bouton_lit
+        event: 1004
     action:
       - service: light.turn_off
         entity_id: all
@@ -81,7 +83,7 @@ binary_sensor:
     sensors:
       sun_up:
         friendly_name: "Sun is up"
-        value_template: "{{ state_attr('sun.sun', 'elevation') | float > 3.0 }}"
+        value_template: "{{ state_attr('sun.sun', 'elevation') | float > 4.0 }}"
 
 homeassistant:
   customize:
