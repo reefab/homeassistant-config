@@ -22,15 +22,34 @@ homeassistant:
       icon: 'mdi:steam'
 
 automation:
-  # for backups and stuff, will sleep after finishing
+  # for backups and stuff, will shutdown by itself after finishing
   - alias: weekly steambox housekeeping
     trigger:
       - platform: time
         at: '08:00:00'
-    condition:  
+    condition:
       - condition: time
-        weekday: 
+        weekday:
           - sun
     action:
       - service: switch.turn_on
         entity_id: switch.steambox
+
+  - alias: Turn steambox on via action
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionName: Power on Steambox
+    action:
+      - service: switch.turn_on
+        entity_id: switch.steambox
+
+  - alias: Switch pseudo ambilight off alongside steambox
+    trigger:
+      - platform: state
+        entity_id: switch.steambox
+        to: 'off'
+    action:
+      - service: light.turn_off
+        entity_id: light.wled

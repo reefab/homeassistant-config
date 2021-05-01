@@ -7,7 +7,7 @@ switch:
           - service: switch.turn_off
             entity_id: switch.circadian_lighting_circadian_lighting
           - service: light.turn_off
-            entity_id: 
+            entity_id:
               - light.bureau
               - light.cuisine
           - service: switch.turn_on
@@ -20,25 +20,28 @@ switch:
             entity_id: media_player.yamaha_receiver
             data:
               source: 'HDMI1'
-          - condition: state
-            entity_id: light.salon
-            state: 'on'
-          - service: light.turn_on
-            entity_id: light.salon
-            data:
-              brightness: 3
-              transition: 60
+          - choose:
+              - conditions:
+                - condition: state
+                  entity_id: light.salon
+                  state: 'on'
+                sequence:
+                  - service: light.turn_on
+                    entity_id: light.salon
+                    data:
+                      brightness: 3
+                      transition: 60
+          - delay: 60
+          - service: switch.turn_on
+            entity_id: switch.first_led_hardware_instance_component_platform_capture
         turn_off:
           - service: switch.turn_off
-            entity_id: switch.benq_w1070
+            entity_id:
+              - switch.first_led_hardware_instance_component_platform_capture
+              - switch.benq_w1070
+              - switch.steambox
           - service: media_player.turn_off
             entity_id: media_player.yamaha_receiver
-          - service: switch.turn_off
-            entity_id: switch.steambox
-          - service: light.turn_off
-            entity_id:
-              - light.hue_ws2812_ring_1
-              - light.hue_ws2812_ring_2
           - choose:
             - conditions:
               - condition: state
@@ -62,6 +65,7 @@ media_player:
     name: Écran salon
     children:
       - media_player.yamaha_receiver
+      - media_player.plex_plex_media_player_steambox
     commands:
       turn_on:
         service: switch.turn_on
@@ -93,12 +97,57 @@ media_player:
         data_template:
           entity_id: media_player.yamaha_receiver
           source: '{{ source }}'
+      media_play:
+        service: media_player.media_play
+        entity_id: media_player.plex_plex_media_player_steambox
+      media_pause:
+        service: media_player.media_pause
+        entity_id: media_player.plex_plex_media_player_steambox
+      media_stop:
+        service: media_player.media_stop
+        entity_id: media_player.plex_plex_media_player_steambox
+      media_next_track:
+        service: media_player.media_next_track
+        entity_id: media_player.plex_plex_media_player_steambox
+      media_previous_track:
+        service: media_player.media_previous_track
+        entity_id: media_player.plex_plex_media_player_steambox
     attributes:
       state: media_player.yamaha_receiver
       is_volume_muted: media_player.yamaha_receiver|is_volume_muted
       volume_level: media_player.yamaha_receiver|volume_level
       source: media_player.yamaha_receiver|source
       source_list: media_player.yamaha_receiver|source_list
+
+automation:
+  - alias: "Bring lights on during plex pause"
+    trigger:
+      - platform: state
+        entity_id: media_player.plex_plex_media_player_steambox
+        to: paused
+    action:
+      - condition: state
+        entity_id: binary_sensor.sun_up
+        state: 'off'
+      - service: light.turn_on
+        entity_id: light.salon
+        data:
+          brightness: 90
+          transition: 10
+  - alias: "Bring lights off after plex pause"
+    trigger:
+      - platform: state
+        entity_id: media_player.plex_plex_media_player_steambox
+        from: paused
+    action:
+      - condition: state
+        entity_id: binary_sensor.sun_up
+        state: 'off'
+      - service: light.turn_on
+        entity_id: light.salon
+        data:
+          brightness: 3
+          transition: 10
 
 homeassistant:
   customize:
