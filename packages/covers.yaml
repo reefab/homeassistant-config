@@ -6,12 +6,17 @@ automation:
       event: sunset
       offset: '00:30:00'
     action:
-      service: cover.close_cover
-      entity_id: 
-        - cover.velux_mezzanine
-        - cover.bedroom_velux
-        - cover.office_blind
-        - cover.living_room_blind
+      - service: cover.close_cover
+        entity_id: 
+          - cover.velux_mezzanine
+          - cover.bedroom_velux
+      - condition: state
+        entity_id: binary_sensor.windows_open
+        state: 'off'
+      - service: cover.close_cover
+        entity_id: 
+          - cover.office_blind
+          - cover.living_room_blind
 
   - alias: Open living room covers during the day
     initial_state: true
@@ -149,12 +154,9 @@ cover:
           data:
             entity_id: cover.store_bureau
         close_cover:
-          - condition: state
-            entity_id: binary_sensor.fenetre_bureau
-            state: 'off'
-          - service: cover.close_cover
-            data:
-              entity_id: cover.store_bureau
+          service: cover.close_cover
+          data:
+            entity_id: cover.store_bureau
         set_cover_position:
           service: cover.set_cover_position
           data_template:
@@ -173,13 +175,10 @@ cover:
               entity_id: cover.window_covering_device_25
               position: 100
         close_cover:
-          - condition: state
-            entity_id: binary_sensor.fenetre_salon
-            state: 'off'
-          - service: cover.set_cover_position
-            data:
-              entity_id: cover.window_covering_device_25
-              position: 0
+          service: cover.set_cover_position
+          data:
+            entity_id: cover.window_covering_device_25
+            position: 0
         set_cover_position:
           service: cover.set_cover_position
           data_template:
