@@ -70,13 +70,13 @@ automation:
 switch:
   - platform: command_line
     switches:
-      # I use https://github.com/darksid3r/OctoPrint-TFT to control octoprint via a touch screen directly connected to the raspberry pi
+      # I use https://github.com/Z-Bolt/OctoScreen to control octoprint via a touch screen directly connected to the raspberry pi
       # GPIO pins. It does have an issue: if the printer is off and thus octoprint is not connected to it, it'll keep trying to connect
       # and it eventually makes octoprint crash (known bug). So this switch is used to disable it alongside the printer power supply.
       # Cool side effect: it'll make octoprint connect to the printer automatically when started.
       octoprint_screen:
-        command_on: ssh -i /config/id_rsa_octopi -o 'StrictHostKeyChecking no' pi@192.168.1.49 'sudo service octoprint-tft start'
-        command_off: ssh -i /config/id_rsa_octopi -o 'StrictHostKeyChecking no' pi@192.168.1.49 'sudo service octoprint-tft stop'
+        command_on: ssh -i /config/id_rsa_octopi -o 'StrictHostKeyChecking no' pi@192.168.1.49 'sudo service octoscreen start'
+        command_off: ssh -i /config/id_rsa_octopi -o 'StrictHostKeyChecking no' pi@192.168.1.49 'sudo service octoscreen stop'
         command_timeout: 60  # it can be pretty slow sometimes, not to actually start or stop but for the command to finish
   - platform: template
     switches:
