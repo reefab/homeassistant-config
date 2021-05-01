@@ -1,0 +1,26 @@
+ios:
+  actions:
+    - name: Power on Steambox
+      background_color: '#5297D5'
+      label:
+        text: "Switch Steambox On"
+      icon:
+        icon: steam
+    - name: Volume Up
+      background_color: '#71A637'
+      label:
+        text: "Volume Up"
+      icon:
+        icon: volume_plus
+    - name: Volume Down
+      background_color: '#C62B72'
+      label:
+        text: "Volume down"
+      icon:
+        icon: volume_minus
+    - name: Volume Mute
+      background_color: '#687685'
+      label:
+        text: "Volume Mute"
+      icon:
+        icon: volume_mute
