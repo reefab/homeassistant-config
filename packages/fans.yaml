@@ -61,7 +61,7 @@ automation:
         entity_id: 
           - fan.ventilateur_bureau
           - fan.petit_ventilateur
-          - fan.ventilateur_bois
+          - fan.ventilateur_salon
   - alias: Switch fans off at night time
     trigger:
       platform: state
@@ -71,7 +71,7 @@ automation:
       - service: fan.turn_off
         entity_id: 
           - fan.ventilateur_bureau
-          - fan.ventilateur_bois
+          - fan.ventilateur_salon
 
 fan:
   # Sonoff iFan02 with Tasmota
@@ -112,13 +112,13 @@ fan:
     payload_not_available: "Offline"
     payload_on: "ON"
     payload_off: "OFF"
-  # Sonoff Basic with Tasmota
-  - platform: mqtt
-    name: "Ventilateur Bois"
-    state_topic: "stat/salon_fan/POWER"
-    command_topic: "cmnd/salon_fan/POWER"
-    availability_topic: "tele/salon_fan/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    payload_on: "ON"
-    payload_off: "OFF"
+  - platform: template
+    fans:
+      ventilateur_salon:
+        turn_on:
+          service: switch.turn_on
+          entity_id: switch.on_off_plug_in_unit_22
+        turn_off:
+          service: switch.turn_off
+          entity_id: switch.on_off_plug_in_unit_22
+        value_template: "{{ states('switch.on_off_plug_in_unit_22') }}"
