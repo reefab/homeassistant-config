@@ -17,11 +17,11 @@ views:
             title: Dehors
             show_name: false
             entities:
-              - sensor.dark_sky_temperature 
+              - sensor.dark_sky_temperature
               - weather.dark_sky
               - sensor.netatmo_mezon_bureau_dehors_humidity
+              - sensor.lightlevel_70
               - sensor.waqi_paris
-              - sensor.velib_86245c11064e6c59600ed1a72ca437b7
           - type: picture-glance
             camera_image: camera.vacuum_map
             title: Global
@@ -209,7 +209,7 @@ views:
                   action: toggle
               - sensor.netatmo_mezon_bureau_chambre_co2
               - fan.xiaomi_air_purifier_2
-              - entity: cover.bedroom_velux
+              - entity: cover.bedroom_blind
                 tap_action:
                   action: toggle
               - sensor.chambre_aqi
