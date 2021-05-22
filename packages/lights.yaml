@@ -8,7 +8,7 @@ group:
 automation:
   # Those replaces the 'presence based light' component but have the advantage
   # of being able to be enabled/disabled on demand
-  - alias: Switch lights off if no one is home
+  - alias: 💡 Switch lights off if no one is home
     trigger:
       - platform: state
         entity_id: group.people
@@ -17,7 +17,7 @@ automation:
       - service: light.turn_off
         entity_id: all
 
-  - alias: Switch lights on if people are coming home
+  - alias: 💡 Switch lights on if people are coming home
     trigger:
       - platform: state
         entity_id: group.people
@@ -30,7 +30,7 @@ automation:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
 
-  - alias: Switch lights on if people are home at sunset
+  - alias: 💡 Switch lights on if people are home at sunset
     trigger:
       - platform: state
         entity_id: binary_sensor.sun_up
@@ -46,16 +46,50 @@ automation:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
 
-  - alias: Switch lights off after sunrise
+  - alias: 💡 Switch lights on if it gets too dark during the day
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.lightlevel_70
+        below: 200
+        for:
+          minutes: 2
+    condition:
+      - condition: state
+        entity_id: group.people
+        state: home
+      - condition: state
+        entity_id: media_player.ecran_salon
+        state: 'off'
+    action:
+      - service: light.turn_on
+        entity_id: group.main_rooms_lights
+
+  - alias: 💡 Switch lights off if it gets too bright during the day
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.lightlevel_70
+        above: 200
+        for:
+          minutes: 2
+    condition:
+      - condition: state
+        entity_id: media_player.ecran_salon
+        state: 'off'
+    action:
+      - service: light.turn_off
+        entity_id: group.main_rooms_lights
+
+  - alias: 💡 Switch lights off after sunrise
     trigger:
       - platform: state
         entity_id: binary_sensor.sun_up
         to: 'on'
     action:
+      - wait_template: "{{ is_state_attr('sensor.lightlevel_70', 'daylight', True) }}"
       - service: light.turn_off
         entity_id: group.main_rooms_lights
 
-  - alias: Switch all lights off on button press
+  - alias: 💡 Switch all lights off on button press
     trigger:
       platform: event
       event_type: deconz_event

@@ -1,5 +1,5 @@
 automation:
-  - alias: Close covers at night
+  - alias: 🪟 Close covers at night
     initial_state: true
     trigger:
       platform: sun
@@ -7,18 +7,18 @@ automation:
       offset: '00:30:00'
     action:
       - service: cover.close_cover
-        entity_id: 
+        entity_id:
           - cover.velux_mezzanine
-          - cover.bedroom_velux
+          - cover.bedroom_blind
       - condition: state
         entity_id: binary_sensor.windows_open
         state: 'off'
       - service: cover.close_cover
-        entity_id: 
+        entity_id:
           - cover.office_blind
           - cover.living_room_blind
 
-  - alias: Open living room covers during the day
+  - alias: 🪟  Open mains rooms covers during the day
     initial_state: true
     trigger:
       platform: sun
@@ -27,16 +27,28 @@ automation:
       - condition: state
         entity_id: group.guests
         state: 'not_home'
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
-        below: 25
     action:
-      service: cover.open_cover
-      entity_id:
-        - cover.velux_mezzanine
-        - cover.living_room_blind
+      - wait_template: "{{ is_state_attr('sensor.lightlevel_70', 'daylight', True) }}"
+      - choose:
+          - conditions:
+              - condition: numeric_state
+                entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
+                below: 25
+            sequence:
+              service: cover.open_cover
+              entity_id:
+                - cover.velux_mezzanine
+                - cover.living_room_blind
+                - cover.office_blind
+        default:
+          - service: cover.set_cover_position
+            entity_id:
+              - cover.living_room_blind
+              - cover.office_blind
+            data:
+              position: 50
 
-  - alias: Open bedroom cover during the day
+  - alias: 🪟  Open bedroom cover during the day
     initial_state: true
     trigger:
       platform: sun
@@ -50,10 +62,10 @@ automation:
         below: 25
     action:
       service: cover.open_cover
-      entity_id: cover.bedroom_velux
+      entity_id: cover.bedroom_blind
 
-  - alias: Open office blinds during the day
-    initial_state: true
+  - alias: 🪟  Open office blinds during the day
+    initial_state: false
     trigger:
       platform: sun
       event: sunrise
@@ -65,7 +77,7 @@ automation:
       service: cover.open_cover
       entity_id: cover.office_blind
 
-  - alias: Toggle bedroom cover
+  - alias: 🪟  Toggle bedroom cover
     trigger:
       platform: event
       event_type: deconz_event
@@ -74,9 +86,9 @@ automation:
         event: 1005
     action:
       service: cover.toggle
-      entity_id: cover.bedroom_velux
+      entity_id: cover.bedroom_blind
 
-  - alias: Open office cover with switch
+  - alias: 🪟  Open office cover with switch
     trigger:
       platform: event
       event_type: deconz_event
@@ -97,7 +109,7 @@ automation:
       service: cover.close_cover
       entity_id: cover.office_blind
 
-  - alias: Open living room covers with switch
+  - alias: 🪟  Open living room covers with switch
     trigger:
       - platform: event
         event_type: deconz_event
@@ -189,44 +201,11 @@ cover:
           data:
             entity_id: cover.window_covering_device_25
 
-      bedroom_velux:  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
-        friendly_name: "Store Chambre"
-        optimistic: true
-        open_cover:
-          service: remote.send_command
-          data:
-            entity_id: remote.ir_bedroom_remote
-            command:
-              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
-              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
-              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
-              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
-              - b64:JgBkAA0qDSonDwwrDCooDwwqDSoMKg0qKA4pDigOKA4MKygODCsLLCgOKA4oDwsrDSoLAANaDSoNKigODCsMKigPCysNKgwqDSooDikOKA4nDwwrKA4NKgwrKA4oDigPCysNKgwADQUAAAAA
-        close_cover:
-          service: remote.send_command
-          data:
-            entity_id: remote.ir_bedroom_remote
-            command:
-              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
-              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
-              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
-              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
-              - b64:JgBkAA4pKQ0pDg0pDikpDQ4pDSkOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0pDSoMDikqAAM7DikqDCoNDigOKSoMDikOKQ0pDikpDSoMKg0pDQ4pKQ0OKQ4oKg0pDSoMKg0OKCoADQUAAAAA
-        stop_cover:
-          service: remote.send_command
-          data:
-            entity_id: remote.ir_bedroom_remote
-            command:
-              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
-              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
-              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
-              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
-              - b64:JgBkACoNDSkqDQ0pDikpDQ4pDigOKQ4pKQ0pDSoNKQ0OKCoNDigOKSoMKg0OKA4pKgwOAANYKgwOKSoMDikOKSkNDigPKA4pDigqDSkNKgwqDQ4oKg0OKA4pKQ0qDA4pDikpDQ4ADQUAAAAA
-
 homeassistant:
   customize:
-    cover.bedroom_velux:
+    cover.bedroom_blind:
       device_class: 'blind'
+      friendly_name: "Store Chambre"
     cover.velux_mezzanine:
       device_class: 'blind'
     cover.office_blind:

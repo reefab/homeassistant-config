@@ -1,5 +1,5 @@
 automation:
-  - alias: Prompt to open windows if exterior temperature is below inside temperature when it's warm
+  - alias: 🌬 Prompt to open windows if exterior temperature is below inside temperature when it's warm
     trigger:
       - platform: template
         value_template: '{{ (states("sensor.netatmo_mezon_bureau_temperature") > states("sensor.netatmo_mezon_bureau_dehors_temperature")) and (states("sensor.netatmo_mezon_bureau_temperature") > states("sensor.netatmo_mezon_bureau_dehors_temperature")) }}'
@@ -19,6 +19,7 @@ automation:
     action:
       service: notify.mobile_app_phophone
       data_template:
+        title: "🪟"
         message: 'Open office window now! Indoor: {{ states("sensor.netatmo_mezon_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_mezon_bureau_dehors_temperature") }}'
         data:
           push:
@@ -26,7 +27,7 @@ automation:
           apns_headers:
             'apns-collapse-id': 'open-window-notification-group'
 
-  - alias: Prompt to open windows for airing when exterior temperature is the highest during the day when it's cold
+  - alias: 🌬 Prompt to open windows for airing when exterior temperature is the highest during the day when it's cold
     trigger:
       - platform: template
         value_template: '{{ states("sensor.dark_sky_apparent_temperature") | float >= states("sensor.dark_sky_daytime_high_apparent_temperature_0d") | float - 0.5 }}'
@@ -46,24 +47,31 @@ automation:
     action:
       - service: notify.mobile_app_phophone
         data_template:
+          title: "🪟"
           message: 'Open windows now for 5 minutes.'
           data:
             push:
               thread-id: 'open-window-notification-group'
             apns_headers:
               'apns-collapse-id': 'open-window-notification-group'
-      - wait_for_trigger:
-        - platform: state
-          entity_id: binary_sensor.windows_open
-          to: 'on'
-          for: 300
-        timeout: '01:00:00'
-        continue_on_timeout: false
-      - condition: state
+
+  - alias: 🌬 Prompt to close windows after airing when exterior temperature is the highest during the day when it's cold
+    trigger:
+      - platform: state
         entity_id: binary_sensor.windows_open
-        state: 'on'
+        to: 'on'
+        for: '00:05:00'
+    condition:
+      - condition: state
+        entity_id: group.people
+        state: "home"
+      - condition: numeric_state
+        entity_id: sensor.netatmo_mezon_bureau_dehors_temperature
+        below: 18
+    action:
       - service: notify.mobile_app_phophone
         data_template:
+          title: "🪟"
           message: 'close windows now.'
           data:
             push:
@@ -71,28 +79,29 @@ automation:
             apns_headers:
               'apns-collapse-id': 'open-window-notification-group'
 
-  - alias: Turn stuff off when a window is opened
+
+  - alias: 🌬 Turn stuff off when a window is opened
     trigger:
       - platform: state
         entity_id: binary_sensor.windows_open
         to: 'on'
     action:
-      - service: climate.set_preset_mode
+      - service: climate.turn_off
         entity_id: climate.netatmo_my_room
-        data:
-          preset_mode: 'Frost Guard'
       - service: fan.turn_off
         entity_id:
           - fan.xiaomi_air_purifier_2
           - fan.xiaomi_air_purifier_2s
           - fan.xiaomi_evaporative_humidifier_cb1
 
-  - alias: Turn stuff back on when the windows are closed
+  - alias: 🌬 Turn stuff back on when the windows are closed
     trigger:
       - platform: state
         entity_id: binary_sensor.windows_open
         to: 'off'
     action:
+      - service: climate.turn_on
+        entity_id: climate.netatmo_my_room
       - service: climate.set_preset_mode
         entity_id: climate.netatmo_my_room
         data:

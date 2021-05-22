@@ -1,5 +1,6 @@
 alert:
   main_water_leak:
+    title: "💧"
     name: Water is leaking at main valve
     done_message: Water leak stopped at main valve
     entity_id: binary_sensor.compteur_eau
@@ -18,6 +19,7 @@ alert:
         apns-collapse-id: 'leak-notification-group'
 
   toilet_water_leak:
+    title: "💧"
     name: Water is leaking at toilet
     done_message: Water leak stopped at toilet
     entity_id: binary_sensor.robinet_toilette
@@ -36,6 +38,7 @@ alert:
         apns-collapse-id: 'open-window-notification-group'
 
   washers_water_leak:
+    title: "💧"
     name: Water is leaking at washers
     done_message: Water leak stopped at washers
     entity_id: binary_sensor.buanderie
@@ -54,6 +57,7 @@ alert:
         apns-collapse-id: 'leak-notification-group'
 
   smoke_living_room:
+    title: "🔥"
     name: Smoke detected in living room
     done_message: Smoke cleared in living room
     entity_id: binary_sensor.lumi_sensor_smoke
@@ -70,6 +74,7 @@ alert:
 
 
   smoke_office:
+    title: "🔥"
     name: Smoke detected in office
     done_message: Smoke cleared in office
     entity_id: binary_sensor.lumi_sensor_smoke_2
@@ -101,6 +106,7 @@ alert:
 
   # send alert if front door has been opened for more than 5 minutes
   front_door_not_closed:
+    title: "🚪"
     name: Front door is open
     done_message: Front door has been closed
     entity_id: binary_sensor.porte_entree

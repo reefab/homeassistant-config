@@ -72,7 +72,7 @@ alert:
       - mobile_app_phophone
 
 automation:
-  - alias: Switch grow lights on during the night
+  - alias: 🌿 Switch grow lights on during the night
     trigger:
       - platform: state
         entity_id: group.main_rooms_lights
@@ -108,7 +108,7 @@ automation:
       - service: light.turn_off
         entity_id: group.main_rooms_lights
 
-  - alias: Switch grow Lights off at sunrise or wakeup
+  - alias: 🌿 Switch grow Lights off at sunrise or wakeup
     trigger:
       - platform: sun
         event: sunrise

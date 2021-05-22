@@ -21,7 +21,7 @@ camera:
     still_image_url: http://192.168.1.49/webcam/?action=snapshot
 
 automation:
-  - alias: Cut power to 3D printers in case of smoke
+  - alias: 🖨 Cut power to 3D printers in case of smoke
     trigger:
       - platform: state
         from: 'off'
@@ -30,7 +30,7 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.prusa
-  - alias: Switch power off when idling for too long
+  - alias: 🖨 Switch power off when idling for too long
     trigger:
       - platform: state
         to: 'off'
@@ -39,7 +39,7 @@ automation:
     action:
       service: switch.turn_off
       entity_id: switch.prusa
-  - alias: Send notification when printing is done
+  - alias: 🖨 Send notification when printing is done
     trigger:
       - platform: state
         entity_id: binary_sensor.prusa_printing
