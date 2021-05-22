@@ -24,3 +24,11 @@ ios:
         text: "Volume Mute"
       icon:
         icon: volume_mute
+
+notify:
+  - name: main_devices
+    platform: group
+    services:
+      - service: mobile_app_daedalus
+      - service: mobile_app_phophone
+      - service: mobile_app_ipad

@@ -1,0 +1,25 @@
+# Doorbell zigbee sensor Echostar by Hughes
+automation:
+  - alias: Send notification and beep when doorbell is rung
+    trigger:
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          id: bell_69
+          event: 1002
+    action:
+      - service: notify.main_devices
+        data_template:
+          title: "🛎"
+          message: 'Ding!'
+          data:
+            push:
+              thread-id: 'doorbell-notification-group'
+            apns_headers:
+              'apns-collapse-id': 'doorbell-notification-group'
+      - condition: state
+        entity_id: input_boolean.night_time
+        state: 'off'
+      - service: esphome.buzzer_play_rtttl
+        data:
+          song_str: "bell:d=4,o=5,b=50:g,g"
