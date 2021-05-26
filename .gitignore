@@ -17,3 +17,5 @@ __pycache__
 /custom_components/**
 .deleted
 id_rsa*
+/blueprints/**
+/mosquitto/**
