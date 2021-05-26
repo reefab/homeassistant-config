@@ -15,7 +15,7 @@ input_select:
     icon: mdi:playlist-music
 
 automation:
-  - alias: play ambient audio during the night
+  - alias: 💤 play ambient audio during the night
     trigger:
       platform: state
       entity_id: input_boolean.night_time
@@ -24,7 +24,7 @@ automation:
     action:
       - service: switch.turn_on
         entity_id: switch.ambient_audio
-  - alias: stop playing ambient audio after waking up
+  - alias: 💤 stop playing ambient audio after waking up
     trigger:
       platform: state
       entity_id: input_boolean.night_time
