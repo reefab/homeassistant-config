@@ -50,7 +50,7 @@ automation:
     trigger:
       - platform: numeric_state
         entity_id: sensor.lightlevel_70
-        below: 200
+        below: 500
         for:
           minutes: 2
     condition:
@@ -60,6 +60,9 @@ automation:
       - condition: state
         entity_id: media_player.ecran_salon
         state: 'off'
+      - condition: state
+        entity_id: input_boolean.night_time
+        state: 'off'
     action:
       - service: light.turn_on
         entity_id: group.main_rooms_lights
@@ -68,7 +71,7 @@ automation:
     trigger:
       - platform: numeric_state
         entity_id: sensor.lightlevel_70
-        above: 200
+        above: 500
         for:
           minutes: 2
     condition:
@@ -99,6 +102,18 @@ automation:
     action:
       - service: light.turn_off
         entity_id: all
+
+  - alias: 💡 Switch all lights but bedroom off on bedroom door closing
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.porte_chambre
+        to: 'off'
+    action:
+      - service: light.turn_off
+        entity_id: all
+      - delay: 1
+      - service: light.turn_on
+        entity_id: light.chambre
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
