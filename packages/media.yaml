@@ -5,7 +5,7 @@ switch:
         value_template: '{{ states.switch.benq_w1070.state }}'
         turn_on:
           - service: switch.turn_off
-            entity_id: switch.circadian_lighting_circadian_lighting
+            entity_id: switch.adaptive_lighting_global
           - service: light.turn_off
             entity_id:
               - light.bureau
@@ -55,10 +55,10 @@ switch:
                     transition: 30
                 - delay: '00:00:30'
                 - service: switch.turn_on
-                  entity_id: switch.circadian_lighting_circadian_lighting
+                  entity_id: switch.adaptive_lighting_global
             default:
               - service: switch.turn_on
-                entity_id: switch.circadian_lighting_circadian_lighting
+                entity_id: switch.adaptive_lighting_global
 
 media_player:
   - platform: universal

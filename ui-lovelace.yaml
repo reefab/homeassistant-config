@@ -26,14 +26,9 @@ views:
             camera_image: camera.vacuum_map
             title: Global
             entities:
-              - switch.circadian_lighting_circadian_lighting
+              - switch.adaptive_lighting_global
               - switch.menage
               - switch.mop
-              - binary_sensor.porte_entree
-              - entity: switch.water_valve
-                tap_action:
-                  action: toggle
-                  confirmation: true
               - climate.netatmo_my_room
           - type: custom:xiaomi-vacuum-card
             entity: vacuum.rockrobo
@@ -213,6 +208,7 @@ views:
                 tap_action:
                   action: toggle
               - sensor.chambre_aqi
+
           - type: glance
             title: Salle de Bain
             show_name: false
@@ -223,6 +219,7 @@ views:
               - sensor.temperature_48
               - sensor.humidity_68
               - binary_sensor.robinet_toilette
+
           - type: glance
             title: Cuisine
             show_name: false
@@ -235,6 +232,12 @@ views:
               - binary_sensor.compteur_eau
               - binary_sensor.buanderie
               - binary_sensor.carbonmonoxide_67
+              - binary_sensor.porte_entree
+              - entity: switch.water_valve
+                tap_action:
+                  action: toggle
+                  confirmation: true
+
           - type: glance
             title: Mezzanine
             show_name: false

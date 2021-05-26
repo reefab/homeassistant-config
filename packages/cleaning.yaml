@@ -12,7 +12,7 @@ switch:
           - service: input_boolean.turn_on
             entity_id: input_boolean.menage_mode
           - service: switch.turn_off
-            entity_id: switch.circadian_lighting_circadian_lighting
+            entity_id: switch.adaptive_lighting_global
           - delay:
               seconds: 1
           - service: light.turn_on
@@ -24,7 +24,7 @@ switch:
           - service: input_boolean.turn_off
             entity_id: input_boolean.menage_mode
           - service: switch.turn_on
-            entity_id: switch.circadian_lighting_circadian_lighting
+            entity_id: switch.adaptive_lighting_global
           - delay:
               seconds: 1
           - service: light.turn_off

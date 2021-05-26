@@ -1,24 +1,21 @@
-circadian_lighting:
-  min_colortemp: 2237
-  max_colortemp: 4291
-
-switch:
-  - platform: circadian_lighting
-    min_brightness: 60
-    max_brightness: 80
-    lights_ct:
+adaptive_lighting:
+  - name: global
+    lights:
       - light.bureau
       - light.salon
       - light.mezzanine
       - light.chambre
+    min_brightness: 60
+    max_brightness: 80
+    min_color_temp: 2237
+    max_color_temp: 4291
 
 automation:
   - alias: Switch circadian lightning back on during the day
     trigger:
       - platform: state
         entity_id: input_boolean.night_time
-        from: 'on'
         to: 'off'
     action:
       - service: switch.turn_on
-        entity_id: switch.circadian_lighting_circadian_lighting
+        entity_id: switch.adaptive_lighting_global

@@ -90,7 +90,7 @@ automation:
         state: 'not_home'
     action:
       - service: switch.turn_off
-        entity_id: switch.circadian_lighting_circadian_lighting
+        entity_id: switch.adaptive_lighting_global
       - service: light.turn_on
         entity_id: group.main_rooms_lights
         data:
@@ -98,11 +98,11 @@ automation:
           brightness: 255
           transition: 60
       - delay: '04:00:00'
-      - condition: state # if it's back on, it's been reactived elsewhere, stop sequence
-        entity_id: switch.circadian_lighting_circadian_lighting
+      - condition: state  # if it's back on, it's been reactived elsewhere, stop sequence
+        entity_id: switch.adaptive_lighting_global
         state: 'off'
       - service: switch.turn_on
-        entity_id: switch.circadian_lighting_circadian_lighting
+        entity_id: switch.adaptive_lighting_global
       - delay:
           seconds: 10
       - service: light.turn_off
@@ -117,11 +117,11 @@ automation:
         to: 'off'
     condition:
       condition: state
-      entity_id: switch.circadian_lighting_circadian_lighting
+      entity_id: switch.adaptive_lighting_global
       state: 'off'
     action:
       - service: switch.turn_on
-        entity_id: switch.circadian_lighting_circadian_lighting
+        entity_id: switch.adaptive_lighting_global
       - delay:
           seconds: 10
       - service: light.turn_off
