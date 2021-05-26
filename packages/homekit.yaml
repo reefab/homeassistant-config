@@ -5,7 +5,7 @@ homekit:
     include_entities:
       - camera.tapo_camera_hd
       - cover.velux_mezzanine
-      - cover.bedroom_velux
+      - cover.bedroom_blind
       - cover.office_blind
       - cover.living_room_blind
       - climate.netatmo_my_room
@@ -57,8 +57,6 @@ homekit:
     switch.menage:
       name: Mode ménage
     switch.mop:
-      name: Mode serpillièr
-    switch.circadian_lighting_circadian_lighting:
-      name: Mode circadien
+      name: Mode serpillière
     vacuum.rockrobo:
       name: Aspirateur
