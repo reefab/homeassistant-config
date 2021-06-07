@@ -71,8 +71,8 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_co2
-              - fan.xiaomi_evaporative_humidifier_cb1
-              - entity: cover.living_room_blind
+              - fan.zhimi_humidifier_cb1_2
+              - entity: cover.window_covering_device_25
                 tap_action:
                   action: toggle
               - binary_sensor.lumi_sensor_smoke
@@ -157,8 +157,8 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_co2
-              - fan.xiaomi_air_purifier_2s
-              - entity: cover.office_blind
+              - fan.xiaomi_air_purifier_2s_2
+              - entity: cover.store_bureau
                 tap_action:
                   action: toggle
               - sensor.bureau_aqi
@@ -194,7 +194,7 @@ views:
               - entity: light.chambre
                 tap_action:
                   action: toggle
-              - entity: light.dressing
+              - entity: light.dressing_2
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_chambre_humidity
@@ -203,7 +203,7 @@ views:
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_chambre_co2
-              - fan.xiaomi_air_purifier_2
+              - fan.xiaomi_air_purifier_2_2
               - entity: cover.bedroom_blind
                 tap_action:
                   action: toggle

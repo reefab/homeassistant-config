@@ -6,8 +6,8 @@ homekit:
       - camera.tapo_camera_hd
       - cover.velux_mezzanine
       - cover.bedroom_blind
-      - cover.office_blind
-      - cover.living_room_blind
+      - cover.store_bureau
+      - cover.window_covering_device_25
       - climate.netatmo_my_room
       - fan.petit_ventilateur
       - fan.ventilateur_salon
@@ -38,6 +38,8 @@ homekit:
       name: Prusa
     climate.netatmo_my_room:
       name: Chaudière
+    cover.window_covering_device_25:
+      name: Store Bureau
     light.bureau:
       name: Lumière Bureau
     light.cuisine:
