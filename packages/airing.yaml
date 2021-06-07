@@ -90,9 +90,9 @@ automation:
         entity_id: climate.netatmo_my_room
       - service: fan.turn_off
         entity_id:
-          - fan.xiaomi_air_purifier_2
-          - fan.xiaomi_air_purifier_2s
-          - fan.xiaomi_evaporative_humidifier_cb1
+          - fan.xiaomi_air_purifier_2_2
+          - fan.xiaomi_air_purifier_2s_2
+          - fan.zhimi_humidifier_cb1_2
 
   - alias: 🌬 Turn stuff back on when the windows are closed
     trigger:
@@ -108,9 +108,9 @@ automation:
           preset_mode: "Schedule"
       - service: fan.turn_on
         entity_id:
-          - fan.xiaomi_air_purifier_2
-          - fan.xiaomi_air_purifier_2s
-          - fan.xiaomi_evaporative_humidifier_cb1
+          - fan.xiaomi_air_purifier_2_2
+          - fan.xiaomi_air_purifier_2s_2
+          - fan.zhimi_humidifier_cb1_2
 
 sensor:
 #  - platform: template

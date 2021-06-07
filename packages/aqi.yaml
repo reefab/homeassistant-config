@@ -20,19 +20,19 @@ sensor:
         icon_template: mdi:cloud
         unit_of_measurement: "AQI"
 
-fan:
-  - platform: xiaomi_miio
-    name: Xiaomi Air Purifier 2
-    host: 192.168.1.74
-    token: !secret air_purifier_token_2
-  - platform: xiaomi_miio
-    name: Xiaomi Air Purifier 2S
-    host: 192.168.1.137
-    token: !secret air_purifier_token_2S
-  - platform: xiaomi_miio
-    name: Xiaomi Evaporative Humidifier cb1
-    host: 192.168.1.193
-    token: !secret humidifier_cb1_token
+# fan:
+#   - platform: xiaomi_miio
+#     name: Xiaomi Air Purifier 2
+#     host: 192.168.1.74
+#     token: !secret air_purifier_token_2
+#   - platform: xiaomi_miio
+#     name: Xiaomi Air Purifier 2S
+#     host: 192.168.1.137
+#     token: !secret air_purifier_token_2S
+#   - platform: xiaomi_miio
+#     name: Xiaomi Evaporative Humidifier cb1
+#     host: 192.168.1.193
+#     token: !secret humidifier_cb1_token
 
 automation:
   - alias: Silence the air purifier during night time
@@ -42,7 +42,7 @@ automation:
       to: 'on'
     action:
       service: fan.set_speed
-      entity_id: fan.xiaomi_air_purifier_2
+      entity_id: fan.xiaomi_air_purifier_2_2
       data:
         speed: silent
   - alias: Set the air purifier to auto during day time
@@ -52,15 +52,15 @@ automation:
       to: 'off'
     action:
       service: fan.set_speed
-      entity_id: fan.xiaomi_air_purifier_2
+      entity_id: fan.xiaomi_air_purifier_2_2
       data:
         speed: auto
 
 homeassistant:
   customize:
-    fan.xiaomi_air_purifier_2:
+    fan.xiaomi_air_purifier_2_2:
       icon: 'mdi:air-purifier'
-    fan.xiaomi_air_purifier_2s:
+    fan.xiaomi_air_purifier_2s_2:
       icon: 'mdi:air-purifier'
-    fan.xiaomi_evaporative_humidifier_cb1:
+    fan.zhimi_humidifier_cb1_2:
       icon: 'mdi:air-humidifier'
