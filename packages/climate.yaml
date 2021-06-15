@@ -1,5 +1,5 @@
 automation:
-  - alias: Turn heating down when people are not here
+  - alias: 🥵 Turn heating down when people are not here
     trigger:
       - platform: state
         entity_id: group.people
@@ -9,7 +9,7 @@ automation:
         entity_id: climate.netatmo_my_room
         data:
           preset_mode: 'away'
-  - alias: Turn stuff back on when there is people coming back
+  - alias: 🥵 Turn stuff back on when there is people coming back
     trigger:
       - platform: state
         entity_id: group.people

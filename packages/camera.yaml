@@ -1,5 +1,5 @@
 automation:
-  - alias: Switch camera on if not home
+  - alias: 📹 Switch camera on if not home
     trigger:
       - platform: state
         entity_id: group.people
@@ -7,7 +7,7 @@ automation:
     action:
       - service: switch.turn_off
         entity_id: switch.camera_privacy_mode
-  - alias: Switch camera off if home
+  - alias: 📹 Switch camera off if home
     trigger:
       - platform: state
         entity_id: group.people

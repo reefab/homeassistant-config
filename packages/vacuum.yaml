@@ -47,7 +47,7 @@ sensor:
     end: '{{ now() }}'
 
 automation:
-  - alias: Start clearning if home is empty
+  - alias: 🧹 Start clearning if home is empty
     trigger:
       - platform: state
         entity_id: group.people
@@ -83,7 +83,7 @@ automation:
         data:
           fan_speed: 'medium'
 
-  - alias: Quieten vacuum if back home alone
+  - alias: 🧹 Quieten vacuum if back home alone
     trigger:
       - platform: state
         entity_id: people.fabien
@@ -98,7 +98,7 @@ automation:
         data:
           fan_speed: 'min'
 
-  - alias: Stop vacuum if back home with guests
+  - alias: 🧹 Stop vacuum if back home with guests
     trigger:
       - platform: state
         entity_id: group.guests
@@ -111,7 +111,7 @@ automation:
       - service: vacuum.return_to_base
         entity_id: vacuum.rockrobo
 
-  - alias: Start clearning before it's too late
+  - alias: 🧹 Start clearning before it's too late
     trigger:
       - platform: time
         at: '19:00:00'

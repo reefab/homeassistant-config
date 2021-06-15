@@ -1,5 +1,5 @@
 automation:
-  - alias: Toggle bed fan
+  - alias: 🆒 Toggle bed fan
     trigger:
       platform: event
       event_type: deconz_event
@@ -9,7 +9,7 @@ automation:
     action:
       service: fan.toggle
       entity_id: fan.petit_ventilateur
-  - alias: turn on office fan
+  - alias: 🆒 turn on office fan
     trigger:
       platform: event
       event_type: deconz_event
@@ -21,7 +21,7 @@ automation:
       entity_id: fan.ventilateur_bureau
       data:
          speed: 'low'
-  - alias: turn off office fan
+  - alias: 🆒 turn off office fan
     trigger:
       platform: event
       event_type: deconz_event
@@ -34,7 +34,7 @@ automation:
       data:
          speed: 'off'
   # auto switch off when it's cool enough
-  - alias: turn office fan off
+  - alias: 🆒 turn office fan off
     trigger:
       - below: '25'
         entity_id: sensor.netatmo_mezon_bureau_temperature
@@ -48,7 +48,7 @@ automation:
         service: fan.set_speed
         data:
           speed: 'off'
-  - alias: Switch fans off if no one is home
+  - alias: 🆒 Switch fans off if no one is home
     trigger:
       - platform: state
         entity_id: group.people
@@ -58,11 +58,8 @@ automation:
           minutes: 2
     action:
       - service: fan.turn_off
-        entity_id: 
-          - fan.ventilateur_bureau
-          - fan.petit_ventilateur
-          - fan.ventilateur_salon
-  - alias: Switch fans off at night time
+        entity_id: all
+  - alias: 🆒 Switch fans off at night time
     trigger:
       platform: state
       entity_id: input_boolean.night_time

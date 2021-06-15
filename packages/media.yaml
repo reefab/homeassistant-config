@@ -120,7 +120,7 @@ media_player:
       source_list: media_player.yamaha_receiver|source_list
 
 automation:
-  - alias: "Bring lights on during plex pause"
+  - alias: 🎬 Bring lights on during plex pause
     trigger:
       - platform: state
         entity_id: media_player.plex_plex_media_player_steambox
@@ -134,7 +134,7 @@ automation:
         data:
           brightness: 90
           transition: 10
-  - alias: "Bring lights off after plex pause"
+  - alias: 🎬 Bring lights off after plex pause
     trigger:
       - platform: state
         entity_id: media_player.plex_plex_media_player_steambox

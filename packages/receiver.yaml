@@ -3,7 +3,7 @@ media_player:
     host: 192.168.1.103
 
 automation:
-  - alias: turn subwoofer on when receiver is active
+  - alias: 🔈 turn subwoofer on when receiver is active
     trigger:
       platform: state
       entity_id: media_player.yamaha_receiver
@@ -11,7 +11,7 @@ automation:
     action:
       - service: switch.turn_on
         entity_id: switch.on_off_plug_in_unit_21
-  - alias: turn subwoofer off when receiver is inactive
+  - alias: 🔈 turn subwoofer off when receiver is inactive
     trigger:
       platform: state
       entity_id: media_player.yamaha_receiver
@@ -20,7 +20,7 @@ automation:
       - service: switch.turn_off
         entity_id: switch.on_off_plug_in_unit_21
       
-  - alias: turn up volume
+  - alias: 🔈 turn up volume
     trigger:
       - platform: event
         event_type: deconz_event
@@ -43,7 +43,7 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_up
-  - alias: turn down volume
+  - alias: 🔈 turn down volume
     trigger:
       - platform: event
         event_type: deconz_event
@@ -66,7 +66,7 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.ht_volume_down
-  - alias: mute volume
+  - alias: 🔈 mute volume
     trigger:
       - platform: event
         event_type: deconz_event
@@ -85,7 +85,7 @@ automation:
       - service: script.turn_on
         entity_id: script.ht_volume_mute
 
-  - alias: Switch off receiver if inactive
+  - alias: 🔈 Switch off receiver if inactive
     trigger:
       platform: state
       entity_id: media_player.yamaha_receiver
