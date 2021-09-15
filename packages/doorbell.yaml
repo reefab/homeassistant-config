@@ -1,11 +1,11 @@
 # Doorbell zigbee sensor Echostar by Hughes
 automation:
-  - alias: Send notification and beep when doorbell is rung
+  - alias: 🛎 Send notification and beep when doorbell is rung
     trigger:
       - platform: event
         event_type: deconz_event
         event_data:
-          id: bell_69
+          id: doorbell_sensor
           event: 1002
     action:
       - service: notify.main_devices
