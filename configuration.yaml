@@ -106,3 +106,17 @@ mobile_app:
 
 stream:
 ffmpeg:
+
+template:
+  - trigger:
+      - platform: webhook
+        webhook_id: !secret basement_webhook
+    sensor:
+      - name: Basement temperature
+        state: "{{ trigger.json.uplink_message.decoded_payload.TempC_SHT }}"
+        unit_of_measurement: °C
+
+      - name: Basement humidity
+        state: "{{ trigger.json.uplink_message.decoded_payload.Hum_SHT }}"
+        unit_of_measurement: "%"
+        device_class: humidity
