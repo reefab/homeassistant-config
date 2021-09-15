@@ -114,6 +114,28 @@ automation:
       - service: light.turn_on
         entity_id: light.chambre
 
+  - alias: 💡 Switch mezzanine lights on button press
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: rwl022_71
+        event: 1002
+    action:
+      - service: light.toggle
+        entity_id: light.mezzanine
+
+  - alias: 💡 Switch living room lights on button press
+    trigger:
+      platform: event
+      event_type: deconz_event
+      event_data:
+        id: rwl022_71
+        event: 4002
+    action:
+      - service: light.toggle
+        entity_id: light.salon
+
 light:
   # Ikea light strips controlled using a sonoff iFan02
   - platform: mqtt
