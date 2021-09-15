@@ -15,6 +15,26 @@ automation:
     action:
       - service: switch.turn_on
         entity_id: switch.camera_privacy_mode
+  - alias: 📹 Send notification on mouvement
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.tapo_camera_motion
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: group.people
+        state: 'not_home'
+    action:
+      - service: notify.main_devices
+        data:
+          title: "🚨"
+          message: 'Motion detected.'
+          data:
+            attachment:
+              content-type: jpeg
+            push:
+              category: camera
+            entity_id: camera.tapo_camera_hd
 
 switch:
   - platform: template
