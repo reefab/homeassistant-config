@@ -67,7 +67,7 @@ views:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_humidity
               - binary_sensor.fenetre_salon
-              - entity: fan.ventilateur_salon
+              - entity: fan.xiaomi_smart_standing_fan
                 tap_action:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_co2
@@ -250,6 +250,13 @@ views:
               - entity: cover.velux_mezzanine
                 tap_action:
                   action: toggle
+
+          - type: glance
+            title: Basement
+            show_name: false
+            entities:
+              - sensor.basement_temperature
+              - sensor.basement_humidity
 
   - path: infra_view
     title: infra_view
