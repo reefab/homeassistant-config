@@ -17,7 +17,7 @@ automation:
         entity_id: binary_sensor.windows_open
         state: 'off'
     action:
-      service: notify.mobile_app_phophone
+      service: notify.main_devices
       data_template:
         title: "🪟"
         message: 'Open office window now! Indoor: {{ states("sensor.netatmo_mezon_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_mezon_bureau_dehors_temperature") }}'
@@ -45,7 +45,7 @@ automation:
         entity_id: sensor.open_windows_time_today
         below: 0.10
     action:
-      - service: notify.mobile_app_phophone
+      - service: notify.main_devices
         data_template:
           title: "🪟"
           message: 'Open windows now for 5 minutes.'
@@ -69,7 +69,7 @@ automation:
         entity_id: sensor.netatmo_mezon_bureau_dehors_temperature
         below: 18
     action:
-      - service: notify.mobile_app_phophone
+      - service: notify.main_devices
         data_template:
           title: "🪟"
           message: 'close windows now.'

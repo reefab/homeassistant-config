@@ -51,7 +51,7 @@ alert:
       apns_headers:
         'apns-collapse-id': 'plant-notification-group'
     notifiers:
-      - mobile_app_phophone
+      - main_devices
 
   salon_plant:
     name: Les plantes murales du salon ont besoin d'attention.
@@ -69,7 +69,7 @@ alert:
       apns_headers:
         'apns-collapse-id': 'plant-notification-group'
     notifiers:
-      - mobile_app_phophone
+      - main_devices
 
 automation:
   - alias: 🌿 Switch grow lights on during the night

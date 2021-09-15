@@ -55,7 +55,7 @@ automation:
         entity_id: light.atelier
       - delay:
           seconds: 5
-      - service: notify.mobile_app_phophone
+      - service: notify.main_devices
         data:
           message: 'Print finished.'
           data:
