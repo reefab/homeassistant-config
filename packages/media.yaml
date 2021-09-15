@@ -31,13 +31,13 @@ switch:
                     data:
                       brightness: 3
                       transition: 60
-          - delay: 60
+          - delay: 90
           - service: switch.turn_on
             entity_id: switch.first_led_hardware_instance_component_platform_capture
         turn_off:
           - service: switch.turn_off
             entity_id:
-              - switch.first_led_hardware_instance_component_platform_capture
+              # - switch.first_led_hardware_instance_component_platform_capture
               - switch.benq_w1070
               - switch.steambox
           - service: media_player.turn_off
@@ -56,9 +56,14 @@ switch:
                 - delay: '00:00:30'
                 - service: switch.turn_on
                   entity_id: switch.adaptive_lighting_global
+                - service: light.turn_off
+                  entity_id: light.wled
             default:
               - service: switch.turn_on
                 entity_id: switch.adaptive_lighting_global
+              - delay: '00:00:30'
+              - service: light.turn_off
+                entity_id: light.wled
 
 media_player:
   - platform: universal
