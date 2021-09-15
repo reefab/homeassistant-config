@@ -1,0 +1,50 @@
+influxdb:
+  api_version: 2
+  ssl: false
+  host: localhost
+  port: 8086
+  token: !secret influxdb_token
+  organization: !secret influxdb_org
+  bucket: hass
+  tags:
+    source: HA
+  tags_attributes:
+    - friendly_name
+  default_measurement: units
+  include:
+    entities:
+      - binary_sensor.buanderie
+      - binary_sensor.carbonmonoxide_67
+      - binary_sensor.compteur_eau
+      - binary_sensor.fenetre_bureau
+      - binary_sensor.fenetre_salon
+      - binary_sensor.lumi_sensor_smoke
+      - binary_sensor.lumi_sensor_smoke_2
+      - binary_sensor.robinet_toilette
+      - plant.flowall_bureau
+      - plant.flowall_salon
+      - sensor.basement_temperature
+      - sensor.basement_humidity
+      - sensor.cuisine
+      - sensor.cuisine_2
+      - sensor.dark_sky_apparent_temperature
+      - sensor.salle_de_bain
+      - sensor.humidity_51
+      - sensor.humidity_68
+      - sensor.lightlevel_70
+      - sensor.mouvement_cuisine_temperature
+      - sensor.netatmo_mezon_bureau_chambre_temperature
+      - sensor.netatmo_mezon_bureau_chambre_humidity
+      - sensor.netatmo_mezon_bureau_dehors_humidity
+      - sensor.netatmo_mezon_bureau_dehors_temperature
+      - sensor.netatmo_mezon_bureau_humidity
+      - sensor.netatmo_mezon_bureau_noise
+      - sensor.netatmo_mezon_bureau_pressure
+      - sensor.netatmo_mezon_bureau_salon_co2
+      - sensor.netatmo_mezon_bureau_salon_humidity
+      - sensor.netatmo_mezon_bureau_salon_temperature
+      - sensor.netatmo_mezon_bureau_temperature
+      - sensor.nut_ups_battery_runtime
+      - sensor.nut_ups_load
+      - sensor.temperature_50
+      - sensor.waqi_paris
