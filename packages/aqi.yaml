@@ -11,12 +11,12 @@ sensor:
     sensors:
       bureau_aqi:
         friendly_name: "Bureau AQI"
-        value_template: "{{ states.fan.xiaomi_air_purifier_2s.attributes.aqi }}"
+        value_template: "{{ states.fan.xiaomi_air_purifier_2s_2.attributes.aqi }}"
         icon_template: mdi:cloud
         unit_of_measurement: "AQI"
       chambre_aqi:
         friendly_name: "Chambre AQI"
-        value_template: "{{ states.fan.xiaomi_air_purifier_2.attributes.aqi }}"
+        value_template: "{{ states.fan.xiaomi_air_purifier_2_2.attributes.aqi }}"
         icon_template: mdi:cloud
         unit_of_measurement: "AQI"
 
