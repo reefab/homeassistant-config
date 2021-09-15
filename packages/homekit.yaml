@@ -10,8 +10,8 @@ homekit:
       - cover.window_covering_device_25
       - climate.netatmo_my_room
       - fan.petit_ventilateur
-      - fan.ventilateur_salon
       - fan.ventilateur_bureau
+      - fan.xiaomi_smart_standing_fan
       - light.atelier
       - light.chambre
       - light.bureau

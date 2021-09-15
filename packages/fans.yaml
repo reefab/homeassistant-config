@@ -59,6 +59,7 @@ automation:
     action:
       - service: fan.turn_off
         entity_id: all
+
   - alias: 🆒 Switch fans off at night time
     trigger:
       platform: state
@@ -66,9 +67,9 @@ automation:
       to: 'on'
     action:
       - service: fan.turn_off
-        entity_id: 
+        entity_id:
           - fan.ventilateur_bureau
-          - fan.ventilateur_salon
+          - fan.xiaomi_smart_standing_fan
 
 fan:
   # Sonoff iFan02 with Tasmota
@@ -76,29 +77,23 @@ fan:
   - platform: mqtt
     name: "Ventilateur bureau"
     command_topic: "cmnd/office_fan/FanSpeed"
-    speed_command_topic: "cmnd/office_fan/FanSpeed"
     state_topic: "stat/office_fan/RESULT"
-    speed_state_topic: "stat/office_fan/RESULT"
     state_value_template: >
       {% if value_json.FanSpeed is defined %}
         {% if value_json.FanSpeed == 0 -%}0{%- elif value_json.FanSpeed > 0 -%}1{%- endif %}
       {% else %}
         {% if states.fan.ventilateur_bureau.state == 'off' -%}0{%- elif states.fan.ventilateur_bureau.state == 'on' -%}1{%- endif %}
       {% endif %}
-    speed_value_template: "{{ value_json.FanSpeed }}"
+    percentage_value_template: "{{ value_json.FanSpeed }}"
+    percentage_state_topic: "stat/office_fan/RESULT"
+    percentage_command_topic: "cmnd/office_fan/FanSpeed"
     availability_topic: tele/office_fan/LWT
     payload_off: "0"
     payload_on: "1"
-    payload_low_speed: "1"
-    payload_medium_speed: "2"
-    payload_high_speed: "3"
+    speed_range_min: 1
+    speed_range_max: 3
     payload_available: Online
     payload_not_available: Offline
-    speeds:
-      - 'off'
-      - low
-      - medium
-      - high
   # Sonoff Basic with Tasmota
   - platform: mqtt
     name: "Petit ventilateur"
@@ -109,13 +104,17 @@ fan:
     payload_not_available: "Offline"
     payload_on: "ON"
     payload_off: "OFF"
-  - platform: template
-    fans:
-      ventilateur_salon:
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.on_off_plug_in_unit_22
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.on_off_plug_in_unit_22
-        value_template: "{{ states('switch.on_off_plug_in_unit_22') }}"
+  # - platform: template
+  #   fans:
+  #     ventilateur_salon:
+  #       turn_on:
+  #         service: switch.turn_on
+  #         entity_id: switch.on_off_plug_in_unit_22
+  #       turn_off:
+  #         service: switch.turn_off
+  #         entity_id: switch.on_off_plug_in_unit_22
+  #       value_template: "{{ states('switch.on_off_plug_in_unit_22') }}"
+  - platform: xiaomi_miio_fan
+    name: Xiaomi Smart Standing fan
+    host: 192.168.1.63
+    token: 21f6d771728ebc67ce53a182df0f7a85
