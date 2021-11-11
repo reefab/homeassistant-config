@@ -7,9 +7,14 @@ switch:
     mac: '0c:c4:7a:9a:2d:06'
     broadcast_address: 192.168.1.255
     turn_off:
-      service: rest_command.steambox
-      data_template:
-        command: 'shutdown'
+      - service: light.turn_off
+        entity_id: light.first_led_hardware_instance
+      - service: switch.turn_off
+        entity_id: switch.first_led_hardware_instance_component_platform_capture
+      - delay: 5
+      - service: rest_command.steambox
+        data_template:
+          command: 'shutdown'
 
 rest_command:
   steambox:
