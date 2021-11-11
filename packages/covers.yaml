@@ -1,5 +1,5 @@
 automation:
-  - alias: 🪟 Close covers at night
+  - alias: 🪟  Close covers at night
     initial_state: true
     trigger:
       platform: sun
@@ -8,7 +8,6 @@ automation:
     action:
       - service: cover.close_cover
         entity_id:
-          - cover.velux_mezzanine
           - cover.bedroom_blind
       - condition: state
         entity_id: binary_sensor.windows_open
@@ -16,6 +15,7 @@ automation:
       - service: cover.close_cover
         entity_id:
           - cover.windows
+          - cover.velux_mezzanine
 
   - alias: 🪟  Open mains rooms covers during the day
     initial_state: true
@@ -28,22 +28,13 @@ automation:
         state: 'not_home'
     action:
       - wait_template: "{{ is_state_attr('sensor.lightlevel_70', 'daylight', True) }}"
-      - choose:
-          - conditions:
-              - condition: numeric_state
-                entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
-                below: 25
-            sequence:
-              service: cover.open_cover
-              entity_id:
-                - cover.velux_mezzanine
-                - cover.windows
-        default:
-          - service: cover.set_cover_position
-            entity_id:
-              - cover.windows
-            data:
-              position: 50
+      - condition: state
+        entity_id: binary_sensor.windows_open
+        state: 'off'
+      - service: cover.open_cover
+        entity_id:
+          - cover.windows
+          - cover.velux_mezzanine
 
   - alias: 🪟  Open bedroom cover during the day
     initial_state: true
@@ -61,19 +52,6 @@ automation:
       service: cover.open_cover
       entity_id: cover.bedroom_blind
 
-  - alias: 🪟  Open office blinds during the day
-    initial_state: false
-    trigger:
-      platform: sun
-      event: sunrise
-    condition:
-      - condition: numeric_state
-        entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
-        below: 25
-    action:
-      service: cover.open_cover
-      entity_id: cover.store_bureau
-
   - alias: 🪟  Toggle bedroom cover
     trigger:
       platform: event
@@ -90,28 +68,28 @@ automation:
       platform: event
       event_type: deconz_event
       event_data:
-        id: tradfri_open_close_switch
+        id: tradfri_open_close_switch_2
         event: 1002
     action:
       service: cover.open_cover
-      entity_id: cover.store_bureau
-  - alias: Close office cover with switch
+      entity_id: cover.office_blind
+  - alias: 🪟  Close office cover with switch
     trigger:
       platform: event
       event_type: deconz_event
       event_data:
-        id: tradfri_open_close_switch
+        id: tradfri_open_close_switch_2
         event: 2002
     action:
       service: cover.close_cover
-      entity_id: cover.store_bureau
+      entity_id: cover.office_blind
 
   - alias: 🪟  Open living room blind with switch
     trigger:
       - platform: event
         event_type: deconz_event
         event_data:
-          id: tradfri_open_close_switch_2
+          id: tradfri_open_close_switch
           event: 1002
       - platform: event
         event_type: deconz_event
@@ -120,14 +98,13 @@ automation:
           event: 2002
     action:
       service: cover.open_cover
-      entity_id:
-        - cover.window_covering_device_25
+      entity_id: cover.living_room_blind
   - alias: 🪟  Close living room blind with switch
     trigger:
       - platform: event
         event_type: deconz_event
         event_data:
-          id: tradfri_open_close_switch_2
+          id: tradfri_open_close_switch
           event: 2002
       - platform: event
         event_type: deconz_event
@@ -136,34 +113,82 @@ automation:
           event: 3002
     action:
       service: cover.close_cover
-      entity_id:
-        - cover.window_covering_device_25
+      entity_id: cover.living_room_blind
 
-  - alias: 🪟  Halfway close window blinds when it's too sunny
+  - alias: 🪟  Close window blinds when it's too bright
     trigger:
       - platform: numeric_state
         entity_id: sensor.lightlevel_70
         above: 20000
         for:
           minutes: 2
+    condition:
+      - condition: state
+        entity_id: binary_sensor.windows_open
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.netatmo_mezon_bureau_dehors_temperature
+        above: 20
     action:
-      service: cover.set_cover_position
-      entity_id:
-        - cover.windows
-      data:
-        position: 50
+      - service: cover.close_cover
+        entity_id: cover.skylights
+      - service: cover.set_cover_position
+        entity_id: cover.office_blind
+        data:
+          position: 0
+      - service: cover.set_cover_position
+        entity_id: cover.living_room_blind
+        data:
+          position: 50
+
+  - alias: 🪟  Halfway close window blinds when it's sunny
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.lightlevel_70
+        below: 20000
+        above: 10000
+        for:
+          minutes: 2
+    condition:
+      - condition: state
+        entity_id: binary_sensor.windows_open
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.netatmo_mezon_bureau_dehors_temperature
+        above: 20
+    action:
+      - service: cover.set_cover_position
+        entity_id: cover.office_blind
+        data:
+          position: 50
+      - service: cover.set_cover_position
+        entity_id: cover.living_room_blind
+        data:
+          position: 75
 
   - alias: 🪟  Re-open windows when it gets darker
     trigger:
       - platform: numeric_state
         entity_id: sensor.lightlevel_70
-        below: 20000
+        below: 10000
         for:
           minutes: 2
+    condition:
+      - condition: state
+        entity_id: binary_sensor.windows_open
+        state: 'off'
     action:
-      service: cover.open_cover
-      entity_id:
-        - cover.windows
+      - service: cover.set_cover_position
+        entity_id: cover.windows
+        data:
+          position: 100
+      - service: cover.open_cover
+        entity_id: cover.velux_mezzanine
+      # - condition: state
+      #   entity_id: binary_sensor.porte_chambre
+      #   state: 'off'
+      # - service: cover.open_cover
+      #   entity_id: cover.bedroom_blind
 
 cover:
   # Custom device for controlling velux exterior blinds:
@@ -177,11 +202,78 @@ cover:
     availability_topic: "tele/velux/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
+  - platform: template
+    covers:
+      bedroom_blind:  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
+        friendly_name: "Store Chambre"
+        optimistic: true
+        open_cover:
+          service: remote.send_command
+          target:
+            entity_id: remote.bedroom_remote_remote
+          data:
+            device: velux
+            num_repeats: 5
+            command: up
+        close_cover:
+          service: remote.send_command
+          target:
+            entity_id: remote.bedroom_remote_remote
+          data:
+            device: velux
+            num_repeats: 5
+            command: down
+        stop_cover:
+          service: remote.send_command
+          target:
+            entity_id: remote.bedroom_remote_remote
+          data:
+            device: velux
+            num_repeats: 5
+            command: stop
+      office_blind:
+        friendly_name: "Store Bureau"
+        device_class: 'blind'
+        position_template: "{{ state_attr('cover.store_bureau', 'current_position') }}"
+        open_cover:
+          service: cover.set_cover_position
+          entity_id: cover.store_bureau
+          data:
+            position: 100
+        close_cover:
+          service: cover.set_cover_position
+          entity_id: cover.store_bureau
+          data:
+            position: 0
+        set_cover_position:
+          service: cover.set_cover_position
+          entity_id: cover.store_bureau
+          data:
+            position: "{{position}}"
+      living_room_blind:
+        friendly_name: "Store Salon"
+        device_class: 'blind'
+        position_template: "{{ state_attr('cover.window_covering_device_2S', 'current_position') }}"
+        open_cover:
+          service: cover.set_cover_position
+          entity_id: cover.window_covering_device_2S
+          data:
+            position: 100
+        close_cover:
+          service: cover.set_cover_position
+          entity_id: cover.window_covering_device_2S
+          data:
+            position: 0
+        set_cover_position:
+          service: cover.set_cover_position
+          entity_id: cover.window_covering_device_2S
+          data:
+            position: "{{position}}"
   - platform: group
     name: windows
     entities:
-      - cover.window_covering_device_25
-      - cover.store_bureau
+      - cover.living_room_blind
+      - cover.office_blind
   - platform: group
     name: skylights
     entities:
@@ -190,13 +282,9 @@ cover:
 
 homeassistant:
   customize:
-    cover.window_covering_device_25:
-      friendly_name: "Store Salon"
-      device_class: 'blind'
-    cover.store_bureau:
-      device_class: 'blind'
     cover.bedroom_blind:
       device_class: 'blind'
       friendly_name: "Store Chambre"
     cover.velux_mezzanine:
       device_class: 'blind'
+      friendly_name: "Store Mezzanine"
