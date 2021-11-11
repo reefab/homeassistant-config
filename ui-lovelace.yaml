@@ -26,6 +26,7 @@ views:
             camera_image: camera.vacuum_map
             title: Global
             entities:
+              - input_boolean.night_time
               - switch.adaptive_lighting_global
               - switch.menage
               - switch.mop
@@ -72,7 +73,10 @@ views:
                   action: toggle
               - sensor.netatmo_mezon_bureau_salon_co2
               - fan.zhimi_humidifier_cb1_2
-              - entity: cover.window_covering_device_25
+              # - entity: cover.window_covering_device_25
+              #   tap_action:
+              #     action: toggle
+              - entity: cover.living_room_blind
                 tap_action:
                   action: toggle
               - binary_sensor.lumi_sensor_smoke
@@ -158,7 +162,7 @@ views:
                   action: toggle
               - sensor.netatmo_mezon_bureau_co2
               - fan.xiaomi_air_purifier_2s_2
-              - entity: cover.store_bureau
+              - entity: cover.office_blind
                 tap_action:
                   action: toggle
               - sensor.bureau_aqi
@@ -273,21 +277,20 @@ views:
         entities:
           - sensor.processor_use
           - sensor.memory_use_percent
-          - sensor.nut_ups_battery_runtime
+          - sensor.ups_battery_runtime
+          - sensor.ups_battery_charge
+          - sensor.ups_status
         show_header_toggle: false
       - type: gauge
-        entity: sensor.nut_ups_load
+        entity: sensor.ups_load
       - type: entities
         title: Network
         entities:
           - binary_sensor.routeur
           - binary_sensor.deconz
-          - binary_sensor.pi
-          - binary_sensor.nas
-          - binary_sensor.mirror
+          - binary_sensor.slope
           - binary_sensor.slice
           - binary_sensor.sliver
-          - binary_sensor.slab
           - binary_sensor.ac_ap_lite
           - binary_sensor.imac
         show_header_toggle: false
@@ -324,20 +327,6 @@ views:
           - switch.light_15
           - switch.on_off_plug_in_unit_21
         show_header_toggle: false
-
-  - path: night_view
-    title: night_view
-    badges: []
-    icon: 'mdi:weather-night'
-    cards:
-      - type: media-control
-        entity: media_player.forked_daapd_server
-      - type: entities
-        show_header_toggle: false
-        entities:
-          - input_boolean.night_time
-          - input_select.night_time_playlist
-          - switch.ambient_audio
 
   - path: settings_view
     title: settings_view
