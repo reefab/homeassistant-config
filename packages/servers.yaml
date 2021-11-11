@@ -20,23 +20,15 @@ binary_sensor:
     count: 2
     scan_interval: 30
   - platform: ping
-    host: 192.168.1.145
-    name: pi
-    count: 2
-  - platform: ping
-    host: freenas
-    name: Nas
+    host: slice
+    name: Slice
     count: 2
     scan_interval: 30
   - platform: ping
-    host: mirror
-    name: Mirror
+    host: slope
+    name: Slope
     count: 2
     scan_interval: 30
-  - platform: ping
-    host: slab
-    name: Slab
-    count: 2
   - platform: ping
     host: sliver
     name: Sliver
