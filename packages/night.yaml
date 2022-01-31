@@ -1,5 +1,6 @@
 input_boolean:
   night_time:
+    icon: mdi:weather-night
 
 automation:
   - alias: 💤 Start the day when blind or door is opened
