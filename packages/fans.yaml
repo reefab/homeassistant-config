@@ -58,7 +58,10 @@ automation:
           minutes: 2
     action:
       - service: fan.turn_off
-        entity_id: all
+        entity_id:
+          - fan.ventilateur_bureau
+          - fan.xiaomi_smart_standing_fan
+          - fan.petit_ventilateur
 
   - alias: 🆒 Switch fans off at night time
     trigger:
