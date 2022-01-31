@@ -50,7 +50,7 @@ automation:
     trigger:
       - platform: numeric_state
         entity_id: sensor.lightlevel_70
-        below: 500
+        below: input_number.ambiant_light_dark_threshold
         for:
           minutes: 2
     condition:
@@ -71,7 +71,7 @@ automation:
     trigger:
       - platform: numeric_state
         entity_id: sensor.lightlevel_70
-        above: 500
+        above: input_number.ambiant_light_dark_threshold
         for:
           minutes: 2
     condition:
@@ -114,27 +114,27 @@ automation:
       - service: light.turn_on
         entity_id: light.chambre
 
-  - alias: 💡 Switch mezzanine lights on button press
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: rwl022_71
-        event: 1002
-    action:
-      - service: light.toggle
-        entity_id: light.mezzanine
+  # - alias: 💡 Switch mezzanine lights on button press
+  #   trigger:
+  #     platform: event
+  #     event_type: deconz_event
+  #     event_data:
+  #       id: rwl022_71
+  #       event: 1002
+  #   action:
+  #     - service: light.toggle
+  #       entity_id: light.mezzanine
 
-  - alias: 💡 Switch living room lights on button press
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: rwl022_71
-        event: 4002
-    action:
-      - service: light.toggle
-        entity_id: light.salon
+  # - alias: 💡 Switch living room lights on button press
+  #   trigger:
+  #     platform: event
+  #     event_type: deconz_event
+  #     event_data:
+  #       id: rwl022_71
+  #       event: 4002
+  #   action:
+  #     - service: light.toggle
+  #       entity_id: light.salon
 
 light:
   # Ikea light strips controlled using a sonoff iFan02
@@ -154,6 +154,24 @@ binary_sensor:
       sun_up:
         friendly_name: "Sun is up"
         value_template: "{{ state_attr('sun.sun', 'elevation') | float > 4.0 }}"
+
+input_number:
+  ambiant_light_dark_threshold:
+    name: Ambiant Light Dark Threshold
+    min: 0
+    max: 100000
+    step: 1
+    unit_of_measurement: lux
+    mode: box
+    icon: mdi:theme-light-dark
+  movement_wait_time:
+    name: Movement wait time
+    min: 0
+    max: 60
+    step: 0.5
+    unit_of_measurement: min
+    mode: box
+    icon: mdi:timer
 
 homeassistant:
   customize:
