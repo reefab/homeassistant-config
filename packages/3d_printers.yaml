@@ -20,20 +20,20 @@ automation:
       - platform: state
         to: 'off'
         for: '01:00:00'
-        entity_id: binary_sensor.prusa_printing
+        entity_id: binary_sensor.octoprint_printing
     action:
       service: switch.turn_off
       entity_id: switch.prusa
   - alias: 🖨 Send notification when printing is done
     trigger:
       - platform: state
-        entity_id: binary_sensor.prusa_printing
+        entity_id: binary_sensor.octoprint_printing
         from: 'on'
         to: 'off'
     condition:
       # to filter out prints cancelled before the end
       - condition: numeric_state
-        entity_id: sensor.prusa_job_percentage
+        entity_id: sensor.octoprint_job_percentage
         above: 95
     action:
       - service: light.turn_on
