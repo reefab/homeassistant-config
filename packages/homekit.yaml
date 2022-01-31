@@ -1,64 +1,91 @@
 homekit:
-  advertise_ip: 192.168.1.159
-  # ip_address: 192.168.1.159
-  filter:
-    include_entities:
-      - camera.tapo_camera_hd
-      - cover.velux_mezzanine
-      - cover.bedroom_blind
-      - cover.store_bureau
-      - cover.window_covering_device_25
-      - climate.netatmo_my_room
-      - fan.petit_ventilateur
-      - fan.ventilateur_bureau
-      - fan.xiaomi_smart_standing_fan
-      - light.atelier
-      - light.chambre
-      - light.bureau
-      - light.cuisine
-      - light.mezzanine
-      - light.salle_de_bain_2
-      - light.salon
-      - light.spots_salon
-      - sensor.netatmo_mezon_bureau_temperature
-      - sensor.netatmo_mezon_bureau_co2
-      - sensor.netatmo_mezon_bureau_chambre_temperature
-      - sensor.netatmo_mezon_bureau_chambre_co2
-      - sensor.netatmo_mezon_bureau_salon_temperature
-      - sensor.netatmo_mezon_bureau_salon_co2
-      - sensor.temperature_48
-      - sensor.cuisine
-      - switch.menage
-      - switch.mop
-      - switch.prusa
-      - switch.projector
-      - vacuum.rockrobo
-  entity_config:
-    camera.3d_printers:
-      name: Prusa
-    climate.netatmo_my_room:
-      name: Chaudière
-    cover.window_covering_device_25:
-      name: Store Bureau
-    light.bureau:
-      name: Lumière Bureau
-    light.cuisine:
-      name: Lumière Cuisine
-    light.mezzanine:
-      name: Lumière Mezzanine
-    light.salon:
-      name: Lumière Salon
-    light.salle_de_bain_2:
-      name: Lumière Salle de Bain
-    cover.velux_mezzanine:
-      name: Store Mezzanine
-    cover.bedroom_velux:
-      name: Store Chambre
-    fan.ventilateur_bois:
-      name: Ventilateur salon
-    switch.menage:
-      name: Mode ménage
-    switch.mop:
-      name: Mode serpillière
-    vacuum.rockrobo:
-      name: Aspirateur
+  - name: HASS Bridge main
+    ip_address: 192.168.1.159
+    advertise_ip: 192.168.1.159
+    port: 21063
+    filter:
+      include_entities:
+        - cover.velux_mezzanine
+        - cover.bedroom_blind
+        - cover.store_bureau
+        - cover.window_covering_device_25
+        - climate.netatmo_my_room
+        - fan.petit_ventilateur
+        - fan.ventilateur_bureau
+        - fan.xiaomi_smart_standing_fan
+        - light.atelier
+        - light.chambre
+        - light.bureau
+        - light.cuisine
+        - light.mezzanine
+        - light.salle_de_bain_2
+        - light.salon
+        - light.spots_salon
+        - sensor.netatmo_mezon_bureau_temperature
+        - sensor.netatmo_mezon_bureau_co2
+        - sensor.netatmo_mezon_bureau_chambre_temperature
+        - sensor.netatmo_mezon_bureau_chambre_co2
+        - sensor.netatmo_mezon_bureau_salon_temperature
+        - sensor.netatmo_mezon_bureau_salon_co2
+        - sensor.temperature_48
+        - sensor.cuisine
+        - switch.menage
+        - switch.mop
+        - switch.prusa
+        - switch.projector
+        - vacuum.rockrobo_2
+    entity_config:
+      camera.3d_printers:
+        name: Prusa
+      climate.netatmo_my_room:
+        name: Chaudière
+      cover.window_covering_device_25:
+        name: Store Bureau
+      light.bureau:
+        name: Lumière Bureau
+      light.cuisine:
+        name: Lumière Cuisine
+      light.mezzanine:
+        name: Lumière Mezzanine
+      light.salon:
+        name: Lumière Salon
+      light.salle_de_bain_2:
+        name: Lumière Salle de Bain
+      cover.velux_mezzanine:
+        name: Store Mezzanine
+      cover.bedroom_velux:
+        name: Store Chambre
+      fan.ventilateur_bois:
+        name: Ventilateur salon
+      switch.menage:
+        name: Mode ménage
+      switch.mop:
+        name: Mode serpillière
+      vacuum.rockrobo_2:
+        name: Aspirateur
+  - name: HASS Bridge camera salon
+    ip_address: 192.168.1.159
+    advertise_ip: 192.168.1.159
+    port: 21065
+    filter:
+      include_entities:
+        - camera.tapo_camera_hd
+    entity_config:
+      camera.tapo_camera_hd:
+        linked_motion_sensor: binary_sensor.tapo_camera_motion
+        support_audio: true
+  - name: HASS Bridge home cinema
+    ip_address: 192.168.1.159
+    advertise_ip: 192.168.1.159
+    port: 21067
+    mode: accessory
+    filter:
+      include_entities:
+        - media_player.ecran_salon
+    entity_config:
+      media_player.ecran_salon:
+        feature_list:
+          - feature: on_off
+          - feature: play_pause
+          - feature: play_stop
+          - feature: toggle_mute
