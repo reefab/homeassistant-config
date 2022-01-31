@@ -6,33 +6,6 @@ sensor:
       - paris
     stations:
       - paris
-  # Inside Air Quality: Office taken from Xiaomi Air purifier
-  - platform: template
-    sensors:
-      bureau_aqi:
-        friendly_name: "Bureau AQI"
-        value_template: "{{ states.fan.xiaomi_air_purifier_2s_2.attributes.aqi }}"
-        icon_template: mdi:cloud
-        unit_of_measurement: "AQI"
-      chambre_aqi:
-        friendly_name: "Chambre AQI"
-        value_template: "{{ states.fan.xiaomi_air_purifier_2_2.attributes.aqi }}"
-        icon_template: mdi:cloud
-        unit_of_measurement: "AQI"
-
-# fan:
-#   - platform: xiaomi_miio
-#     name: Xiaomi Air Purifier 2
-#     host: 192.168.1.74
-#     token: !secret air_purifier_token_2
-#   - platform: xiaomi_miio
-#     name: Xiaomi Air Purifier 2S
-#     host: 192.168.1.137
-#     token: !secret air_purifier_token_2S
-#   - platform: xiaomi_miio
-#     name: Xiaomi Evaporative Humidifier cb1
-#     host: 192.168.1.193
-#     token: !secret humidifier_cb1_token
 
 automation:
   - alias: Silence the air purifier during night time
@@ -41,20 +14,32 @@ automation:
       entity_id: input_boolean.night_time
       to: 'on'
     action:
-      service: fan.set_speed
-      entity_id: fan.xiaomi_air_purifier_2_2
-      data:
-        speed: silent
+      - service: fan.set_preset_mode
+        entity_id:
+          - fan.xiaomi_air_purifier_2_2
+          - fan.xiaomi_air_purifier_2s_2
+        data:
+          preset_mode: Silent
+      - service: humidifier.set_mode
+        entity_id: humidifier.zhimi_humidifier_cb1
+        data:
+          mode: Silent
   - alias: Set the air purifier to auto during day time
     trigger:
       platform: state
       entity_id: input_boolean.night_time
       to: 'off'
     action:
-      service: fan.set_speed
-      entity_id: fan.xiaomi_air_purifier_2_2
-      data:
-        speed: auto
+      - service: fan.set_preset_mode
+        entity_id:
+          - fan.xiaomi_air_purifier_2_2
+          - fan.xiaomi_air_purifier_2s_2
+        data:
+          preset_mode: Auto
+      - service: humidifier.set_mode
+        entity_id: humidifier.zhimi_humidifier_cb1
+        data:
+          mode: Auto
 
 homeassistant:
   customize:
@@ -62,5 +47,3 @@ homeassistant:
       icon: 'mdi:air-purifier'
     fan.xiaomi_air_purifier_2s_2:
       icon: 'mdi:air-purifier'
-    fan.zhimi_humidifier_cb1_2:
-      icon: 'mdi:air-humidifier'
