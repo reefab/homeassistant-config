@@ -1,0 +1,7 @@
+energy:
+
+sensor:
+  - platform: gazpar
+    username: !secret gazpar_username
+    password: !secret gazpar_password
+    pce: !secret gazpar_pce

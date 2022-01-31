@@ -48,3 +48,5 @@ influxdb:
       - sensor.nut_ups_load
       - sensor.temperature_50
       - sensor.waqi_paris
+      - sensor.gazpar_kwh
+      - sensor.gazpar_m3
