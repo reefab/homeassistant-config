@@ -33,7 +33,7 @@ homekit:
         - switch.mop
         - switch.prusa
         - switch.projector
-        - vacuum.rockrobo_2
+        - vacuum.valetudo_rockrobo
     entity_config:
       camera.3d_printers:
         name: Prusa
@@ -61,8 +61,6 @@ homekit:
         name: Mode ménage
       switch.mop:
         name: Mode serpillière
-      vacuum.rockrobo_2:
-        name: Aspirateur
   - name: HASS Bridge camera salon
     ip_address: 192.168.1.159
     advertise_ip: 192.168.1.159

@@ -9,3 +9,25 @@
       - service: notify.persistent_notification
         data:
           message: 'Low battery warning for: {{sensors}}'
+- id: '1643302970145'
+  alias: Cuisine motion activated lights
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.mouvement_cuisine
+      target_entity: light.cuisine
+      illuminance_sensor: sensor.lightlevel_70
+      illuminance_cutoff: input_number.ambiant_light_dark_threshold
+      no_motion_wait: input_number.movement_wait_time
+- id: '1643303061214'
+  alias: Salle de Bain motion activated light
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.tradfri_motion_sensor
+      target_entity: light.salle_de_bain_2
+      illuminance_sensor: sensor.lightlevel_70
+      illuminance_cutoff: input_number.ambiant_light_dark_threshold
+      no_motion_wait: input_number.movement_wait_time
