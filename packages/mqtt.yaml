@@ -1,4 +1,0 @@
-mqtt:
-  broker: swarm
-  discovery: true
-  discovery_prefix: homeassistant
