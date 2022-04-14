@@ -4,7 +4,14 @@ adaptive_lighting:
       - light.bureau
       - light.salon
       - light.mezzanine
-      - light.chambre
+      - light.chambre_1
+    min_brightness: 60
+    max_brightness: 80
+    min_color_temp: 2237
+    max_color_temp: 4291
+  - name: bed
+    lights:
+      - light.chambre_2
     min_brightness: 60
     max_brightness: 80
     min_color_temp: 2237
@@ -18,4 +25,6 @@ automation:
         to: 'off'
     action:
       - service: switch.turn_on
-        entity_id: switch.adaptive_lighting_global
+        entity_id:
+          - switch.adaptive_lighting_global
+          - switch.adaptive_lighting_bed
