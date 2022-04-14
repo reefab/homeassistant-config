@@ -136,17 +136,17 @@ automation:
   #     - service: light.toggle
   #       entity_id: light.salon
 
-light:
+# light:
   # Ikea light strips controlled using a sonoff iFan02
-  - platform: mqtt
-    name: Vitrine
-    command_topic: "cmnd/office_fan/POWER1"
-    state_topic: "stat/office_fan/POWER1"
-    availability_topic: "tele/office_fan/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    payload_on: "ON"
-    payload_off: "OFF"
+  # - platform: mqtt
+  #   name: Vitrine
+  #   command_topic: "cmnd/office_fan/POWER1"
+  #   state_topic: "stat/office_fan/POWER1"
+  #   availability_topic: "tele/office_fan/LWT"
+  #   payload_available: "Online"
+  #   payload_not_available: "Offline"
+  #   payload_on: "ON"
+  #   payload_off: "OFF"
 
 binary_sensor:
   - platform: template
