@@ -107,16 +107,6 @@ fan:
     payload_not_available: "Offline"
     payload_on: "ON"
     payload_off: "OFF"
-  # - platform: template
-  #   fans:
-  #     ventilateur_salon:
-  #       turn_on:
-  #         service: switch.turn_on
-  #         entity_id: switch.on_off_plug_in_unit_22
-  #       turn_off:
-  #         service: switch.turn_off
-  #         entity_id: switch.on_off_plug_in_unit_22
-  #       value_template: "{{ states('switch.on_off_plug_in_unit_22') }}"
   - platform: xiaomi_miio_fan
     name: Xiaomi Smart Standing fan
     host: 192.168.1.63
