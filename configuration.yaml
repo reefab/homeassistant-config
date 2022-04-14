@@ -21,7 +21,7 @@ homeassistant:
 
 # Enables the frontend
 frontend:
-  themes: !include_dir_named themes
+  themes: !include_dir_merge_named themes
 
 # Enables configuration UI
 config:
@@ -33,13 +33,6 @@ http:
   use_x_forwarded_for: true
   trusted_proxies:
     - 172.16.200.0/24
-
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
 
 # Discover some devices automatically
 discovery:
@@ -92,13 +85,19 @@ system_health:
 #    pydeconz: debug
 #    homeassistant.components.deconz: debug
 
-lovelace:
-  mode: yaml
-  resources:
-    - url: /local/custom-lovelace/lovelace-auto-entities/auto-entities.js?v=1
-      type: module
-    - url: /local/xiaomi-vacuum-card.js?v=4.0.1
-      type: module
+# lovelace:
+#   mode: yaml
+#   resources:
+#     - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+#       type: module
+#     - url: /hacsfiles/lovelace-mini-graph-card/mini-graph-card-bundle.js
+#       type: module
+#     - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+#       type: module
+#     - url: /hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js
+#       type: module
+# #   - url: /local/xiaomi-vacuum-card.js?v=4.4.0
+# #     type: module
 
 mobile_app:
 
