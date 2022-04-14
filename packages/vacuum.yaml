@@ -18,19 +18,19 @@ switch:
         friendly_name: "robot serpillière"
         turn_on:
           - service: vacuum.set_fan_speed
-            entity_id: vacuum.rockrobo_2
+            entity_id: vacuum.valetudo_rockrobo
             data:
               fan_speed: 'mop'
           - service: vacuum.start
-            entity_id: vacuum.rockrobo_2
+            entity_id: vacuum.valetudo_rockrobo
         turn_off:
           - service: vacuum.set_fan_speed
-            entity_id: vacuum.rockrobo_2
+            entity_id: vacuum.valetudo_rockrobo
             data:
               fan_speed: 'medium'
           - service: vacuum.return_to_base
-            entity_id: vacuum.rockrobo_2
-        value_template: '{% if states.vacuum.rockrobo_2.attributes.fan_speed == "mop" %}
+            entity_id: vacuum.valetudo_rockrobo
+        value_template: '{% if states.vacuum.valetudo_rockrobo.attributes.fan_speed == "mop" %}
                             on
                          {% else %}
                             off
@@ -40,7 +40,7 @@ sensor:
   # Sensor used for the automation below
   - platform: history_stats
     name: time spent vacuuming today
-    entity_id: vacuum.rockrobo_2
+    entity_id: vacuum.valetudo_rockrobo
     state: 'cleaning'
     type: time
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
@@ -60,17 +60,17 @@ automation:
         entity_id: sensor.time_spent_vacuuming_today
         below: 0.33
       - condition: state
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         state: 'docked'
     action:
       - service: vacuum.set_fan_speed
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         data:
           fan_speed: 'max'
       - delay:
           seconds: 10
       - service: vacuum.start
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
       #- service: notify.mobile_app_phophone
       #  data_template:
       #    message: 'Started vacuum cleaning in your absence.'
@@ -79,7 +79,7 @@ automation:
       - delay:
           minutes: 40
       - service: vacuum.set_fan_speed
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         data:
           fan_speed: 'medium'
 
@@ -90,11 +90,11 @@ automation:
         to: 'home'
     condition:
       - condition: state
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         state: 'cleaning'
     action:
       - service: vacuum.set_fan_speed
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         data:
           fan_speed: 'min'
 
@@ -105,11 +105,11 @@ automation:
         to: 'home'
     condition:
       - condition: state
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         state: 'cleaning'
     action:
       - service: vacuum.return_to_base
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
 
   - alias: 🧹 Start clearning before it's too late
     trigger:
@@ -122,17 +122,17 @@ automation:
         entity_id: sensor.time_spent_vacuuming_today
         below: 0.33
       - condition: state
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         state: 'docked'
     action:
       - service: vacuum.set_fan_speed
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
         data:
           fan_speed: 'medium'
       - delay:
           seconds: 10
       - service: vacuum.start
-        entity_id: vacuum.rockrobo_2
+        entity_id: vacuum.valetudo_rockrobo
 
 homeassistant:
   customize:
