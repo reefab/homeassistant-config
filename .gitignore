@@ -19,3 +19,6 @@ __pycache__
 id_rsa*
 /blueprints/**
 /mosquitto/**
+
+old_custom_components
+www/community
