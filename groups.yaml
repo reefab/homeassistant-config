@@ -7,6 +7,7 @@ people:
     - person.capucine
     - person.marc
     - person.royce
+    - person.guest
 
 guests:
   name: Guest
@@ -16,3 +17,4 @@ guests:
     - person.capucine
     - person.marc
     - person.royce
+    - person.guest
