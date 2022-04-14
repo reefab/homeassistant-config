@@ -1,0 +1,25 @@
+# Input boolean to manually force the presence of a guest "person" entity
+#
+#
+input_boolean:
+  guest:
+    icon: mdi:account-plus
+
+automation:
+  - alias: Guest pseudo device tracker
+    description: ''
+    trigger:
+      - platform: state
+        entity_id: input_boolean.guest
+    condition: []
+    action:
+      - service: device_tracker.see
+        data:
+          dev_id: guest
+          location_name: |-
+            {% if is_state('input_boolean.guest', 'on') -%}
+              home
+            {%- else -%}
+              not_home
+            {%- endif %}
+    mode: single
