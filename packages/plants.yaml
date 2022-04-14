@@ -34,43 +34,6 @@ homeassistant:
     plant.flowall_salon:
       friendly_name: Plantes murales salon
 
-alert:
-  bureau_plant:
-    title: "🌿"
-    name: Les plantes murales du bureau ont besoin d'attention.
-    message: "{{ state_attr('plant.flowall_bureau', 'friendly_name') }} needs help ({{ state_attr('plant.flowall_bureau', 'problem') }})"
-    entity_id: plant.flowall_bureau
-    state: 'problem'
-    skip_first: true
-    can_acknowledge: true
-    repeat:
-      - 720
-    data:
-      push:
-        thread-id: 'plant-notification-group'
-      apns_headers:
-        'apns-collapse-id': 'plant-notification-group'
-    notifiers:
-      - main_devices
-
-  salon_plant:
-    name: Les plantes murales du salon ont besoin d'attention.
-    title: "🌿"
-    message: "{{ state_attr('plant.flowall_salon', 'friendly_name') }} needs help ({{ state_attr('plant.flowall_salon', 'problem') }})"
-    entity_id: plant.flowall_salon
-    state: 'problem'
-    skip_first: true
-    can_acknowledge: true
-    repeat:
-      - 720
-    data:
-      push:
-        thread-id: 'plant-notification-group'
-      apns_headers:
-        'apns-collapse-id': 'plant-notification-group'
-    notifiers:
-      - main_devices
-
 automation:
   - alias: 🌿 Switch grow lights on during the night
     trigger:
@@ -126,3 +89,32 @@ automation:
           seconds: 10
       - service: light.turn_off
         entity_id: group.main_rooms_lights
+
+  - alias: 🌿 Send notification when soil is too dry
+    trigger:
+      - platform: state
+        entity_id:
+          - plant.flowall_bureau
+          - plant.flowall_salon
+        to: problem
+    action:
+      - service: notify.main_devices
+        data_template:
+          title: "🌿 {{ state_attr(trigger.entity_id, 'friendly_name') }}"
+          message: "{{ state_attr(trigger.entity_id, 'friendly_name') }} needs help ({{ state_attr(trigger.entity_id, 'problem') }})"
+          data:
+            tag: "plant-watering"
+
+  - alias: 🌿 clear notification when plants have been watered
+    trigger:
+      - platform: state
+        entity_id:
+          - plant.flowall_bureau
+          - plant.flowall_salon
+        to: ok
+    action:
+      - service: notify.main_devices
+        data:
+          message: "clear_notification"
+          data:
+            tag: "plant-watering"

@@ -22,10 +22,7 @@ automation:
         title: "🪟"
         message: 'Open office window now! Indoor: {{ states("sensor.netatmo_mezon_bureau_temperature") }} - Outdoor: {{ states("sensor.netatmo_mezon_bureau_dehors_temperature") }}'
         data:
-          push:
-            thread-id: 'open-window-notification-group'
-          apns_headers:
-            'apns-collapse-id': 'open-window-notification-group'
+          tag: 'open-window-notification'
 
   - alias: 🌬 Prompt to open windows for airing when exterior temperature is the highest during the day when it's cold
     trigger:
@@ -50,10 +47,7 @@ automation:
           title: "🪟"
           message: 'Open windows now for 5 minutes.'
           data:
-            push:
-              thread-id: 'open-window-notification-group'
-            apns_headers:
-              'apns-collapse-id': 'open-window-notification-group'
+            tag: 'open-window-notification'
 
   - alias: 🌬 Prompt to close windows after airing when exterior temperature is the highest during the day when it's cold
     trigger:
@@ -74,10 +68,7 @@ automation:
           title: "🪟"
           message: 'close windows now.'
           data:
-            push:
-              thread-id: 'open-window-notification-group'
-            apns_headers:
-              'apns-collapse-id': 'open-window-notification-group'
+            tag: 'close-window-notification'
 
 
   - alias: 🌬 Turn stuff off when a window is opened
@@ -86,6 +77,11 @@ automation:
         entity_id: binary_sensor.windows_open
         to: 'on'
     action:
+      - service: notify.main_devices
+        data:
+          message: 'clear_notification'
+          data:
+            tag: 'open-window-notification'
       - service: climate.turn_off
         entity_id: climate.netatmo_my_room
       - service: fan.turn_off
@@ -102,6 +98,11 @@ automation:
         entity_id: binary_sensor.windows_open
         to: 'off'
     action:
+      - service: notify.main_devices
+        data:
+          message: 'clear_notification'
+          data:
+            tag: 'close-window-notification'
       - service: climate.turn_on
         entity_id: climate.netatmo_my_room
       - service: climate.set_preset_mode
@@ -115,6 +116,7 @@ automation:
       - service: humidifier.turn_on
         entity_id:
           - humidifier.zhimi_humidifier_cb1
+
 
 sensor:
 #  - platform: template
