@@ -8,7 +8,7 @@ automation:
         event: 1003
     action:
       service: fan.toggle
-      entity_id: fan.petit_ventilateur
+      entity_id: fan.black_fan
   - alias: 🆒 turn on office fan
     trigger:
       platform: event
@@ -61,7 +61,7 @@ automation:
         entity_id:
           - fan.ventilateur_bureau
           - fan.xiaomi_smart_standing_fan
-          - fan.petit_ventilateur
+          - fan.black_fan
 
   - alias: 🆒 Switch fans off at night time
     trigger:
@@ -97,16 +97,6 @@ fan:
     speed_range_max: 3
     payload_available: Online
     payload_not_available: Offline
-  # Sonoff Basic with Tasmota
-  - platform: mqtt
-    name: "Petit ventilateur"
-    state_topic: "stat/black_fan/POWER"
-    command_topic: "cmnd/black_fan/POWER"
-    availability_topic: "tele/black_fan/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    payload_on: "ON"
-    payload_off: "OFF"
   - platform: xiaomi_miio_fan
     name: Xiaomi Smart Standing fan
     host: 192.168.1.63

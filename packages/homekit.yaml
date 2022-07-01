@@ -10,9 +10,10 @@ homekit:
         - cover.store_bureau
         - cover.window_covering_device_25
         - climate.netatmo_my_room
-        - fan.petit_ventilateur
+        - fan.black_fan
         - fan.ventilateur_bureau
         - fan.xiaomi_smart_standing_fan
+        - input_boolean.night_time
         - light.atelier
         - light.chambre
         - light.bureau
@@ -28,11 +29,13 @@ homekit:
         - sensor.netatmo_mezon_bureau_salon_temperature
         - sensor.netatmo_mezon_bureau_salon_co2
         - sensor.temperature_48
+        - sensor.temperature_50
         - sensor.cuisine
         - switch.menage
         - switch.mop
         - switch.prusa
         - switch.projector
+        - switch.on_off_plug_in_unit_22
         - vacuum.valetudo_rockrobo
     entity_config:
       camera.3d_printers:
@@ -55,12 +58,14 @@ homekit:
         name: Store Mezzanine
       cover.bedroom_velux:
         name: Store Chambre
-      fan.ventilateur_bois:
-        name: Ventilateur salon
+      fan.black_fan:
+        name: Ventilateur chambre
       switch.menage:
         name: Mode ménage
       switch.mop:
         name: Mode serpillière
+      switch.on_off_plug_in_unit_22:
+        name: Entraineur
   - name: HASS Bridge camera salon
     ip_address: 192.168.1.159
     advertise_ip: 192.168.1.159
