@@ -1,6 +1,5 @@
 automation:
   - alias: 🪟  Close covers at night
-    initial_state: true
     trigger:
       platform: sun
       event: sunset
@@ -18,7 +17,6 @@ automation:
           - cover.velux_mezzanine
 
   - alias: 🪟  Open mains rooms covers during the day
-    initial_state: true
     trigger:
       platform: sun
       event: sunrise
@@ -37,7 +35,6 @@ automation:
           - cover.velux_mezzanine
 
   - alias: 🪟  Open bedroom cover during the day
-    initial_state: true
     trigger:
       platform: sun
       event: sunrise
@@ -191,17 +188,6 @@ automation:
       #   entity_id: cover.bedroom_blind
 
 cover:
-  # Custom device for controlling velux exterior blinds:
-  # https://github.com/reefab/homeassistant-velux
-  - platform: mqtt
-    name: "Velux Mezzanine"
-    command_topic: "cmnd/velux/Backlog"
-    payload_open: "power2 off; power1 on; delay 1500"
-    payload_close: "power1 off; power2 on; delay 320"
-    payload_stop: "power1 off; power2 off"
-    availability_topic: "tele/velux/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
   - platform: template
     covers:
       bedroom_blind:  # Using a Broadlink IR Mini to control old style velux interior blinds via IR
