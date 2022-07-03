@@ -75,28 +75,6 @@ automation:
           - fan.xiaomi_smart_standing_fan
 
 fan:
-  # Sonoff iFan02 with Tasmota
-  # https://github.com/arendst/Sonoff-Tasmota/wiki/Sonoff-iFan02
-  - platform: mqtt
-    name: "Ventilateur bureau"
-    command_topic: "cmnd/office_fan/FanSpeed"
-    state_topic: "stat/office_fan/RESULT"
-    state_value_template: >
-      {% if value_json.FanSpeed is defined %}
-        {% if value_json.FanSpeed == 0 -%}0{%- elif value_json.FanSpeed > 0 -%}1{%- endif %}
-      {% else %}
-        {% if states.fan.ventilateur_bureau.state == 'off' -%}0{%- elif states.fan.ventilateur_bureau.state == 'on' -%}1{%- endif %}
-      {% endif %}
-    percentage_value_template: "{{ value_json.FanSpeed }}"
-    percentage_state_topic: "stat/office_fan/RESULT"
-    percentage_command_topic: "cmnd/office_fan/FanSpeed"
-    availability_topic: tele/office_fan/LWT
-    payload_off: "0"
-    payload_on: "1"
-    speed_range_min: 1
-    speed_range_max: 3
-    payload_available: Online
-    payload_not_available: Offline
   - platform: xiaomi_miio_fan
     name: Xiaomi Smart Standing fan
     host: 192.168.1.63
