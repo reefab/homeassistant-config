@@ -13,6 +13,7 @@ homekit:
         - fan.black_fan
         - fan.ventilateur_bureau
         - fan.xiaomi_smart_standing_fan
+        - fan.ventilateur_bois
         - input_boolean.night_time
         - light.atelier
         - light.chambre
@@ -60,6 +61,8 @@ homekit:
         name: Store Chambre
       fan.black_fan:
         name: Ventilateur chambre
+      sensor.temperature_50:
+        name: Temperature Mezzanine
       switch.menage:
         name: Mode ménage
       switch.mop:
