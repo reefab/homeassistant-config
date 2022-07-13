@@ -20,7 +20,7 @@ automation:
       service: fan.set_speed
       entity_id: fan.ventilateur_bureau
       data:
-         speed: 'low'
+        speed: 'low'
   - alias: 🆒 turn off office fan
     trigger:
       platform: event
@@ -32,7 +32,7 @@ automation:
       service: fan.set_speed
       entity_id: fan.ventilateur_bureau
       data:
-         speed: 'off'
+        speed: 'off'
   # auto switch off when it's cool enough
   - alias: 🆒 turn office fan off
     trigger:
@@ -62,6 +62,7 @@ automation:
           - fan.ventilateur_bureau
           - fan.xiaomi_smart_standing_fan
           - fan.black_fan
+          - fan.ventilateur_bois
 
   - alias: 🆒 Switch fans off at night time
     trigger:
