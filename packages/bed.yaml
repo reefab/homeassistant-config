@@ -1,0 +1,6 @@
+template:
+  - sensor:
+      - name: Bed tilt
+        unit_of_measurement: °
+        state: "{{ state_attr('binary_sensor.vibration_88', 'tiltangle') }}"
+        icon: 'mdi:bed'
