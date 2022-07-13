@@ -26,6 +26,18 @@ plant:
     min_battery: 20
     min_conductivity: 10
     min_temperature: 15
+  salon:
+    sensors:
+      moisture: sensor.salon_moisture
+      battery: sensor.salon_battery
+      temperature: sensor.salon_temperature
+      conductivity: sensor.salon_conductivity
+      brightness: sensor.salon_light
+    min_moisture: 20
+    max_moisture: 80
+    min_battery: 20
+    min_conductivity: 10
+    min_temperature: 15
 
 homeassistant:
   customize:
@@ -96,6 +108,7 @@ automation:
         entity_id:
           - plant.flowall_bureau
           - plant.flowall_salon
+          - plant.salon
         to: problem
     action:
       - service: notify.main_devices
@@ -111,6 +124,7 @@ automation:
         entity_id:
           - plant.flowall_bureau
           - plant.flowall_salon
+          - plant.salon
         to: ok
     action:
       - service: notify.main_devices
