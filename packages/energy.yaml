@@ -4,4 +4,36 @@ sensor:
   - platform: gazpar
     username: !secret gazpar_username
     password: !secret gazpar_password
-    pce: !secret gazpar_pce
+    pce_identifier: !secret gazpar_pce
+    tmpdir: /tmp
+    scan_interval: 01:00:00
+
+template:
+  - sensor:
+    - name: gas_volume
+      unit_of_measurement: 'm³'
+      state: >
+        {% set sourceState = state_attr('sensor.gazpar_daily_energy', 'end_index_m3') %}
+        {% set targetState = states('sensor.gas_volume') %}
+        {% if is_number(sourceState) and sourceState | float(0.0) > targetState | float(0.0) %}
+          {{ sourceState }}
+        {% else %}
+          {{ targetState }}
+        {% endif %}  
+      icon: mdi:fire
+      device_class: gas
+      state_class: total_increasing
+    - name: gas_energy
+      unit_of_measurement: 'kWh'      
+      state: >   
+        {% set sourceState = states('sensor.gas_volume') %}
+        {% set converter_factor = state_attr('sensor.gazpar_daily_energy', 'converter_factor_kwh/m3') | float(11.2) %}
+        {% set targetState = states('sensor.gas_energy') %}
+        {% if is_number(sourceState) and sourceState | float(0.0) * converter_factor > targetState | float(0.0) %}
+          {{ sourceState | float(0.0) * converter_factor }}
+        {% else %}
+          {{ targetState }}
+        {% endif %}  
+      icon: mdi:fire
+      device_class: energy
+      state_class: total_increasing
