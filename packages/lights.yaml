@@ -49,7 +49,7 @@ automation:
   - alias: 💡 Switch lights on if it gets too dark during the day
     trigger:
       - platform: numeric_state
-        entity_id: sensor.lightlevel_70
+        entity_id: sensor.lux_1_illuminance_lux
         below: input_number.ambiant_light_dark_threshold
         for:
           minutes: 2
@@ -70,7 +70,7 @@ automation:
   - alias: 💡 Switch lights off if it gets too bright during the day
     trigger:
       - platform: numeric_state
-        entity_id: sensor.lightlevel_70
+        entity_id: sensor.lux_1_illuminance_lux
         above: input_number.ambiant_light_dark_threshold
         for:
           minutes: 2
@@ -92,17 +92,6 @@ automation:
       - service: light.turn_off
         entity_id: group.main_rooms_lights
 
-  - alias: 💡 Switch all lights off on button press
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: bouton_lit
-        event: 1004
-    action:
-      - service: light.turn_off
-        entity_id: light.all_but_bedroom
-
   - alias: 💡 Switch all lights but bedroom off on bedroom door closing
     trigger:
       - platform: state
@@ -113,40 +102,6 @@ automation:
         entity_id: light.all_but_bedroom
       - service: light.turn_on
         entity_id: light.chambre
-
-  # - alias: 💡 Switch mezzanine lights on button press
-  #   trigger:
-  #     platform: event
-  #     event_type: deconz_event
-  #     event_data:
-  #       id: rwl022_71
-  #       event: 1002
-  #   action:
-  #     - service: light.toggle
-  #       entity_id: light.mezzanine
-
-  # - alias: 💡 Switch living room lights on button press
-  #   trigger:
-  #     platform: event
-  #     event_type: deconz_event
-  #     event_data:
-  #       id: rwl022_71
-  #       event: 4002
-  #   action:
-  #     - service: light.toggle
-  #       entity_id: light.salon
-
-# light:
-  # Ikea light strips controlled using a sonoff iFan02
-  # - platform: mqtt
-  #   name: Vitrine
-  #   command_topic: "cmnd/office_fan/POWER1"
-  #   state_topic: "stat/office_fan/POWER1"
-  #   availability_topic: "tele/office_fan/LWT"
-  #   payload_available: "Online"
-  #   payload_not_available: "Offline"
-  #   payload_on: "ON"
-  #   payload_off: "OFF"
 
 binary_sensor:
   - platform: template

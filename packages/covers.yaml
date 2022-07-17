@@ -25,7 +25,6 @@ automation:
         entity_id: group.guests
         state: 'not_home'
     action:
-      - wait_template: "{{ is_state_attr('sensor.lightlevel_70', 'daylight', True) }}"
       - condition: state
         entity_id: binary_sensor.windows_open
         state: 'off'
@@ -49,73 +48,10 @@ automation:
       service: cover.open_cover
       entity_id: cover.bedroom_blind
 
-  - alias: 🪟  Toggle bedroom cover
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: bouton_lit
-        event: 1005
-    action:
-      service: cover.toggle
-      entity_id: cover.bedroom_blind
-
-  - alias: 🪟  Open office cover with switch
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: tradfri_open_close_switch_2
-        event: 1002
-    action:
-      service: cover.open_cover
-      entity_id: cover.office_blind
-  - alias: 🪟  Close office cover with switch
-    trigger:
-      platform: event
-      event_type: deconz_event
-      event_data:
-        id: tradfri_open_close_switch_2
-        event: 2002
-    action:
-      service: cover.close_cover
-      entity_id: cover.office_blind
-
-  - alias: 🪟  Open living room blind with switch
-    trigger:
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: tradfri_open_close_switch
-          event: 1002
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: tradfri_remote_control
-          event: 2002
-    action:
-      service: cover.open_cover
-      entity_id: cover.living_room_blind
-  - alias: 🪟  Close living room blind with switch
-    trigger:
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: tradfri_open_close_switch
-          event: 2002
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: tradfri_remote_control
-          event: 3002
-    action:
-      service: cover.close_cover
-      entity_id: cover.living_room_blind
-
   - alias: 🪟  Close window blinds when it's too bright
     trigger:
       - platform: numeric_state
-        entity_id: sensor.lightlevel_70
+        entity_id: sensor.lux_1_illuminance_lux
         above: 20000
         for:
           minutes: 2
@@ -141,7 +77,7 @@ automation:
   - alias: 🪟  Halfway close window blinds when it's sunny
     trigger:
       - platform: numeric_state
-        entity_id: sensor.lightlevel_70
+        entity_id: sensor.lux_1_illuminance_lux
         below: 20000
         above: 10000
         for:
@@ -166,7 +102,7 @@ automation:
   - alias: 🪟  Re-open windows when it gets darker
     trigger:
       - platform: numeric_state
-        entity_id: sensor.lightlevel_70
+        entity_id: sensor.lux_1_illuminance_lux
         below: 10000
         for:
           minutes: 2
@@ -181,11 +117,6 @@ automation:
           position: 100
       - service: cover.open_cover
         entity_id: cover.velux_mezzanine
-      # - condition: state
-      #   entity_id: binary_sensor.porte_chambre
-      #   state: 'off'
-      # - service: cover.open_cover
-      #   entity_id: cover.bedroom_blind
 
 cover:
   - platform: template
@@ -217,49 +148,11 @@ cover:
             device: velux
             num_repeats: 5
             command: stop
-      office_blind:
-        friendly_name: "Store Bureau"
-        device_class: 'blind'
-        position_template: "{{ state_attr('cover.store_bureau', 'current_position') }}"
-        open_cover:
-          service: cover.set_cover_position
-          entity_id: cover.store_bureau
-          data:
-            position: 100
-        close_cover:
-          service: cover.set_cover_position
-          entity_id: cover.store_bureau
-          data:
-            position: 0
-        set_cover_position:
-          service: cover.set_cover_position
-          entity_id: cover.store_bureau
-          data:
-            position: "{{position}}"
-      living_room_blind:
-        friendly_name: "Store Salon"
-        device_class: 'blind'
-        position_template: "{{ state_attr('cover.window_covering_device_2S', 'current_position') }}"
-        open_cover:
-          service: cover.set_cover_position
-          entity_id: cover.window_covering_device_2S
-          data:
-            position: 100
-        close_cover:
-          service: cover.set_cover_position
-          entity_id: cover.window_covering_device_2S
-          data:
-            position: 0
-        set_cover_position:
-          service: cover.set_cover_position
-          entity_id: cover.window_covering_device_2S
-          data:
-            position: "{{position}}"
   - platform: group
     name: windows
     entities:
-      - cover.living_room_blind
-      - cover.office_blind
+      - cover.blind_1
+      - cover.blind_2
   - platform: group
     name: skylights
     entities:

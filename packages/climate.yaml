@@ -28,41 +28,39 @@ binary_sensor:
   - platform: template
     sensors:
       windows_open:
-        value_template: "{{ is_state('binary_sensor.fenetre_bureau', 'on') or
-                            is_state('binary_sensor.fenetre_salon', 'on') }}"
+        value_template: "{{ is_state('binary_sensor.window_1_contact', 'on') or
+                            is_state('binary_sensor.window_2_contact', 'on') }}"
 
 homeassistant:
   customize:
-    climate.chambre:
-      icon: 'mdi:radiator'
     sensor.netatmo_mezon_bureau_chambre_co2:
-      friendly_name: Co2
+      friendly_name: Co2 chambre
       icon: mdi:molecule-co2
     sensor.netatmo_mezon_bureau_chambre_humidity:
-      friendly_name: Humidité
+      friendly_name: Humidité chambre
     sensor.netatmo_mezon_bureau_chambre_temperature:
-      friendly_name: Temperature
+      friendly_name: Temperature chambre
     sensor.netatmo_mezon_bureau_dehors_humidity:
-      friendly_name: Humidité
+      friendly_name: Humidité exterieure
     sensor.netatmo_mezon_bureau_dehors_temperature:
-      friendly_name: Temperature
+      friendly_name: Temperature exterieure
     sensor.netatmo_mezon_bureau_noise:
       friendly_name: Bruit
     sensor.netatmo_mezon_bureau_co2:
-      friendly_name: Co2
+      friendly_name: Co2 bureau
       icon: mdi:molecule-co2
     sensor.netatmo_mezon_bureau_humidity:
-      friendly_name: Humidité
+      friendly_name: Humidité bureau
     sensor.netatmo_mezon_bureau_temperature:
-      friendly_name: Temperature
+      friendly_name: Temperature bureau
     sensor.bureau_aqi:
       friendly_name: AQI
     sensor.netatmo_mezon_bureau_salon_co2:
-      friendly_name: Co2
+      friendly_name: Co2 salon
       icon: mdi:molecule-co2
     sensor.netatmo_mezon_bureau_salon_humidity:
-      friendly_name: Humidité
+      friendly_name: Humidité salon
     sensor.netatmo_mezon_bureau_salon_temperature:
-      friendly_name: Temperature
+      friendly_name: Temperature salon
     climate.netatmo_my_room:
       friendly_name: Chaudière

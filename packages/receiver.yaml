@@ -10,7 +10,7 @@ automation:
       from: 'off'
     action:
       - service: switch.turn_on
-        entity_id: switch.on_off_plug_in_unit_21
+        entity_id: switch.ikea_plug_3
   - alias: 🔈 turn subwoofer off when receiver is inactive
     trigger:
       platform: state
@@ -18,20 +18,10 @@ automation:
       to: 'off'
     action:
       - service: switch.turn_off
-        entity_id: switch.on_off_plug_in_unit_21
+        entity_id: switch.ikea_plug_3
       
   - alias: 🔈 turn up volume
     trigger:
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: tradfri_wireless_dimmer
-          event: 2002
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_21
-          gesture: 7
       - platform: event
         event_type: ios.action_fired
         event_data:
@@ -46,16 +36,6 @@ automation:
   - alias: 🔈 turn down volume
     trigger:
       - platform: event
-        event_type: deconz_event
-        event_data:
-          id: tradfri_wireless_dimmer
-          event: 3002
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_21
-          gesture: 8
-      - platform: event
         event_type: ios.action_fired
         event_data:
           actionName: Volume Down
@@ -68,11 +48,6 @@ automation:
         entity_id: script.ht_volume_down
   - alias: 🔈 mute volume
     trigger:
-      - platform: event
-        event_type: deconz_event
-        event_data:
-          id: lumi_sensor_cube_21
-          gesture: 1
       - platform: event
         event_type: ios.action_fired
         event_data:

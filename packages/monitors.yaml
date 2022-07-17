@@ -8,14 +8,9 @@ automation:
       - platform: state
         entity_id: binary_sensor.imac
         to: 'off'
-      # # Fallback
-      # - platform: state
-        # entity_id: binary_sensor.daedalus_active
-        # to: 'off'
-        # for: '01:30:00'
     action:
       - service: switch.turn_off
-        entity_id: switch.light_15
+        entity_id: switch.ikea_plug_2
   - alias: 🔈 Switch monitors on if iMac is on
     trigger:
       # works but slower
@@ -28,11 +23,10 @@ automation:
         to: 'on'
     action:
       - service: switch.turn_on
-        entity_id: switch.light_15
+        entity_id: switch.ikea_plug_2
 
 homeassistant:
   customize:
-    switch.light_15:
+    switch.ikea_plug_2:
       icon: 'mdi:speaker'
       friendly_name: 'Monitors'
-

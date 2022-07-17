@@ -1,14 +1,14 @@
 homekit:
   - name: HASS Bridge main
-    ip_address: 192.168.1.159
-    advertise_ip: 192.168.1.159
+    ip_address: 192.168.1.254
+    advertise_ip: 192.168.1.254
     port: 21063
     filter:
       include_entities:
         - cover.velux_mezzanine
         - cover.bedroom_blind
-        - cover.store_bureau
-        - cover.window_covering_device_25
+        - cover.blind_1
+        - cover.blind_2
         - climate.netatmo_my_room
         - fan.black_fan
         - fan.ventilateur_bureau
@@ -20,23 +20,23 @@ homekit:
         - light.bureau
         - light.cuisine
         - light.mezzanine
-        - light.salle_de_bain_2
+        - light.salle_de_bain
         - light.salon
-        - light.spots_salon
+        - light.tableau
         - sensor.netatmo_mezon_bureau_temperature
         - sensor.netatmo_mezon_bureau_co2
         - sensor.netatmo_mezon_bureau_chambre_temperature
         - sensor.netatmo_mezon_bureau_chambre_co2
         - sensor.netatmo_mezon_bureau_salon_temperature
         - sensor.netatmo_mezon_bureau_salon_co2
-        - sensor.temperature_48
-        - sensor.temperature_50
-        - sensor.cuisine
+        - sensor.multi_1_temperature
+        - sensor.multi_2_temperature
+        - sensor.multi_4_temperature
         - switch.menage
         - switch.mop
         - switch.prusa
         - switch.projector
-        - switch.on_off_plug_in_unit_22
+        - switch.ikea_plug_4
         - vacuum.valetudo_rockrobo
     entity_config:
       camera.3d_printers:
@@ -53,7 +53,7 @@ homekit:
         name: Lumière Mezzanine
       light.salon:
         name: Lumière Salon
-      light.salle_de_bain_2:
+      light.salle_de_bain:
         name: Lumière Salle de Bain
       cover.velux_mezzanine:
         name: Store Mezzanine
@@ -61,17 +61,21 @@ homekit:
         name: Store Chambre
       fan.black_fan:
         name: Ventilateur chambre
-      sensor.temperature_50:
+      sensor.multi_1_temperature:
+        name: Temperature Salle de bain
+      sensor.multi_2_temperature:
+        name: Temperature Cuisine
+      sensor.multi_4_temperature:
         name: Temperature Mezzanine
       switch.menage:
         name: Mode ménage
       switch.mop:
         name: Mode serpillière
-      switch.on_off_plug_in_unit_22:
+      switch.ikea_plug_4:
         name: Entraineur
   - name: HASS Bridge camera salon
-    ip_address: 192.168.1.159
-    advertise_ip: 192.168.1.159
+    ip_address: 192.168.1.254
+    advertise_ip: 192.168.1.254
     port: 21065
     filter:
       include_entities:
@@ -81,8 +85,8 @@ homekit:
         linked_motion_sensor: binary_sensor.tapo_camera_motion
         support_audio: true
   - name: HASS Bridge home cinema
-    ip_address: 192.168.1.159
-    advertise_ip: 192.168.1.159
+    ip_address: 192.168.1.254
+    advertise_ip: 192.168.1.254
     port: 21067
     mode: accessory
     filter:

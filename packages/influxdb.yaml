@@ -13,26 +13,9 @@ influxdb:
   default_measurement: units
   include:
     entities:
-      - binary_sensor.buanderie
-      - binary_sensor.carbonmonoxide_67
-      - binary_sensor.compteur_eau
-      - binary_sensor.fenetre_bureau
-      - binary_sensor.fenetre_salon
-      - binary_sensor.lumi_sensor_smoke
-      - binary_sensor.lumi_sensor_smoke_2
-      - binary_sensor.robinet_toilette
-      - plant.flowall_bureau
-      - plant.flowall_salon
-      - sensor.basement_temperature
-      - sensor.basement_humidity
-      - sensor.cuisine
-      - sensor.cuisine_2
-      - sensor.dark_sky_apparent_temperature
-      - sensor.salle_de_bain
-      - sensor.humidity_51
-      - sensor.humidity_68
-      - sensor.lightlevel_70
-      - sensor.mouvement_cuisine_temperature
+      - binary_sensor.leak_1_water_leak
+      - binary_sensor.leak_2_water_leak
+      - binary_sensor.leak_3_water_leak
       - sensor.netatmo_mezon_bureau_chambre_temperature
       - sensor.netatmo_mezon_bureau_chambre_humidity
       - sensor.netatmo_mezon_bureau_dehors_humidity
@@ -44,9 +27,24 @@ influxdb:
       - sensor.netatmo_mezon_bureau_salon_humidity
       - sensor.netatmo_mezon_bureau_salon_temperature
       - sensor.netatmo_mezon_bureau_temperature
+      - plant.flowall_bureau
+      - plant.flowall_salon
+      - plant.salon
+      - sensor.basement_temperature
+      - sensor.basement_humidity
+      - sensor.multi_1_temperature
+      - sensor.multi_1_humidity
+      - sensor.multi_2_temperature
+      - sensor.multi_2_humidity
+      - sensor.multi_3_temperature
+      - sensor.multi_3_humidity
+      - sensor.multi_4_temperature
+      - sensor.multi_4_humidity
+      - sensor.dark_sky_apparent_temperature
+      - sensor.lux_1_illuminance_lux
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_load
-      - sensor.temperature_50
       - sensor.waqi_paris
       - sensor.gazpar_kwh
       - sensor.gazpar_m3
+      - sensor.zlinky_base

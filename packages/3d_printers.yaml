@@ -11,7 +11,7 @@ automation:
       - platform: state
         from: 'off'
         to: 'on'
-        entity_id: binary_sensor.lumi_sensor_smoke_2
+        entity_id: binary_sensor.smoke_2_smoke
     action:
       service: switch.turn_off
       entity_id: switch.prusa
@@ -68,12 +68,12 @@ switch:
       prusa:
         turn_on:
           - service: switch.turn_on
-            entity_id: switch.on_off_plug_in_unit_20
+            entity_id: switch.ikea_plug_1
           - service: switch.turn_on
             entity_id: switch.octoprint_screen
         turn_off:
           - service: switch.turn_off
-            entity_id: switch.on_off_plug_in_unit_20
+            entity_id: switch.ikea_plug_1
           - service: switch.turn_off
             entity_id: switch.octoprint_screen
 

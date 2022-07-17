@@ -1,0 +1,81 @@
+light:
+  - name: Atelier
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/atelier/set"
+    state_topic: "zigbee2mqtt/atelier"
+    color_temp: false
+    brightness: true
+    rgb: false
+  - name: Cuisine
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/cuisine/set"
+    state_topic: "zigbee2mqtt/cuisine"
+    color_temp: false
+    brightness: false
+    rgb: false
+  - name: Bureau
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/bureau/set"
+    state_topic: "zigbee2mqtt/bureau"
+    color_temp: true
+    brightness: true
+    rgb: true
+  - name: Salon
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/salon/set"
+    state_topic: "zigbee2mqtt/salon"
+    color_temp: true
+    brightness: true
+    rgb: true
+  - name: Chambre
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/chambre/set"
+    state_topic: "zigbee2mqtt/chambre"
+    color_temp: true
+    brightness: true
+    rgb: false
+  - name: Mezzanine
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/mezzanine/set"
+    state_topic: "zigbee2mqtt/mezzanine"
+    color_temp: true
+    brightness: true
+    rgb: false
+  - name: All but bedroom
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/all_but_bedroom/set"
+    state_topic: "zigbee2mqtt/all_but_bedroom"
+    color_temp: true
+    brightness: true
+    rgb: false
+  - name: Salle de bain
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/salle_de_bain/set"
+    state_topic: "zigbee2mqtt/salle_de_bain"
+    color_temp: false
+    brightness: false
+    rgb: false
+  - name: Dressing
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/dressing/set"
+    state_topic: "zigbee2mqtt/dressing"
+    color_temp: false
+    brightness: false
+    rgb: false
+  - name: Tableau
+    platform: mqtt
+    schema: json
+    command_topic: "zigbee2mqtt/tableau/set"
+    state_topic: "zigbee2mqtt/tableau"
+    color_temp: false
+    brightness: false
+    rgb: false

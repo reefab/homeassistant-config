@@ -1,28 +1,9 @@
 alert:
-  main_water_leak:
-    title: "💧"
-    name: Water is leaking at main valve
-    done_message: Water leak stopped at main valve
-    entity_id: binary_sensor.compteur_eau
-    state: 'on'
-    repeat: 10
-    notifiers:
-      - main_devices
-    data:
-      push:
-        thread-id: 'leak-notification-group'
-        sound:
-          name: "US-EN-Alexa-Water-Detected-Generic.wav"
-          critical: 1
-          volume: 1.0
-      apns_headers:
-        apns-collapse-id: 'leak-notification-group'
-
   toilet_water_leak:
     title: "💧"
     name: Water is leaking at toilet
     done_message: Water leak stopped at toilet
-    entity_id: binary_sensor.robinet_toilette
+    entity_id: binary_sensor.leak_1_water_leak
     state: 'on'
     repeat: 30
     notifiers:
@@ -41,7 +22,26 @@ alert:
     title: "💧"
     name: Water is leaking at washers
     done_message: Water leak stopped at washers
-    entity_id: binary_sensor.buanderie
+    entity_id: binary_sensor.leak_2_water_leak
+    state: 'on'
+    repeat: 10
+    notifiers:
+      - main_devices
+    data:
+      push:
+        thread-id: 'leak-notification-group'
+        sound:
+          name: "US-EN-Alexa-Water-Detected-Generic.wav"
+          critical: 1
+          volume: 1.0
+      apns_headers:
+        apns-collapse-id: 'leak-notification-group'
+
+  main_water_leak:
+    title: "💧"
+    name: Water is leaking at main valve
+    done_message: Water leak stopped at main valve
+    entity_id: binary_sensor.leak_3_water_leak
     state: 'on'
     repeat: 10
     notifiers:
@@ -60,7 +60,7 @@ alert:
     title: "🔥"
     name: Smoke detected in living room
     done_message: Smoke cleared in living room
-    entity_id: binary_sensor.lumi_sensor_smoke
+    entity_id: binary_sensor.smoke_1_smoke
     state: 'on'
     repeat: 10
     notifiers:
@@ -77,7 +77,7 @@ alert:
     title: "🔥"
     name: Smoke detected in office
     done_message: Smoke cleared in office
-    entity_id: binary_sensor.lumi_sensor_smoke_2
+    entity_id: binary_sensor.smoke_2_smoke
     state: 'on'
     repeat: 10
     notifiers:
@@ -92,7 +92,7 @@ alert:
   co_kitchen:
     name: Carbon monoxide detected in kitchen
     done_message: Carbon monoxide cleared in kitchen
-    entity_id: binary_sensor.carbonmonoxide_67
+    entity_id: binary_sensor.co_1_carbon_monoxide
     state: 'on'
     repeat: 10
     notifiers:
@@ -109,7 +109,7 @@ alert:
     title: "🚪"
     name: Front door is open
     done_message: Front door has been closed
-    entity_id: binary_sensor.porte_entree
+    entity_id: binary_sensor.door_1_contact
     state: 'on'
     repeat: 5
     skip_first: true

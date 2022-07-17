@@ -4,14 +4,14 @@ adaptive_lighting:
       - light.bureau
       - light.salon
       - light.mezzanine
-      - light.chambre_1
+      - light.tradfri_1
     min_brightness: 60
     max_brightness: 80
     min_color_temp: 2237
     max_color_temp: 4291
   - name: bed
     lights:
-      - light.chambre_2
+      - light.tradfri_2
     min_brightness: 60
     max_brightness: 80
     min_color_temp: 2237

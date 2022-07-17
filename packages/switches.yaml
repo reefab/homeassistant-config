@@ -1,0 +1,145 @@
+automation:
+  - alias: 💡 Hue tap switch
+    trigger:
+      - platform: state
+        entity_id: sensor.hue_tap_1_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''press_1'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.salon
+          - conditions:
+              - '{{ trigger.to_state.state == ''press_2'' }}'
+            sequence:
+              - service: fan.toggle
+                entity_id: fan.xiaomi_smart_standing_fan
+          - conditions:
+              - '{{ trigger.to_state.state == ''press_3'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.tableau
+          - conditions:
+              - '{{ trigger.to_state.state == ''press_4'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.cuisine
+  - alias: 💡 Tradfri desk switch
+    trigger:
+      - platform: state
+        entity_id: sensor.0x000d6ffffee7ef66_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''on'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.bureau
+          - conditions:
+              - '{{ trigger.to_state.state == ''brightness_move_up'' }}'
+            sequence:
+              - service: fan.turn_on
+                entity_id: fan.ventilateur_bureau
+          - conditions:
+              - '{{ trigger.to_state.state == ''off'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.atelier
+          - conditions:
+              - '{{ trigger.to_state.state == ''brightness_move_down'' }}'
+            sequence:
+              - service: fan.turn_off
+                entity_id: fan.ventilateur_bureau
+  - alias: 💡 Aqara bed switch
+    trigger:
+      - platform: state
+        entity_id: sensor.xiaomi_button_2_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''single'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.chambre
+          - conditions:
+              - '{{ trigger.to_state.state == ''double'' }}'
+            sequence:
+              - service: input_boolean.turn_on
+                entity_id: input_boolean.night_time
+              - service: light.turn_off
+                entity_id: light.all_but_bedroom
+          - conditions:
+              - '{{ trigger.to_state.state == ''hold'' }}'
+            sequence:
+              - service: fan.toggle
+                entity_id: fan.black_fan
+          - conditions:
+              - '{{ trigger.to_state.state == ''triple'' }}'
+            sequence:
+              - service: cover.toggle
+                entity_id: cover.bedroom_blind
+  - alias: 💡 Aqara cuisine switch
+    trigger:
+      - platform: state
+        entity_id: sensor.xiaomi_button_1_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''single'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.cuisine
+  - alias: 💡 Tradfri mezzanine remote
+    trigger:
+      - platform: state
+        entity_id: sensor.tradfri_remote_1_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''toggle'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.mezzanine
+          - conditions:
+              - '{{ trigger.to_state.state == ''brightness_up_hold'' }}'
+            sequence:
+              - service: cover.toggle
+                entity_id: cover.velux_mezzanine
+          - conditions:
+              - '{{ trigger.to_state.state == ''brightness_down_hold'' }}'
+            sequence:
+              - service: fan.toggle
+                entity_id: fan.ventilateur_bois
+  - alias: 🪟 Tradfri open/close office switch
+    trigger:
+      - platform: state
+        entity_id: sensor.ikea_openclose_1_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''open'' }}'
+            sequence:
+              - service: cover.open
+                entity_id: cover.blind_1
+          - conditions:
+              - '{{ trigger.to_state.state == ''close'' }}'
+            sequence:
+              - service: cover.open
+                entity_id: cover.blind_1
+  - alias: 🪟 Tradfri open/close salon switch
+    trigger:
+      - platform: state
+        entity_id: sensor.ikea_openclose_2_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''open'' }}'
+            sequence:
+              - service: cover.open
+                entity_id: cover.blind_2
+          - conditions:
+              - '{{ trigger.to_state.state == ''close'' }}'
+            sequence:
+              - service: cover.open
+                entity_id: cover.blind_2
