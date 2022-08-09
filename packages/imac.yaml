@@ -1,0 +1,20 @@
+switch:
+  - platform: wake_on_lan
+    name: imac
+    host: imac
+    mac: '80:4a:14:60:40:56'
+    broadcast_address: 192.168.1.255
+
+binary_sensor:
+  - platform: ping
+    name: iMac
+    host: imac
+    count: 2
+    scan_interval: 10
+
+homeassistant:
+  customize:
+    binary_sensor.imac:
+      icon: 'mdi:desktop-mac'
+    switch.imac:
+      icon: 'mdi:desktop-mac'
