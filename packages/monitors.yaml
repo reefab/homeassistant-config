@@ -2,25 +2,21 @@
 # when idle as when being used. So a Tradfri plug is used to cut main power off when idle.
 
 automation:
-  - alias: 🔈 Switch monitors off if iMac is off
+  - alias: 🔈 Switch monitors off if idle
     trigger:
-      # doesn't always work because sometimes the iMac gets insomnia and doesn't go to sleep
       - platform: state
-        entity_id: binary_sensor.imac
-        to: 'off'
+        entity_id: sensor.daedalus_active_audio_output
+        from: 'USB Audio CODEC '
+        for: '00:02:00'
     action:
       - service: switch.turn_off
         entity_id: switch.ikea_plug_2
-  - alias: 🔈 Switch monitors on if iMac is on
+
+  - alias: 🔈 Switch monitors on if active
     trigger:
-      # works but slower
       - platform: state
-        entity_id: binary_sensor.imac
-        to: 'on'
-      # faster
-      - platform: state
-        entity_id: binary_sensor.daedalus_active
-        to: 'on'
+        entity_id: sensor.daedalus_active_audio_output
+        to: 'USB Audio CODEC '
     action:
       - service: switch.turn_on
         entity_id: switch.ikea_plug_2
