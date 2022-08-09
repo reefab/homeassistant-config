@@ -1,0 +1,25 @@
+automation:
+  - alias: 🧊 Make sure fridge is running
+    trigger:
+      - platform: state
+        entity_id: switch.frigo
+        from: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.frigo
+      - service: notify.main_devices
+        data:
+          message: 'Fridge Lost Power.'
+          push:
+            sound:
+              name: "default"
+              critical: 1
+              volume: 1.0
+  - alias: 🧊 Make sure fridge is running at startup
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      - delay: '00:02:00'
+      - service: switch.turn_on
+        entity_id: switch.frigo
