@@ -1,42 +1,21 @@
-# Mi Flora sensors interfaced using
-# https://github.com/ThomDietrich/miflora-mqtt-daemon
-
 plant:
   flowall_bureau:
     sensors:
-      moisture: sensor.flowallbureau_moisture
-      battery: sensor.flowallbureau_battery
-      temperature: sensor.flowallbureau_temperature
-      conductivity: sensor.flowallbureau_conductivity
-      brightness: sensor.flowallbureau_light
-    min_moisture: 20
+      moisture: sensor.plant_1_soil_moisture
+      battery: sensor.plant_1_battery
+      temperature: sensor.plant_1_temperature
+    min_moisture: 33
     max_moisture: 80
     min_battery: 20
-    min_conductivity: 10
     min_temperature: 15
   flowall_salon:
     sensors:
-      moisture: sensor.flowallsalon_moisture
-      battery: sensor.flowallsalon_battery
-      temperature: sensor.flowallsalon_temperature
-      conductivity: sensor.flowallsalon_conductivity
-      brightness: sensor.flowallsalon_light
-    min_moisture: 20
+      moisture: sensor.plant_2_soil_moisture
+      battery: sensor.plant_2_battery
+      temperature: sensor.plant_2_temperature
+    min_moisture: 33
     max_moisture: 80
     min_battery: 20
-    min_conductivity: 10
-    min_temperature: 15
-  salon:
-    sensors:
-      moisture: sensor.salon_moisture
-      battery: sensor.salon_battery
-      temperature: sensor.salon_temperature
-      conductivity: sensor.salon_conductivity
-      brightness: sensor.salon_light
-    min_moisture: 20
-    max_moisture: 80
-    min_battery: 20
-    min_conductivity: 10
     min_temperature: 15
 
 homeassistant:
@@ -58,7 +37,7 @@ automation:
         entity_id: binary_sensor.sun_up
         state: 'off'
       - condition: state
-        entity_id: binary_sensor.porte_chambre
+        entity_id: binary_sensor.door_2_contact
         state: 'off'
       - condition: state
         entity_id: group.guests
@@ -102,13 +81,12 @@ automation:
       - service: light.turn_off
         entity_id: group.main_rooms_lights
 
-  - alias: 🌿 Send notification when soil is too dry
+  - alias: 🌿 Send notification when plant needs attention
     trigger:
       - platform: state
         entity_id:
           - plant.flowall_bureau
           - plant.flowall_salon
-          - plant.salon
         to: problem
     action:
       - service: notify.main_devices
@@ -124,7 +102,6 @@ automation:
         entity_id:
           - plant.flowall_bureau
           - plant.flowall_salon
-          - plant.salon
         to: ok
     action:
       - service: notify.main_devices
