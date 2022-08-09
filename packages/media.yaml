@@ -22,9 +22,9 @@ switch:
               source: 'HDMI1'
           - choose:
               - conditions:
-                - condition: state
-                  entity_id: light.salon
-                  state: 'on'
+                  - condition: state
+                    entity_id: light.salon
+                    state: 'on'
                 sequence:
                   - service: light.turn_on
                     entity_id: light.salon
@@ -32,9 +32,21 @@ switch:
                       brightness: 3
                       transition: 60
           - wait_for_trigger:
-            - platform: state
-              entity_id: light.first_led_hardware_instance
-              from: unavailable
+              - platform: state
+                entity_id: button.steambox_1080p
+                from: unavailable
+          - service: button.press
+            entity_id: button.steambox_1080p
+          - wait_for_trigger:
+              - platform: state
+                entity_id: button.steambox_hyperion
+                from: unavailable
+          - service: button.press
+            entity_id: button.steambox_hyperion
+          - wait_for_trigger:
+              - platform: state
+                entity_id: light.first_led_hardware_instance
+                from: unavailable
           - service: switch.turn_on
             entity_id:
               - switch.first_led_hardware_instance_component_platform_capture
@@ -52,31 +64,31 @@ switch:
           - service: media_player.turn_off
             entity_id: media_player.yamaha_receiver
           - choose:
-            - conditions:
-              - condition: state
-                entity_id: binary_sensor.sun_up
-                state: 'off'
-              sequence:
-                - service: light.turn_on
-                  entity_id: light.salon
-                  data:
-                    brightness: 153
-                    transition: 30
-                - delay: '00:02:00'
-                - service: switch.turn_on
-                  entity_id: switch.adaptive_lighting_global
-                - service: light.turn_off
-                  entity_id: light.wled
-                - delay: '00:00:01'
-                - service: light.turn_off
-                  entity_id: light.wled
+              - conditions:
+                  - condition: state
+                    entity_id: binary_sensor.sun_up
+                    state: 'off'
+                sequence:
+                  - service: light.turn_on
+                    entity_id: light.salon
+                    data:
+                      brightness: 153
+                      transition: 30
+                  - delay: '00:02:00'
+                  - service: switch.turn_on
+                    entity_id: switch.adaptive_lighting_global
+                  - service: light.turn_off
+                    entity_id: light.wled
+                  - delay: '00:00:01'
+                  - service: light.turn_off
+                    entity_id: light.wled
             default:
               - service: switch.turn_on
                 entity_id: switch.adaptive_lighting_global
               - delay: '00:02:00'
               - service: light.turn_off
                 entity_id: light.wled
-              - delay: '00:00:01'
+              - delay: '00:00:10'
               - service: light.turn_off
                 entity_id: light.wled
 
