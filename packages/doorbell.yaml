@@ -15,3 +15,8 @@ automation:
               thread-id: 'doorbell-notification-group'
             apns_headers:
               'apns-collapse-id': 'doorbell-notification-group'
+      - service: notify.steambox
+        data:
+          title: "🛎"
+          message: 'Ding!'
+          duration: 30

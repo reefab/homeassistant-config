@@ -3,23 +3,12 @@
 switch:
   - platform: wake_on_lan
     name: steambox
-    host: 192.168.1.70
+    host: steambox
     mac: '0c:c4:7a:9a:2d:06'
     broadcast_address: 192.168.1.255
     turn_off:
-      # - service: light.turn_off
-      #   entity_id: light.first_led_hardware_instance
-      # - service: switch.turn_off
-      #   entity_id: switch.first_led_hardware_instance_component_platform_capture
-      # - delay: 5
-      - service: rest_command.steambox
-        data_template:
-          command: 'shutdown'
-
-rest_command:
-  steambox:
-    # Small windows software to shut it down remotely
-    url: 'http://192.168.1.70:5001/{{ command }}'
+      - service: button.press
+        entity_id: button.steambox_shutdown
 
 homeassistant:
   customize:
@@ -28,7 +17,7 @@ homeassistant:
 
 automation:
   # for backups and stuff, will shutdown by itself after finishing
-  - alias: weekly steambox housekeeping
+  - alias: 🎮 weekly steambox housekeeping
     trigger:
       - platform: time
         at: '08:00:00'
@@ -40,7 +29,7 @@ automation:
       - service: switch.turn_on
         entity_id: switch.steambox
 
-  - alias: Turn steambox on via action
+  - alias: 🎮 Turn steambox on via action
     trigger:
       - platform: event
         event_type: ios.action_fired
@@ -49,3 +38,14 @@ automation:
     action:
       - service: switch.turn_on
         entity_id: switch.steambox
+      - wait_for_trigger:
+          - platform: state
+            entity_id: button.steambox_1440p
+            from: unavailable
+      - service: button.press
+        entity_id: button.steambox_1440p
+
+notify:
+  name: steambox
+  platform: hass_agent_notifier
+  resource: http://steambox:5115/notify
