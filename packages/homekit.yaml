@@ -12,7 +12,7 @@ homekit:
         - climate.netatmo_my_room
         - fan.black_fan
         - fan.ventilateur_bureau
-        - fan.xiaomi_smart_standing_fan
+        - fan.dmaker_fan_1c
         - fan.ventilateur_bois
         - input_boolean.night_time
         - light.atelier

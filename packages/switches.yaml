@@ -14,7 +14,7 @@ automation:
               - '{{ trigger.to_state.state == ''press_2'' }}'
             sequence:
               - service: fan.toggle
-                entity_id: fan.xiaomi_smart_standing_fan
+                entity_id: fan.dmaker_fan_1c
           - conditions:
               - '{{ trigger.to_state.state == ''press_3'' }}'
             sequence:
@@ -25,6 +25,7 @@ automation:
             sequence:
               - service: light.toggle
                 entity_id: light.cuisine
+
   - alias: 💡 Tradfri desk switch
     trigger:
       - platform: state
@@ -51,6 +52,7 @@ automation:
             sequence:
               - service: fan.turn_off
                 entity_id: fan.ventilateur_bureau
+
   - alias: 💡 Aqara bed switch
     trigger:
       - platform: state
@@ -79,10 +81,11 @@ automation:
             sequence:
               - service: cover.toggle
                 entity_id: cover.bedroom_blind
+
   - alias: 💡 Aqara cuisine switch
     trigger:
       - platform: state
-        entity_id: sensor.xiaomi_button_1_action
+        entity_id: sensor.0x00158d00023e4340_action
     action:
       - choose:
           - conditions:
@@ -90,6 +93,7 @@ automation:
             sequence:
               - service: light.toggle
                 entity_id: light.cuisine
+
   - alias: 💡 Tradfri mezzanine remote
     trigger:
       - platform: state
@@ -111,6 +115,7 @@ automation:
             sequence:
               - service: fan.toggle
                 entity_id: fan.ventilateur_bois
+
   - alias: 🪟 Tradfri open/close office switch
     trigger:
       - platform: state
@@ -127,6 +132,7 @@ automation:
             sequence:
               - service: cover.open
                 entity_id: cover.blind_1
+
   - alias: 🪟 Tradfri open/close salon switch
     trigger:
       - platform: state
