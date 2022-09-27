@@ -10,8 +10,8 @@ automation:
         entity_id: fan.ventilateur_bureau
         state: 'on'
     action:
-      - entity_id: fan.ventilateur_bureau
-        service: fan.turn_off
+      - service: fan.turn_off
+        entity_id: fan.ventilateur_bureau
 
   - alias: 🆒 Switch fans off if no one is home
     trigger:
@@ -19,8 +19,7 @@ automation:
         entity_id: group.people
         from: 'home'
         to: 'not_home'
-        for:
-          minutes: 2
+        for: "00:02:00"
     action:
       - service: fan.turn_off
         entity_id:
