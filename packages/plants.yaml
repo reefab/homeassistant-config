@@ -4,19 +4,19 @@ plant:
       moisture: sensor.plant_1_soil_moisture
       battery: sensor.plant_1_battery
       temperature: sensor.plant_1_temperature
-    min_moisture: 33
+    min_moisture: 50
     max_moisture: 80
     min_battery: 20
-    min_temperature: 15
+    min_temperature: 10
   flowall_salon:
     sensors:
       moisture: sensor.plant_2_soil_moisture
       battery: sensor.plant_2_battery
       temperature: sensor.plant_2_temperature
-    min_moisture: 33
+    min_moisture: 50
     max_moisture: 80
     min_battery: 20
-    min_temperature: 15
+    min_temperature: 10
 
 homeassistant:
   customize:
@@ -25,47 +25,54 @@ homeassistant:
     plant.flowall_salon:
       friendly_name: Plantes murales salon
 
+light:
+  - platform: template
+    lights:
+      grow_lights:
+        turn_on:
+          - service: switch.turn_off
+            entity_id: switch.adaptive_lighting_global
+          - service: light.turn_on
+            entity_id: group.main_rooms_lights
+            data:
+              color_name: fuchsia
+              brightness: 255
+              transition: 60
+        turn_off:
+          - service: switch.turn_on
+            entity_id: switch.adaptive_lighting_global
+          - delay:
+              seconds: 5
+          - service: light.turn_off
+            entity_id: group.main_rooms_lights
+
 automation:
   - alias: 🌿 Switch grow lights on during the night
     trigger:
       - platform: state
-        entity_id: group.main_rooms_lights
+        entity_id: binary_sensor.door_2_contact
         to: 'off'
-        for: '01:00:00'
+        for: '00:05:00'
     condition:
       - condition: state
-        entity_id: binary_sensor.sun_up
+        entity_id: group.main_rooms_lights
         state: 'off'
       - condition: state
-        entity_id: binary_sensor.door_2_contact
+        entity_id: binary_sensor.sun_up
         state: 'off'
       - condition: state
         entity_id: group.guests
         state: 'not_home'
     action:
-      - service: switch.turn_off
-        entity_id: switch.adaptive_lighting_global
       - service: light.turn_on
-        entity_id: group.main_rooms_lights
-        data:
-          color_name: fuchsia
-          brightness: 255
-          transition: 60
-      - delay: '04:00:00'
-      - condition: state  # if it's back on, it's been reactived elsewhere, stop sequence
-        entity_id: switch.adaptive_lighting_global
-        state: 'off'
-      - service: switch.turn_on
-        entity_id: switch.adaptive_lighting_global
-      - delay:
-          seconds: 10
-      - service: light.turn_off
-        entity_id: group.main_rooms_lights
+        entity_id: light.grow_lights
 
   - alias: 🌿 Switch grow Lights off at sunrise or wakeup
     trigger:
-      - platform: sun
-        event: sunrise
+      - platform: numeric_state
+        entity_id: sensor.lux_1_illuminance_lux
+        above: input_number.ambiant_light_dark_threshold
+        for: '00:10:00'
       - platform: state
         entity_id: input_boolean.night_time
         to: 'off'
@@ -74,12 +81,8 @@ automation:
       entity_id: switch.adaptive_lighting_global
       state: 'off'
     action:
-      - service: switch.turn_on
-        entity_id: switch.adaptive_lighting_global
-      - delay:
-          seconds: 10
       - service: light.turn_off
-        entity_id: group.main_rooms_lights
+        entity_id: light.grow_lights
 
   - alias: 🌿 Send notification when plant needs attention
     trigger:
