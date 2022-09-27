@@ -35,7 +35,6 @@ homekit:
         - switch.menage
         - switch.mop
         - switch.prusa
-        - switch.projector
         - switch.ikea_plug_4
         - vacuum.valetudo_rockrobo
     entity_config:

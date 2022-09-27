@@ -2,7 +2,6 @@ switch:
   - platform: template
     switches:
       projector:
-        value_template: '{{ states.switch.benq_w1070.state }}'
         turn_on:
           - service: switch.turn_off
             entity_id: switch.adaptive_lighting_global
@@ -11,86 +10,60 @@ switch:
               - light.bureau
               - light.cuisine
           - service: switch.turn_on
-            entity_id: switch.steambox
-          - service: switch.turn_on
-            entity_id: switch.benq_w1070
+            entity_id:
+              - switch.steambox
+              - switch.benq_w1070
           - service: media_player.turn_on
             entity_id: media_player.yamaha_receiver
           - service: media_player.select_source
             entity_id: media_player.yamaha_receiver
             data:
               source: 'HDMI1'
-          - choose:
-              - conditions:
-                  - condition: state
-                    entity_id: light.salon
-                    state: 'on'
-                sequence:
-                  - service: light.turn_on
-                    entity_id: light.salon
-                    data:
-                      brightness: 3
-                      transition: 60
+          - if:
+              - condition: state
+                entity_id: light.salon
+                state: 'on'
+            then:
+              - service: light.turn_on
+                entity_id: light.salon
+                data:
+                  brightness: 3
+                  transition: 60
           - wait_for_trigger:
               - platform: state
                 entity_id: button.steambox_1080p
                 from: unavailable
-          - service: button.press
-            entity_id: button.steambox_1080p
-          - wait_for_trigger:
-              - platform: state
-                entity_id: button.steambox_hyperion
-                from: unavailable
+          - delay: 30
           - service: button.press
             entity_id: button.steambox_hyperion
-          - wait_for_trigger:
-              - platform: state
-                entity_id: light.first_led_hardware_instance
-                from: unavailable
-          - service: switch.turn_on
-            entity_id:
-              - switch.first_led_hardware_instance_component_platform_capture
-              - switch.first_led_hardware_instance_component_led_device
+          - service: button.press
+            entity_id: button.steambox_1080p
         turn_off:
           - service: switch.turn_off
             entity_id:
-              - switch.first_led_hardware_instance_component_platform_capture
-              - switch.first_led_hardware_instance_component_led_device
               - switch.steambox
               - switch.benq_w1070
-          - delay: 5
-          - service: switch.turn_off
-            entity_id: switch.steambox
           - service: media_player.turn_off
             entity_id: media_player.yamaha_receiver
-          - choose:
-              - conditions:
-                  - condition: state
-                    entity_id: binary_sensor.sun_up
-                    state: 'off'
-                sequence:
-                  - service: light.turn_on
-                    entity_id: light.salon
-                    data:
-                      brightness: 153
-                      transition: 30
-                  - delay: '00:02:00'
-                  - service: switch.turn_on
-                    entity_id: switch.adaptive_lighting_global
-                  - service: light.turn_off
-                    entity_id: light.wled
-                  - delay: '00:00:01'
-                  - service: light.turn_off
-                    entity_id: light.wled
-            default:
-              - service: switch.turn_on
-                entity_id: switch.adaptive_lighting_global
-              - delay: '00:02:00'
-              - service: light.turn_off
-                entity_id: light.wled
-              - delay: '00:00:10'
-              - service: light.turn_off
-                entity_id: light.wled
+          - if:
+              - condition: state
+                entity_id: binary_sensor.sun_up
+                state: 'off'
+            then:
+              - service: light.turn_on
+                entity_id: light.salon
+                data:
+                  brightness: 153
+                  transition: 30
+              - delay: 30
+          - service: switch.turn_on
+            entity_id: switch.adaptive_lighting_global
+          - delay: 120
+          - service: light.turn_on
+            entity_id: light.wled
+          - delay: 10
+          - service: light.turn_off
+            entity_id: light.wled
 
 media_player:
   - platform: universal
@@ -166,6 +139,7 @@ automation:
         data:
           brightness: 90
           transition: 10
+
   - alias: 🎬 Bring lights off after plex pause
     trigger:
       - platform: state

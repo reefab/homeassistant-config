@@ -42,6 +42,7 @@ automation:
           - platform: state
             entity_id: button.steambox_1440p
             from: unavailable
+      - delay: 30
       - service: button.press
         entity_id: button.steambox_1440p
 
