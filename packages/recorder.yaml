@@ -1,14 +1,14 @@
 recorder:
-  db_url: !secret mariadb_url # MariaDB Galera cluster on docker swarm: https://github.com/colinmollenhour/mariadb-galera-swarm
-  purge_keep_days: 7
+  db_url: !secret mariadb_url
+  purge_keep_days: 365
   exclude:
     domains:
       - automation
       - weblink
       - updater
     entities:
-      - sun.sun 
-      - sensor.last_boot 
+      - sun.sun
+      - sensor.last_boot
       - sensor.date
       - sensor.lux_bureau
       - sensor.lux_salon
