@@ -7,7 +7,7 @@ automation:
       - platform: state
         entity_id: sensor.daedalus_active_audio_output
         from: 'USB Audio CODEC '
-        for: '00:02:00'
+        for: '00:10:00'
     action:
       - service: switch.turn_off
         entity_id: switch.ikea_plug_2
