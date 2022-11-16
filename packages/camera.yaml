@@ -7,7 +7,7 @@ automation:
         for: "00:02:00"
     action:
       - service: switch.turn_off
-        entity_id: switch.camera_privacy_mode
+        entity_id: switch.tapo_camera_privacy
   - alias: 📹 Switch camera off if home
     trigger:
       - platform: state
@@ -15,7 +15,7 @@ automation:
         to: 'home'
     action:
       - service: switch.turn_on
-        entity_id: switch.camera_privacy_mode
+        entity_id: switch.tapo_camera_privacy
   - alias: 📹 Send notification on mouvement
     trigger:
       - platform: state
@@ -36,19 +36,3 @@ automation:
             push:
               category: camera
             entity_id: camera.tapo_camera_hd
-
-switch:
-  - platform: template
-    switches:
-      camera_privacy_mode:
-        value_template: "{{ state_attr('camera.tapo_camera_hd', 'privacy_mode') == 'on' }}"
-        turn_on:
-          service: tapo_control.set_privacy_mode
-          data:
-            entity_id: "camera.tapo_camera_hd"
-            privacy_mode: "on"
-        turn_off:
-          service: tapo_control.set_privacy_mode
-          data:
-            entity_id: "camera.tapo_camera_hd"
-            privacy_mode: "off"
