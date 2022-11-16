@@ -3,7 +3,7 @@
 switch:
   - platform: wake_on_lan
     name: steambox
-    host: steambox
+    host: steambox.home.arpa
     mac: '0c:c4:7a:9a:2d:06'
     broadcast_address: 192.168.1.255
     turn_off:
@@ -45,8 +45,3 @@ automation:
       - delay: 30
       - service: button.press
         entity_id: button.steambox_1440p
-
-notify:
-  name: steambox
-  platform: hass_agent_notifier
-  resource: http://steambox:5115/notify

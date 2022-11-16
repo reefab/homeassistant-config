@@ -8,7 +8,7 @@ switch:
 binary_sensor:
   - platform: ping
     name: iMac
-    host: imac
+    host: daedalus.home.arpa
     count: 2
     scan_interval: 10
 
