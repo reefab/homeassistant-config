@@ -1,7 +1,7 @@
-# Monitoring a UPS connected via USB to a freenas server using https://networkupstools.org
-homeassistant:
-  customize:
-    sensor.nut_ups_battery_runtime:
-      friendly_name: UPS runtime
-    sensor.nut_ups_load:
-      friendly_name: UPS load
+sensor:
+  - platform: integration
+    source: sensor.ups_current_real_power
+    name: ups_energy
+    unit_prefix: k
+    method: left
+    round: 2
