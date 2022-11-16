@@ -4,18 +4,18 @@ plant:
       moisture: sensor.plant_1_soil_moisture
       battery: sensor.plant_1_battery
       temperature: sensor.plant_1_temperature
-    min_moisture: 50
-    max_moisture: 80
-    min_battery: 20
+    min_moisture: 66
+    max_moisture: 95
+    min_battery: 10
     min_temperature: 10
   flowall_salon:
     sensors:
       moisture: sensor.plant_2_soil_moisture
       battery: sensor.plant_2_battery
       temperature: sensor.plant_2_temperature
-    min_moisture: 50
-    max_moisture: 80
-    min_battery: 20
+    min_moisture: 66
+    max_moisture: 95
+    min_battery: 10
     min_temperature: 10
 
 homeassistant:
