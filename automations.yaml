@@ -15,19 +15,116 @@
   use_blueprint:
     path: freakshock88/motion_illuminance_activated_entity.yaml
     input:
-      motion_sensor: binary_sensor.mouvement_cuisine
       target_entity: light.cuisine
-      illuminance_sensor: sensor.lightlevel_70
+      illuminance_sensor: sensor.lux_1_illuminance_lux
       illuminance_cutoff: input_number.ambiant_light_dark_threshold
       no_motion_wait: input_number.movement_wait_time
+      motion_sensor: binary_sensor.motion_xiaomi_1_occupancy
 - id: '1643303061214'
   alias: Salle de Bain motion activated light
   description: ''
   use_blueprint:
     path: freakshock88/motion_illuminance_activated_entity.yaml
     input:
-      motion_sensor: binary_sensor.tradfri_motion_sensor
-      target_entity: light.salle_de_bain_2
-      illuminance_sensor: sensor.lightlevel_70
-      illuminance_cutoff: input_number.ambiant_light_dark_threshold
+      motion_sensor: binary_sensor.motion_tradfri_1_occupancy
+      target_entity: light.salle_de_bain
       no_motion_wait: input_number.movement_wait_time
+- id: '1657789840183'
+  alias: 'Dressing Motion-activated Light '
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      motion_entity: binary_sensor.motion_hue_1_occupancy
+      light_target:
+        entity_id: light.dressing
+- id: '1657795600340'
+  alias: Bureau Hue Dimmer Switch control
+  description: ''
+  use_blueprint:
+    path: daniel-cotton/Z2M_Hue_Dimmer_Switch_v2.yaml
+    input:
+      dimmer_action: zigbee2mqtt/hue_dimmer_1/action
+      action_on_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.bureau
+      action_off_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.atelier
+      action_up_press:
+      - delay: ''
+      action_down_press:
+      - delay: ''
+      action_on_hold:
+      - delay: ''
+      action_off_hold:
+      - delay: ''
+      action_up_hold:
+      - delay: ''
+      action_down_hold:
+      - delay: ''
+- id: '1657796429617'
+  alias: Chambre Hue Dimmer Switch control
+  description: ''
+  use_blueprint:
+    path: daniel-cotton/Z2M_Hue_Dimmer_Switch_v2.yaml
+    input:
+      dimmer_action: zigbee2mqtt/hue_dimmer_2/action
+      action_on_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.chambre
+      action_off_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.salon
+      action_up_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.dressing
+      action_down_press:
+      - delay: ''
+      action_on_hold:
+      - delay: ''
+      action_off_hold:
+      - delay: ''
+      action_up_hold:
+      - delay: ''
+      action_down_hold:
+      - delay: ''
+- id: '1657799506463'
+  alias: Salon Hue Dimmer Switch control
+  description: ''
+  use_blueprint:
+    path: daniel-cotton/Z2M_Hue_Dimmer_Switch_v2.yaml
+    input:
+      dimmer_action: zigbee2mqtt/hue_dimmer_3/action
+      action_on_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.mezzanine
+      action_off_press:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id: light.salon
+      action_up_press:
+      - delay: ''
+      action_down_press:
+      - delay: ''
+      action_on_hold:
+      - delay: ''
+      action_off_hold:
+      - delay: ''
+      action_up_hold:
+      - delay: ''
+      action_down_hold:
+      - delay: ''
