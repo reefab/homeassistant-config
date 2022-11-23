@@ -30,21 +30,15 @@ light:
     lights:
       grow_lights:
         turn_on:
-          - service: switch.turn_off
-            entity_id: switch.adaptive_lighting_global
-          - service: light.turn_on
-            entity_id: group.main_rooms_lights
-            data:
-              color_name: fuchsia
-              brightness: 255
-              transition: 60
-        turn_off:
           - service: switch.turn_on
-            entity_id: switch.adaptive_lighting_global
-          - delay:
-              seconds: 5
-          - service: light.turn_off
-            entity_id: group.main_rooms_lights
+            entity_id: switch.adaptive_lighting_sleep_mode_global
+          - service: light.turn_on
+            entity_id:
+              - light.salon
+              - light.bureau
+        turn_off:
+          - service: switch.turn_off
+            entity_id: switch.adaptive_lighting_sleep_mode_global
 
 automation:
   - alias: 🌿 Switch grow lights on during the night
@@ -76,10 +70,6 @@ automation:
       - platform: state
         entity_id: input_boolean.night_time
         to: 'off'
-    condition:
-      condition: state
-      entity_id: switch.adaptive_lighting_global
-      state: 'off'
     action:
       - service: light.turn_off
         entity_id: light.grow_lights

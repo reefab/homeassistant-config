@@ -22,3 +22,5 @@ id_rsa*
 
 old_custom_components
 www/community
+home-assistant.log.1
+home-assistant.log.fault
