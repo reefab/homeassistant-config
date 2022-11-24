@@ -15,6 +15,6 @@ binary_sensor:
 homeassistant:
   customize:
     binary_sensor.imac:
-      icon: 'mdi:desktop-mac'
+      icon: 'mdi:monitor'
     switch.imac:
-      icon: 'mdi:desktop-mac'
+      icon: 'mdi:monitor'
