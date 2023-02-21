@@ -45,16 +45,16 @@ automation:
       - service: notify.main_devices
         data_template:
           title: "🪟"
-          message: 'Open windows now for 5 minutes.'
+          message: 'Open windows now for 10 minutes.'
           data:
             tag: 'open-window-notification'
 
-  - alias: 🌬 Prompt to close windows after airing when exterior temperature is the highest during the day when it's cold
+  - alias: 🌬 Prompt to close windows after airing when it's cold
     trigger:
       - platform: state
         entity_id: binary_sensor.windows_open
         to: 'on'
-        for: '00:05:00'
+        for: '00:10:00'
     condition:
       - condition: state
         entity_id: group.people
@@ -66,10 +66,9 @@ automation:
       - service: notify.main_devices
         data_template:
           title: "🪟"
-          message: 'close windows now.'
+          message: 'Close windows now.'
           data:
             tag: 'close-window-notification'
-
 
   - alias: 🌬 Turn stuff off when a window is opened
     trigger:
@@ -116,7 +115,6 @@ automation:
       - service: humidifier.turn_on
         entity_id:
           - humidifier.zhimi_humidifier_cb1
-
 
 sensor:
 #  - platform: template
