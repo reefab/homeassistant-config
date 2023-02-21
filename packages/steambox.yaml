@@ -28,6 +28,17 @@ automation:
     action:
       - service: switch.turn_on
         entity_id: switch.steambox
+      - wait_for_trigger:
+          - platform: state
+            entity_id: button.start_urbackup
+            from: unavailable
+      - delay: 30
+      - service: button.press
+        entity_id: button.start_urbackup
+      - delay:
+          minutes: 30
+      - service: switch.turn_off
+        entity_id: switch.steambox
 
   - alias: 🎮 Turn steambox on via action
     trigger:
