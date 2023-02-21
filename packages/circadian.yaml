@@ -4,6 +4,7 @@ adaptive_lighting:
       - light.bureau
       - light.salon
       - light.mezzanine
+      - light.yeelight_lamp15_0x1b3619c6
     min_brightness: 70
     max_brightness: 90
     min_color_temp: 2237
@@ -13,21 +14,30 @@ adaptive_lighting:
     sleep_rgb_color: [255, 0, 255]
   - name: bedroom
     lights:
-      - light.bedroom
+      - light.chambre
     min_brightness: 60
     max_brightness: 100
     min_color_temp: 2237
     max_color_temp: 4291
-    transition: 0
+    sleep_brightness: 20
 
 automation:
-  - alias: Switch circadian lightning back on during the day
+  - alias: 💡Switch circadian lightning back on during the day
     trigger:
       - platform: state
         entity_id: input_boolean.night_time
         to: 'off'
     action:
+      - service: switch.turn_off
+        entity_id:
+          - switch.adaptive_lighting_sleep_mode_global
+          - switch.adaptive_lighting_sleep_mode_bedroom
+  - alias: 💡Switch circadian lightning sleep mode at night
+    trigger:
+      - platform: state
+        entity_id: input_boolean.night_time
+        to: 'on'
+    action:
       - service: switch.turn_on
         entity_id:
-          - switch.adaptive_lighting_global
-          - switch.adaptive_lighting_bedroom
+          - switch.adaptive_lighting_sleep_mode_bedroom
