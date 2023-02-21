@@ -5,13 +5,13 @@ switch:
   - platform: template
     switches:
       water_valve:
-        value_template: "{{ is_state('light.valve', 'off') }}"
+        value_template: "{{ is_state('switch.valve', 'off') }}"
         turn_on:
-          service: light.turn_off
-          entity_id: switch.valve_1
+          service: switch.turn_off
+          entity_id: switch.valve
         turn_off:
-          service: light.turn_on
-          entity_id: switch.valve_1
+          service: switch.turn_on
+          entity_id: switch.valve
 
 automation:
   - alias: Shut water valve in case of leaks
