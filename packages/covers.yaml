@@ -13,7 +13,6 @@ automation:
         state: 'off'
       - service: cover.close_cover
         entity_id:
-          - cover.windows
           - cover.velux_mezzanine
 
   - alias: 🪟  Open mains rooms covers during the day
