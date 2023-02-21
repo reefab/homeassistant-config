@@ -10,6 +10,7 @@ homekit:
         - cover.blind_1
         - cover.blind_2
         - climate.netatmo_my_room
+        - climate.salle_de_bain
         - fan.black_fan
         - fan.ventilateur_bureau
         - fan.dmaker_fan_1c
@@ -19,10 +20,12 @@ homekit:
         - light.chambre
         - light.bureau
         - light.cuisine
+        - light.dressing
         - light.mezzanine
         - light.salle_de_bain
         - light.salon
         - light.tableau
+        - light.yeelight_lamp15_0x1b3619c6
         - sensor.netatmo_mezon_bureau_temperature
         - sensor.netatmo_mezon_bureau_co2
         - sensor.netatmo_mezon_bureau_chambre_temperature
