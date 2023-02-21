@@ -70,7 +70,9 @@ automation:
               - service: input_boolean.turn_on
                 entity_id: input_boolean.night_time
               - service: light.turn_off
-                entity_id: light.all_but_bedroom
+                entity_id:
+                  - light.all_but_bedroom
+                  - light.yeelight_lamp15_0x1b3619c6
           - conditions:
               - '{{ trigger.to_state.state == ''hold'' }}'
             sequence:
@@ -116,7 +118,7 @@ automation:
               - service: fan.toggle
                 entity_id: fan.ventilateur_bois
 
-  - alias: 🪟 Tradfri open/close office switch
+  - alias: 🪟 Tradfri open/close office blinds switch
     trigger:
       - platform: state
         entity_id: sensor.ikea_openclose_1_action
@@ -125,12 +127,12 @@ automation:
           - conditions:
               - '{{ trigger.to_state.state == ''open'' }}'
             sequence:
-              - service: cover.open
+              - service: cover.open_cover
                 entity_id: cover.blind_1
           - conditions:
               - '{{ trigger.to_state.state == ''close'' }}'
             sequence:
-              - service: cover.open
+              - service: cover.close_cover
                 entity_id: cover.blind_1
 
   - alias: 🪟 Tradfri open/close salon switch
@@ -142,10 +144,10 @@ automation:
           - conditions:
               - '{{ trigger.to_state.state == ''open'' }}'
             sequence:
-              - service: cover.open
+              - service: cover.open_cover
                 entity_id: cover.blind_2
           - conditions:
               - '{{ trigger.to_state.state == ''close'' }}'
             sequence:
-              - service: cover.open
+              - service: cover.close_cover
                 entity_id: cover.blind_2
