@@ -7,9 +7,12 @@ automation:
         for: "00:02:00"
     action:
       - service: climate.set_preset_mode
-        entity_id: climate.netatmo_my_room
+        entity_id:
+          - climate.netatmo_my_room
+          - climate.salle_de_bain
         data:
           preset_mode: 'away'
+
   - alias: 🥵 Turn stuff back on when there is people coming back
     trigger:
       - platform: state
@@ -24,13 +27,89 @@ automation:
         entity_id: climate.netatmo_my_room
         data:
           preset_mode: "Schedule"
+      - service: climate.set_preset_mode
+        entity_id: climate.salle_de_bain
+        data:
+          preset_mode: "Comfort"
+
+  - alias: 🥵 Select default schedule on working day
+    trigger:
+      - platform: time
+        at: "01:00:00"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.workday_sensor
+        state: "on"
+    action:
+      - service: netatmo.set_schedule
+        data:
+          schedule_name: "Out during the day"
+        entity_id: climate.netatmo_my_room
+
+  - alias: 🥵 Select schedule depending on presence
+    trigger:
+      - platform: time
+        at: "09:45:00"
+    action:
+      - choose:
+        - conditions:
+            - condition: state
+              entity_id: group.people
+              state: 'home'
+          sequence:
+            - service: netatmo.set_schedule
+              data:
+                schedule_name: "Working at home"
+              entity_id: climate.netatmo_my_room
+        default:
+          - service: netatmo.set_schedule
+            data:
+              schedule_name: "Out during the day"
+            entity_id: climate.netatmo_my_room
+
+  - alias: 🥵 Turn off bathroom heat on window opening
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.window_3_contact
+        to: "on"
+    action:
+      - service: climate.turn_off
+        entity_id: climate.salle_de_bain
+
 
 binary_sensor:
   - platform: template
     sensors:
+      skylights_open:
+        value_template: "{{ is_state('binary_sensor.window_4_contact', 'on') or
+                            is_state('binary_sensor.window_5_contact', 'on') }}"
+  - platform: template
+    sensors:
       windows_open:
         value_template: "{{ is_state('binary_sensor.window_1_contact', 'on') or
-                            is_state('binary_sensor.window_2_contact', 'on') }}"
+                            is_state('binary_sensor.window_2_contact', 'on') or
+                            is_state('binary_sensor.window_4_contact', 'on') or
+                            is_state('binary_sensor.window_5_contact', 'on') }}"
+
+switch:
+  - platform: template
+    switches:
+      towel_dryer:
+        value_template: "{{ is_state('switch.sonoff_mini_1', 'off') }}"
+        turn_on:
+          service: switch.turn_off
+          entity_id: switch.sonoff_mini_1
+        turn_off:
+          service: switch.turn_on
+          entity_id: switch.sonoff_mini_1
+
+climate:
+  - platform: generic_thermostat
+    name: Salle de bain
+    heater: switch.towel_dryer
+    target_sensor: sensor.multi_2_temperature
+    comfort_temp: 18
+    away_temp: 0
 
 homeassistant:
   customize:
