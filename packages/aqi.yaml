@@ -8,7 +8,7 @@ sensor:
       - paris
 
 automation:
-  - alias: Silence the air purifier during night time
+  - alias: 💨Silence the air purifier during night time
     trigger:
       platform: state
       entity_id: input_boolean.night_time
@@ -23,8 +23,8 @@ automation:
       - service: humidifier.set_mode
         entity_id: humidifier.zhimi_humidifier_cb1
         data:
-          mode: Silent
-  - alias: Set the air purifier to auto during day time
+          mode: Auto
+  - alias: 💨Set the air purifier to auto during day time
     trigger:
       platform: state
       entity_id: input_boolean.night_time
@@ -40,6 +40,16 @@ automation:
         entity_id: humidifier.zhimi_humidifier_cb1
         data:
           mode: Auto
+  - alias: 💧 Warm when water level is too low
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.zhimi_humidifier_cb1_water_level
+      below: 15
+    action:
+      service: notify.main_devices
+      data_template:
+        title: "💧"
+        message: 'Refill humidifier now'
 
 homeassistant:
   customize:
