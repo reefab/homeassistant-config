@@ -65,6 +65,13 @@ switch:
           - service: light.turn_off
             entity_id: light.wled
 
+binary_sensor:
+  - platform: rest
+    name: Airport Express Airplay Status
+    resource: http://localhost:8087/airport.home.arpa
+    scan_interval: 5
+    value_template: "{{ value_json.Status }}"
+
 media_player:
   - platform: universal
     name: Écran salon
