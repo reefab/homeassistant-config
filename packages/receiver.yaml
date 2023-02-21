@@ -62,10 +62,13 @@ automation:
 
   - alias: 🔈 Switch off receiver if inactive
     trigger:
-      platform: state
-      entity_id: media_player.yamaha_receiver
-      to: 'idle'
-      for: "00:10:00"
+      - platform: state
+        entity_id: media_player.yamaha_receiver
+        to: 'idle'
+        for: "00:10:00"
+      - platform: state
+        entity_id: binary_sensor.airport_express_airplay_status
+        to: 'off'
     condition:
       condition: state
       entity_id: switch.steambox
@@ -73,6 +76,19 @@ automation:
     action:
       - service: media_player.turn_off
         entity_id: media_player.yamaha_receiver
+
+  - alias: 🔈 Switch on receiver if airplay is active
+    trigger:
+      platform: state
+      entity_id: binary_sensor.airport_express_airplay_status
+      to: 'on'
+    action:
+      - service: media_player.turn_on
+        entity_id: media_player.yamaha_receiver
+      - service: media_player.select_source
+        entity_id: media_player.yamaha_receiver
+        data:
+          source: 'AV4'
 
 script:
   ht_volume_up:
