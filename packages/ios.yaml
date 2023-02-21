@@ -31,4 +31,5 @@ notify:
     services:
       - service: mobile_app_daedalus
       - service: mobile_app_phophone
+      - service: mobile_app_phophone_2
       - service: mobile_app_ipad
