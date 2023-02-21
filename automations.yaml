@@ -128,3 +128,18 @@
       - delay: ''
       action_down_hold:
       - delay: ''
+- id: '1675276423782'
+  alias: Turn bathroom heat off on window opening
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.window_3_contact
+    to: 'on'
+  condition: []
+  action:
+  - service: climate.turn_off
+    data: {}
+    target:
+      entity_id: climate.salle_de_bain
+  mode: single
