@@ -11,5 +11,6 @@ sensor:
       - temperature
       - apparent_temperature
       - apparent_temperature_high
+      - precip_probability
     scan_interval:
       hours: 1
