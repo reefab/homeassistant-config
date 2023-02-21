@@ -1,0 +1,46 @@
+# impulsion counter
+input_number:
+  gas_counter:
+    min: 0
+    max: 100000000000
+    name: gas_counter
+    icon: "mdi:gas-station"
+    mode: box
+
+automation:
+  - alias: ⛽️ Increment gas counter
+    trigger:
+      - platform: mqtt
+        topic: zigbee2mqtt/gazer/action
+        payload: 'open'
+    action:
+      - service: input_number.set_value
+        data:
+          value: "{{ states('input_number.gas_counter') | int + 10 | int }}"
+        entity_id: input_number.gas_counter
+    mode: single
+
+template:
+  - sensor:
+    - name: "Gas Volume"
+      unit_of_measurement: 'm³'
+      state: "{{ states('input_number.gas_counter') | int / 1000 | round(3) }}"
+      device_class: gas
+      state_class: total
+
+utility_meter:
+  gas_total_usage_daily:
+    source: sensor.gas_volume
+    cycle: daily
+  gas_total_usage_weekly:
+    source: sensor.gas_volume
+    cycle: weekly
+  gas_total_usage_monthly:
+    source: sensor.gas_volume
+    cycle: monthly
+  gas_total_usage_quarterly:
+    source: sensor.gas_volume
+    cycle: quarterly
+  gas_total_usage_yearly:
+    source: sensor.gas_volume
+    cycle: yearly
