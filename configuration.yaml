@@ -18,6 +18,8 @@ homeassistant:
   # customize_glob:
   auth_providers:
     - type: homeassistant
+  external_url: !secret base_url
+  internal_url: "http://swarm.home.arpa:8123"
 
 # Enables the frontend
 frontend:
@@ -106,6 +108,8 @@ ffmpeg:
 
 automation: !include automations.yaml
 
+my:
+
 template:
   - trigger:
       - platform: webhook
@@ -114,8 +118,21 @@ template:
       - name: Basement temperature
         state: "{{ trigger.json.uplink_message.decoded_payload.TempC_SHT }}"
         unit_of_measurement: °C
-
       - name: Basement humidity
         state: "{{ trigger.json.uplink_message.decoded_payload.Hum_SHT }}"
         unit_of_measurement: "%"
         device_class: humidity
+      - name: Basement Battery Voltage
+        state: "{{ trigger.json.uplink_message.decoded_payload.BatV }}"
+        unit_of_measurement: "V"
+        device_class: voltage
+   # - sensor:
+   #    - name: "Basement Battery"
+   #      unit_of_measurement: "°%"
+   #      device_class: battery
+   #      availability: "{{ states('sensor.basement_battery_voltage')|is_number }}"
+   #      state: >
+   #        {% set batt_volts = states('sensor.basement_battery_voltage')|float(0) %}
+   #        {% set batt_pct = 312.5 * batt_volts - 406.25 %} {# calculate percent from the voltage #}
+   #        {% set batt_pct_clamped = ([0, batt_pct, 100]|sort)[1] %} {# clamp the output to a 0-100% range #}
+   #        {{ batt_pct_clamped }}
