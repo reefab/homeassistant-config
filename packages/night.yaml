@@ -7,17 +7,18 @@ automation:
     trigger:
       - platform: state
         entity_id: cover.bedroom_blind
-        from: 'closed'
         to: 'open'
       - platform: state
-        entity_id: binary_sensor.porte_chambre
+        entity_id: binary_sensor.door_2_contact
         to: 'on'
         for:
           minutes: 5
+      - platform: state
+        entity_id: binary_sensor.door_1_contact
+        to: 'on'
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.night_time
-
 
   - alias: 💤 Start the night on bedroom door closing
     trigger:
