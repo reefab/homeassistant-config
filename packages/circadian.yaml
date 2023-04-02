@@ -4,7 +4,6 @@ adaptive_lighting:
       - light.bureau
       - light.salon
       - light.mezzanine
-      - light.yeelight_lamp15_0x1b3619c6
     min_brightness: 70
     max_brightness: 90
     min_color_temp: 2237
@@ -12,6 +11,15 @@ adaptive_lighting:
     sleep_brightness: 100
     sleep_rgb_or_color_temp: 'rgb_color'
     sleep_rgb_color: [255, 0, 255]
+    take_over_control: false
+  - name: desk
+    lights:
+      - light.yeelight_lamp15_0x1b3619c6
+    min_brightness: 10
+    max_brightness: 60
+    min_color_temp: 2237
+    max_color_temp: 4291
+    take_over_control: false
   - name: bedroom
     lights:
       - light.chambre
@@ -20,6 +28,7 @@ adaptive_lighting:
     min_color_temp: 2237
     max_color_temp: 4291
     sleep_brightness: 20
+    take_over_control: false
 
 automation:
   - alias: 💡Switch circadian lightning back on during the day
