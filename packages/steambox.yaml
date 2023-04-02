@@ -30,11 +30,11 @@ automation:
         entity_id: switch.steambox
       - wait_for_trigger:
           - platform: state
-            entity_id: button.start_urbackup
+            entity_id: button.steambox_start_urbackup
             from: unavailable
       - delay: 30
       - service: button.press
-        entity_id: button.start_urbackup
+        entity_id: button.steambox_start_urbackup
       - delay:
           minutes: 30
       - service: switch.turn_off
