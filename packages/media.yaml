@@ -69,7 +69,7 @@ binary_sensor:
   - platform: rest
     name: Airport Express Airplay Status
     resource: http://localhost:8087/airport.home.arpa
-    scan_interval: 5
+    scan_interval: 30
     value_template: "{{ value_json.Status }}"
 
 media_player:
@@ -77,7 +77,7 @@ media_player:
     name: Écran salon
     children:
       - media_player.yamaha_receiver
-      - media_player.plex_plex_media_player_steambox
+      - media_player.steambox
     commands:
       turn_on:
         service: switch.turn_on
@@ -111,19 +111,19 @@ media_player:
           source: '{{ source }}'
       media_play:
         service: media_player.media_play
-        entity_id: media_player.plex_plex_media_player_steambox
+        entity_id: media_player.steambox
       media_pause:
         service: media_player.media_pause
-        entity_id: media_player.plex_plex_media_player_steambox
+        entity_id: media_player.steambox
       media_stop:
         service: media_player.media_stop
-        entity_id: media_player.plex_plex_media_player_steambox
+        entity_id: media_player.steambox
       media_next_track:
         service: media_player.media_next_track
-        entity_id: media_player.plex_plex_media_player_steambox
+        entity_id: media_player.steambox
       media_previous_track:
         service: media_player.media_previous_track
-        entity_id: media_player.plex_plex_media_player_steambox
+        entity_id: media_player.steambox
     attributes:
       state: media_player.yamaha_receiver
       is_volume_muted: media_player.yamaha_receiver|is_volume_muted
@@ -132,6 +132,51 @@ media_player:
       source_list: media_player.yamaha_receiver|source_list
 
 automation:
+  - alias: 🎬 Play/Pause
+    trigger:
+      - platform: mqtt
+        topic: zigbee2mqtt/remote_1/action
+        payload: 'toggle'
+    action:
+      - service: media_player.media_play_pause
+        entity_id: media_player.steambox
+      - delay: 1
+  - alias: 🎬 Previous
+    trigger:
+      - platform: mqtt
+        topic: zigbee2mqtt/remote_1/action
+        payload: 'brightness_step_down'
+    action:
+      - service: button.press
+        entity_id: button.steambox_left_arrow
+      - delay: 1
+  - alias: 🎬 Next
+    trigger:
+      - platform: mqtt
+        topic: zigbee2mqtt/remote_1/action
+        payload: 'brightness_step_up'
+    action:
+      - service: button.press
+        entity_id: button.steambox_right_arrow
+      - delay: 1
+  - alias: 🎬 Enter
+    trigger:
+      - platform: mqtt
+        topic: zigbee2mqtt/remote_1/action
+        payload: 'dot2_single'
+    action:
+      - service: button.press
+        entity_id: button.steambox_enter
+      - delay: 1
+  - alias: 🎬 Back
+    trigger:
+      - platform: mqtt
+        topic: zigbee2mqtt/remote_1/action
+        payload: 'dot1_single'
+    action:
+      - service: button.press
+        entity_id: button.steambox_backspace
+      - delay: 1
   - alias: 🎬 Bring lights on during plex pause
     trigger:
       - platform: state
