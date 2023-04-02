@@ -27,7 +27,7 @@ automation:
   - alias: 🌬 Prompt to open windows for airing when exterior temperature is the highest during the day when it's cold
     trigger:
       - platform: template
-        value_template: '{{ states("sensor.dark_sky_apparent_temperature") | float >= states("sensor.dark_sky_daytime_high_apparent_temperature_0d") | float - 0.5 }}'
+        value_template: '{{ states("sensor.pirateweather_apparent_temperature") | float >= states("sensor.pirateweather_daytime_high_apparent_temperature_0d") | float - 0.5 }}'
     condition:
       - condition: state
         entity_id: group.people

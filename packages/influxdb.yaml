@@ -40,7 +40,7 @@ influxdb:
       - sensor.multi_3_humidity
       - sensor.multi_4_temperature
       - sensor.multi_4_humidity
-      - sensor.dark_sky_apparent_temperature
+      - sensor.pirateweather_apparent_temperature
       - sensor.lux_1_illuminance_lux
       - sensor.nut_ups_battery_runtime
       - sensor.nut_ups_load

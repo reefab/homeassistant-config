@@ -41,7 +41,7 @@ automation:
         entity_id: group.people
         state: 'not_home'
       - condition: numeric_state
-        entity_id: sensor.dark_sky_daytime_high_apparent_temperature_0d
+        entity_id: sensor.pirateweather_daytime_high_apparent_temperature_0d
         below: 25
     action:
       service: cover.open_cover
