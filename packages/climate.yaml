@@ -30,7 +30,7 @@ automation:
       - service: climate.set_preset_mode
         entity_id: climate.salle_de_bain
         data:
-          preset_mode: "Comfort"
+          preset_mode: "comfort"
 
   - alias: 🥵 Select default schedule on working day
     trigger:
