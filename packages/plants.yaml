@@ -17,6 +17,39 @@ plant:
     max_moisture: 95
     min_battery: 10
     min_temperature: 10
+  calathea:
+    sensors:
+      moisture: sensor.plant_sensor_e75d_moisture
+      battery: sensor.plant_sensor_e75d_battery
+      temperature: sensor.plant_sensor_e75d_temperature
+      conductivity: sensor.plant_sensor_e75d_conductivity
+      brightness: sensor.plant_sensor_e75d_illuminance
+    min_moisture: 66
+    max_moisture: 95
+    min_battery: 10
+    min_temperature: 10
+  pothos:
+    sensors:
+      moisture: sensor.plant_sensor_c9da_moisture
+      battery: sensor.plant_sensor_c9da_battery
+      temperature: sensor.plant_sensor_c9da_temperature
+      conductivity: sensor.plant_sensor_c9da_conductivity
+      brightness: sensor.plant_sensor_c9da_illuminance
+    min_moisture: 66
+    max_moisture: 95
+    min_battery: 10
+    min_temperature: 10
+  ficus_bureau:
+    sensors:
+      moisture: sensor.plant_sensor_e003_moisture
+      battery: sensor.plant_sensor_e003_battery
+      temperature: sensor.plant_sensor_e003_temperature
+      conductivity: sensor.plant_sensor_e003_conductivity
+      brightness: sensor.plant_sensor_e003_illuminance
+    min_moisture: 66
+    max_moisture: 95
+    min_battery: 10
+    min_temperature: 10
 
 homeassistant:
   customize:

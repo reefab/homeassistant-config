@@ -145,7 +145,7 @@ automation:
     trigger:
       - platform: mqtt
         topic: zigbee2mqtt/remote_1/action
-        payload: 'brightness_step_down'
+        payload: 'track_previous'
     action:
       - service: button.press
         entity_id: button.steambox_left_arrow
@@ -154,7 +154,7 @@ automation:
     trigger:
       - platform: mqtt
         topic: zigbee2mqtt/remote_1/action
-        payload: 'brightness_step_up'
+        payload: 'track_next'
     action:
       - service: button.press
         entity_id: button.steambox_right_arrow
@@ -163,7 +163,7 @@ automation:
     trigger:
       - platform: mqtt
         topic: zigbee2mqtt/remote_1/action
-        payload: 'dot2_single'
+        payload: 'dot_2_initial_press'
     action:
       - service: button.press
         entity_id: button.steambox_enter
@@ -172,7 +172,7 @@ automation:
     trigger:
       - platform: mqtt
         topic: zigbee2mqtt/remote_1/action
-        payload: 'dot1_single'
+        payload: 'dot_1_initial_press'
     action:
       - service: button.press
         entity_id: button.steambox_backspace

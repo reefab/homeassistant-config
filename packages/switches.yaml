@@ -77,7 +77,7 @@ automation:
               - '{{ trigger.to_state.state == ''hold'' }}'
             sequence:
               - service: fan.toggle
-                entity_id: fan.black_fan
+                entity_id: fan.mi_smart_standing_fan_2_lite3
           - conditions:
               - '{{ trigger.to_state.state == ''triple'' }}'
             sequence:
@@ -117,6 +117,90 @@ automation:
             sequence:
               - service: fan.toggle
                 entity_id: fan.ventilateur_bois
+
+  - alias: 💡 Hue dimmer office
+    trigger:
+      - platform: state
+        entity_id: sensor.0x001788011033bb6a_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''on_press_release'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.bureau
+          - conditions:
+              - '{{ trigger.to_state.state == ''up_hold_release'' }}'
+            sequence:
+              - service: cover.toggle
+                entity_id: cover.blind_1
+          - conditions:
+              - '{{ trigger.to_state.state == ''down_hold_release'' }}'
+            sequence:
+              - service: fan.toggle
+                entity_id: fan.ventilateur_bureau
+          - conditions:
+              - '{{ trigger.to_state.state == ''off_press_release'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.atelier
+
+  - alias: 💡 Hue dimmer bedroom
+    trigger:
+      - platform: state
+        entity_id: sensor.hue_dimmer_2_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''on_press_release'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: 
+                  - light.chambre
+                  - light.dressing
+          - conditions:
+              - '{{ trigger.to_state.state == ''up_hold_release'' }}'
+            sequence:
+              - service: fan.toggle
+                entity_id: fan.mi_smart_standing_fan_2_lite2
+          - conditions:
+              - '{{ trigger.to_state.state == ''down_hold_release'' }}'
+            sequence:
+              - service: cover.toggle
+                entity_id: cover.bedroom_blind
+          - conditions:
+              - '{{ trigger.to_state.state == ''off_press_release'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.salon
+
+  - alias: 💡 Hue dimmer living room
+    trigger:
+      - platform: state
+        entity_id: sensor.hue_dimmer_3_action
+    action:
+      - choose:
+          - conditions:
+              - '{{ trigger.to_state.state == ''on_press_release'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: 
+                  - light.salon
+          - conditions:
+              - '{{ trigger.to_state.state == ''up_hold_release'' }}'
+            sequence:
+              - service: fan.toggle
+                entity_id: fan.mi_smart_standing_fan_2_lite
+          - conditions:
+              - '{{ trigger.to_state.state == ''down_hold_release'' }}'
+            sequence:
+              - service: cover.toggle
+                entity_id: cover.blind_2
+          - conditions:
+              - '{{ trigger.to_state.state == ''off_press_release'' }}'
+            sequence:
+              - service: light.toggle
+                entity_id: light.mezzanine
 
   - alias: 🪟 Tradfri open/close office blinds switch
     trigger:

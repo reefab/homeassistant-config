@@ -8,6 +8,10 @@ automation:
         entity_id: sensor.daedalus_active_audio_output
         from: 'USB Audio CODEC '
         for: '00:10:00'
+    condition:
+      - condition: state
+        entity_id: switch.steambox
+        state: 'off'
     action:
       - service: switch.turn_off
         entity_id: switch.ikea_plug_2
@@ -17,6 +21,9 @@ automation:
       - platform: state
         entity_id: sensor.daedalus_active_audio_output
         to: 'USB Audio CODEC '
+      - platform: state
+        entity_id: switch.steambox
+        to: 'on'
     action:
       - service: switch.turn_on
         entity_id: switch.ikea_plug_2

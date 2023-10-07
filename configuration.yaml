@@ -11,7 +11,8 @@ homeassistant:
   # Pick yours from here:
   # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Paris
-
+  currency: EUR
+  country: FR
   packages: !include_dir_named packages
   # Customization file
   customize: !include customize.yaml
@@ -34,7 +35,7 @@ http:
   # base_url: !secret base_url
   use_x_forwarded_for: true
   trusted_proxies:
-    - 172.16.200.0/24
+    - 172.0.0.0/8
 
 # Discover some devices automatically
 discovery:
@@ -114,6 +115,7 @@ template:
   - trigger:
       - platform: webhook
         webhook_id: !secret basement_webhook
+        local_only: false
     sensor:
       - name: Basement temperature
         state: "{{ trigger.json.uplink_message.decoded_payload.TempC_SHT }}"

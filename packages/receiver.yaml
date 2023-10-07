@@ -28,7 +28,7 @@ automation:
           actionName: Volume Up
       - platform: mqtt
         topic: zigbee2mqtt/remote_1/action
-        payload: 'brightness_move_up'
+        payload: 'volume_up'
     condition:
       condition: state
       entity_id: media_player.yamaha_receiver
@@ -44,7 +44,7 @@ automation:
           actionName: Volume Down
       - platform: mqtt
         topic: zigbee2mqtt/remote_1/action
-        payload: 'brightness_move_down'
+        payload: 'volume_down'
     condition:
       condition: state
       entity_id: media_player.yamaha_receiver
@@ -58,6 +58,9 @@ automation:
         event_type: ios.action_fired
         event_data:
           actionName: Volume Mute
+      - platform: mqtt
+        topic: zigbee2mqtt/remote_1/action
+        payload: 'volume_down_hold'
     condition:
       condition: state
       entity_id: media_player.yamaha_receiver
