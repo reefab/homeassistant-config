@@ -25,8 +25,9 @@ automation:
         entity_id:
           - fan.ventilateur_bureau
           - fan.dmaker_fan_1c
-          - fan.black_fan
           - fan.ventilateur_bois
+          - fan.mi_smart_standing_fan_2_lite2
+          - fan.mi_smart_standing_fan_2_lite3
 
   - alias: 🆒 Switch fans off at night time
     trigger:
@@ -38,3 +39,4 @@ automation:
         entity_id:
           - fan.ventilateur_bureau
           - fan.dmaker_fan_1c
+          - fan.mi_smart_standing_fan_2_lite2
