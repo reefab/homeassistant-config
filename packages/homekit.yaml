@@ -11,9 +11,10 @@ homekit:
         - cover.blind_2
         - climate.netatmo_my_room
         - climate.salle_de_bain
-        - fan.black_fan
         - fan.ventilateur_bureau
         - fan.dmaker_fan_1c
+        - fan.mi_smart_standing_fan_2_lite2
+        - fan.mi_smart_standing_fan_2_lite3
         - fan.ventilateur_bois
         - input_boolean.night_time
         - light.atelier
@@ -61,7 +62,9 @@ homekit:
         name: Store Mezzanine
       cover.bedroom_velux:
         name: Store Chambre
-      fan.black_fan:
+      fan.mi_smart_standing_fan_2_lite2:
+        name: Ventilateur entraineur
+      fan.mi_smart_standing_fan_2_lite3:
         name: Ventilateur chambre
       sensor.multi_1_temperature:
         name: Temperature Salle de bain
