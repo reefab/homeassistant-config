@@ -7,7 +7,9 @@ automation:
         for: "00:02:00"
     action:
       - service: switch.turn_off
-        entity_id: switch.tapo_camera_privacy
+        entity_id:
+          - switch.tapo_camera_privacy
+          - switch.tapo_camera_7a46_privacy
   - alias: 📹 Switch camera off if home
     trigger:
       - platform: state
@@ -15,11 +17,13 @@ automation:
         to: 'home'
     action:
       - service: switch.turn_on
-        entity_id: switch.tapo_camera_privacy
+        entity_id: 
+          - switch.tapo_camera_privacy
+          - switch.tapo_camera_7a46_privacy
   - alias: 📹 Send notification on mouvement
     trigger:
       - platform: state
-        entity_id: binary_sensor.tapo_camera_motion
+        entity_id: binary_sensor.tapo_camera_7a46_cell_motion_detection
         to: 'on'
     condition:
       - condition: state
@@ -35,4 +39,4 @@ automation:
               content-type: jpeg
             push:
               category: camera
-            entity_id: camera.tapo_camera_hd
+            entity_id: camera.tapo_camera_7a46_hd_stream
